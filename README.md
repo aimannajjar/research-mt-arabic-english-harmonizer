@@ -36,8 +36,11 @@ $SCRIPTS_ROOTDIR/training/train-model.perl  -external-bin-dir /home/ubuntu/tools
                                             -lm 0:3:/home/ubuntu/workspace/mt-arabic-english-harmonizer/SMT/Baseline/work/LM/LM_data+Train_data.en.lm
 
 ```
-_Note that:_
-> /home/ubuntu/tools/bin points to GIZA++ binaries directory
+**Note that:**
+
+1. /home/ubuntu/tools/bin points to GIZA++ binaries directory
+2. LM model must be absolute path
+
 
 perl $MADAHOME/MADA+TOKAN.pl config=conf/template.madaconfig file=data/Train/Train_data.clean.ar TOKAN_SCHEME="SCHEME=ATP MARKNOANALYSIS" 
 
