@@ -1,9 +1,25 @@
-######### Envrionment Setup (Mac OS X) ##########
-sudo port install py27-numpy
-sudo port install py27-scikits-learn
 
+The purpose of this document is to illustrate how to replicate the experiment that I have made and which I was able to improve the BLEU score of a Arabic-English baseline SMT
 
-########### TRAINING THE HARMONIZER  ############
+Environment
+------------
+The experiments described here were done on the following environment:
+* Ubuntu 12.04 (64-bit) - We used EC2 instance of type m3.xlarge 
+* GIZA 1.0.7
+* SRILM 1.5.12
+* Moses Decoder - Pulled latest from Github on 4/9/2013
+* MADA 3.2 (with SVMTools 1.3.1, aramorph-1.2.1, SRLIM 1.5.12 not patched)
+* Python 2.7
+* Additional Python Modules: numpy, scikits-learn
+
+*Data*
+_____
+* Training Data:34k Sentence Pairs (Cleaned)
+  > https://dl.dropbox.com/s/agv9khd6mvfa8as/TrainData.zip
+
+* LM Model: 106930 Sentences 
+  > https://dl.dropbox.com/s/4wyaebj0dln2xgt/LM_data%2BTrain_data.en.zip
+
 
 perl $MADAHOME/MADA+TOKAN.pl config=conf/template.madaconfig file=data/Train/Train_data.clean.ar TOKAN_SCHEME="SCHEME=ATP MARKNOANALYSIS" 
 
