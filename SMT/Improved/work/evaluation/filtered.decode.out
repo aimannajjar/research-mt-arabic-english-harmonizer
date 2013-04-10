@@ -1,0 +1,327 @@
+Defined parameters (per moses.ini or switch):
+	config: work/evaluation/filtered/moses.ini 
+	distortion-file: 0-0 wbe-msd-bidirectional-fe-allff 6 /Users/aiman/Development/mt-project/SMT/Improved/work/evaluation/filtered/reordering-table.wbe-msd-bidirectional-fe 
+	distortion-limit: 6 
+	input-factors: 0 
+	input-file: data/Test/Test_data.mt05.src.harmonized.ar 
+	lmodel-file: 0 0 3 /Users/aiman/Development/mt-project/work/LM/LM_data+Train_data.en.lm 
+	mapping: 0 T 0 
+	ttable-file: 0 0 0 5 /Users/aiman/Development/mt-project/SMT/Improved/work/evaluation/filtered/phrase-table.0-0.1.1.gz 
+	ttable-limit: 20 
+	weight-d: 0.3 0.3 0.3 0.3 0.3 0.3 0.3 
+	weight-l: 0.5000 
+	weight-t: 0.20 0.20 0.20 0.20 0.20 
+	weight-w: -1 
+/Users/aiman/tools/mosesdecoder/bin
+ScoreProducer: Distortion start: 0 end: 1
+ScoreProducer: WordPenalty start: 1 end: 2
+ScoreProducer: !UnknownWordPenalty start: 2 end: 3
+Loading lexical distortion models...have 1 models
+ScoreProducer: LexicalReordering_wbe-msd-bidirectional-fe-allff start: 3 end: 9
+Creating lexical reordering...
+weights: 0.300 0.300 0.300 0.300 0.300 0.300 
+Loading table into memory...done.
+Start loading LanguageModel /Users/aiman/Development/mt-project/work/LM/LM_data+Train_data.en.lm : [4.000] seconds
+/Users/aiman/Development/mt-project/work/LM/LM_data+Train_data.en.lm: line 24358: warning: non-zero probability for <unk> in closed-vocabulary LM
+ScoreProducer: LM start: 9 end: 10
+Finished loading LanguageModels : [6.000] seconds
+Start loading PhraseTable /Users/aiman/Development/mt-project/SMT/Improved/work/evaluation/filtered/phrase-table.0-0.1.1.gz : [6.000] seconds
+filePath: /Users/aiman/Development/mt-project/SMT/Improved/work/evaluation/filtered/phrase-table.0-0.1.1.gz
+ScoreProducer: PhraseModel start: 10 end: 15
+Finished loading phrase tables : [6.000] seconds
+Start loading phrase table from /Users/aiman/Development/mt-project/SMT/Improved/work/evaluation/filtered/phrase-table.0-0.1.1.gz : [6.000] seconds
+Reading /Users/aiman/Development/mt-project/SMT/Improved/work/evaluation/filtered/phrase-table.0-0.1.1.gz
+----5---10---15---20---25---30---35---40---45---50---55---60---65---70---75---80---85---90---95--100
+****************************************************************************************************
+Finished loading phrase tables : [8.000] seconds
+Created input-output object : [8.000] seconds
+Translating line 0  in thread id 0x108bd0000
+Translating: OrdwgAn yWkd_0$$ bOn_0$$ turkiyA_1$$ strfD Oy_0$$ Hav~-u_1$$ EalaY_1$$ {iEotirAf_1$$ quboruS_1$$ 
+Line 0: Collecting options took 0.000 seconds
+Line 0: Search took 0.000 seconds
+BEST TRANSLATION: called confirms that Turkey would refuse any urged to Cyprus [1111111111]  [total=-43.937] core=(0.000,-10.000,0.000,-11.364,0.000,0.000,-7.807,0.000,0.000,-70.961,-20.323,-31.180,-9.127,-10.896,7.999)  
+Line 0: Translation took 0.000 seconds total
+Translating line 1  in thread id 0x108bd0000
+Translating: Onqrp_0$$ 1_0$$ -_0$$ 12_0$$ (_0$$ If_0$$ b )_0$$ -_0$$ OEln_0$$ rQys_0$$ Hukuwmap_1$$ turokiy~_1$$ rjb Tay~ib_1$$ OrdwgAn yawom_1$$ AlOrbEAC_0$$ On_0$$ Onqrp_0$$ strfD Oy_0$$ qado_1$$ mAras_1$$ EalaY_1$$ {it~iHAd_1$$ AlOwrwby_0$$ Hav~-u_1$$ EalaY_1$$ {iEotirAf_1$$ quboruS_1$$ , wVlk_0$$ qibal_1$$ OsbwEyn min_1$$ qim~ap_1$$ rWsAC_0$$ dawolap_1$$ Hukuwmap_1$$ {it~iHAd_1$$ AlOwrwby_0$$ AlVyn_0$$ qar~ar_1$$ fatoH_1$$ mufAwaDap_1$$ {inoDimAm_1$$ maEa_1$$ Onqrp_0$$ Ow Eadam_1$$ ._0$$ 
+Line 1: Collecting options took 0.000 seconds
+Line 1: Search took 3.000 seconds
+BEST TRANSLATION: Ankara 1 - 12/02 (AFP) - The President of the Turkish government Ragab good called today Wednesday that Ankara would refuse any had exerted on the European Union urged to recognize the Cyprus, before the two weeks of the heads of states and governments of the European Union who decided to join the opening of the negotiations with Ankara or not. [1111111111111111111111111111111111111111111111111111]  [total=-151.934] core=(-6.000,-61.000,0.000,-28.833,0.000,-1.744,-25.462,0.000,-1.734,-288.026,-41.220,-85.451,-52.457,-102.811,32.997)  
+Line 1: Translation took 3.000 seconds total
+Translating line 2  in thread id 0x108bd0000
+Translating: qAl-u_1$$ OrdwgAn maHaT~ap_1$$ "_0$$ In_0$$ tiy_1$$ fiy_1$$ "_0$$ tilfizyuwniy~_1$$ On_0$$ "_0$$ {it~iHAd_1$$ AlOwrwby_0$$ lA_1$$ >amokan_1$$ On_0$$ yxATbnA Eabor_1$$ frD crwT jadiyd_1$$ EalaY_1$$ Hawol_1$$ quboruS_1$$ ._0$$ 
+Line 2: Collecting options took 0.000 seconds
+Line 2: Search took 1.000 seconds
+BEST TRANSLATION: He said that the station with called on television that "the European Union could not yxATbnA|UNK|UNK|UNK through imposing the new conditions on the Cyprus [1111111111111111111111111]  [total=-179.598] core=(-25.000,-24.000,-100.000,-4.426,-4.809,-2.642,-5.567,-4.491,-5.544,-113.162,-46.460,-52.315,-29.299,-44.291,15.998)  
+Line 2: Translation took 1.000 seconds total
+Translating line 3  in thread id 0x108bd0000
+Translating: sawofa_1$$ nnAqc hVA milaf~_1$$ OvnAC mufAwaDap_1$$ {inoDimAm_1$$ "_0$$ ._0$$ 
+Line 3: Collecting options took 0.000 seconds
+Line 3: Search took 0.000 seconds
+BEST TRANSLATION: will nnAqc|UNK|UNK|UNK this file during the negotiations to join the [111111111]  [total=-132.990] core=(0.000,-10.000,-100.000,-7.643,0.000,0.000,-5.862,0.000,0.000,-56.658,-16.046,-16.823,-12.451,-13.727,5.999)  
+Line 3: Translation took 0.000 seconds total
+Translating line 4  in thread id 0x108bd0000
+Translating: wODAf "_0$$ daEA-u_1$$ Okwn wADiH_1$$ , lA_1$$ jAz-u_1$$ li_1$$ VrAE turkiyA_1$$ , hVA Omr lA_1$$ >amokan_1$$ On_0$$ qabil-a_1$$ bh "_0$$ ._0$$ 
+Line 4: Collecting options took 0.000 seconds
+Line 4: Search took 1.000 seconds
+BEST TRANSLATION: He called on the When it should not be allowed to arm Turkey, this matter cannot accept affiliations. [111111111111111111111]  [total=-66.704] core=(0.000,-18.000,0.000,-11.409,0.000,0.000,-11.434,0.000,0.000,-93.845,-37.099,-57.503,-22.844,-49.197,11.999)  
+Line 4: Translation took 1.000 seconds total
+Translating line 5  in thread id 0x108bd0000
+Translating: min_1$$ mutawaq~aE_1$$ On_0$$ ywSY barolamAn_1$$ AlOwrwby_0$$ fiy_1$$ 14_0$$ kAnwn AlOwl_0$$ /_0$$ diysamobir_1$$ rWsAC_0$$ dawolap_1$$ Hukuwmap_1$$ {it~iHAd_1$$ muwAfaqap_1$$ EalaY_1$$ fatoH_1$$ mufAwaDap_1$$ {inoDimAm_1$$ maEa_1$$ Onqrp_0$$ , l`kin~a_1$$ maEa_1$$ crwT muHad~ad_1$$ ._0$$ 
+Line 5: Collecting options took 0.000 seconds
+Line 5: Search took 2.000 seconds
+BEST TRANSLATION: It is expected that the European parliament ywSY|UNK|UNK|UNK on 14 December / December heads of states and governments of the membership of the negotiations with Ankara but with certain conditions [11111111111111111111111111111]  [total=-184.540] core=(-22.000,-30.000,-100.000,-6.183,-1.133,-7.065,-5.651,-1.099,-4.099,-137.068,-36.474,-63.609,-25.719,-50.383,16.998)  
+Line 5: Translation took 2.000 seconds total
+Translating line 6  in thread id 0x108bd0000
+Translating: {iEotabar_1$$ yuwnAn_1$$ On_0$$ {iEotirAf_1$$ Onqrp_0$$ quboruS_1$$ Al~a*iy_1$$ OSbHt_0$$ hiya_1$$ OyDA_0$$ EuDow_1$$ fiy_1$$ {it~iHAd_1$$ AlOwrwby_0$$ , "_0$$ crT_0$$ bdyhy "_0$$ kay_1$$ >aEoTaY_1$$ {it~iHAd_1$$ AlOwrwby_0$$ DwOh AlOxDr_0$$ fatoH_1$$ mufAwaDap_1$$ {inoDimAm_1$$ maEa_1$$ Onqrp_0$$ ._0$$ 
+Line 6: Collecting options took 0.000 seconds
+Line 6: Search took 1.000 seconds
+BEST TRANSLATION: He admitted that Ankara Greece and Cyprus which has become It is also a member of the European Union and bdyhy|UNK|UNK|UNK provided that the European Union to give the green DwOh|UNK|UNK|UNK to join the negotiations with Ankara [1111111111111111111111111111111]  [total=-301.056] core=(-43.000,-37.000,-200.000,-4.080,-4.935,-9.189,-6.505,-1.970,-7.392,-149.291,-57.812,-59.804,-49.791,-57.039,22.998)  
+Line 6: Translation took 1.000 seconds total
+Translating line 7  in thread id 0x108bd0000
+Translating: mA_2$$ zAl-a_1$$ turkiyA_1$$ trfD {iEotirAf_1$$ jumohuwriy~_1$$ quboruS_1$$ Al~a*iy_1$$ OSbHt_0$$ EuDow_1$$ fiy_1$$ {it~iHAd_1$$ AlOwrwby_0$$ mnV AlOwl_0$$ min_1$$ OyAr_0$$ /_0$$ mAyuw_1$$ mADiy_1$$ , l`kin~a_1$$ dawolap_1$$ waHiyd_2$$ fiy_1$$ EAlam_1$$ Al~a*iy_1$$ AEtrft b "_0$$ jumohuwriy~_1$$ cmAl_0$$ quboruS_1$$ turokiy~_1$$ "_0$$ Al~a*iy_1$$ OElnt_0$$ AstqlAlhA AlVAty fiy_1$$ cmAl_0$$ jaziyrap_1$$ ._0$$ 
+Line 7: Collecting options took 0.000 seconds
+Line 7: Search took 3.000 seconds
+BEST TRANSLATION: still refuses to recognize the Turkey, Cyprus, which became a member of the European Union since the first of May / last May but the only country in the world have admitted that "the the Northern Cyprus Republic which announced self-sufficiency in the north of the island of liberation [1111111111111111111111111111111111111111111]  [total=-136.845] core=(-19.000,-49.000,0.000,-23.151,-3.415,-7.190,-13.628,-0.511,-3.541,-237.247,-46.269,-79.452,-52.217,-80.517,27.997)  
+Line 7: Translation took 3.000 seconds total
+Translating line 8  in thread id 0x108bd0000
+Translating: kamA_1$$ rfD OrdwgAn frDyp fatoH_1$$ mufAwaDap_1$$ lIqAmp_0$$ crAkp mumay~az_1$$ bay~in_1$$ turkiyA_1$$ {it~iHAd_1$$ AlOwrwby_0$$ badiyl_1$$ Ean_1$$ mufAwaDap_1$$ {inoDimAm_1$$ ._0$$ 
+Line 8: Collecting options took 0.000 seconds
+Line 8: Search took 0.000 seconds
+BEST TRANSLATION: He also called for opening to The negotiations to set up archeological partnership between Turkey and the European Union as the negotiations to join. [111111111111111111]  [total=-67.910] core=(-12.000,-24.000,0.000,-4.189,-1.316,-2.990,-2.916,-1.609,-5.578,-106.242,-38.217,-48.495,-29.578,-45.757,13.999)  
+Line 8: Translation took 0.000 seconds total
+Translating line 9  in thread id 0x108bd0000
+Translating: qAl-u_1$$ OrdwgAn fiy_1$$ hVA mawoDuwE_1$$ "_0$$ On_0$$ hVA {iqotirAH_1$$ AlVy_0$$ lA_1$$ >amokan_1$$ On_0$$ qabil-a_1$$ bh , lA_1$$ ytlACm maEa_1$$ munaZ~amap_1$$ jdyp mivol_1$$ {it~iHAd_1$$ AlOwrwby_0$$ "_0$$ ._0$$ 
+Line 9: Collecting options took 0.000 seconds
+Line 9: Search took 2.000 seconds
+BEST TRANSLATION: He called on this issue that this proposal which could not accept it, is necessary, serious organizations such as the European Union [11111111111111111111111111]  [total=-69.829] core=(-4.000,-22.000,0.000,-11.864,-0.250,-0.542,-9.365,-0.427,-0.679,-104.328,-43.230,-54.688,-35.717,-38.994,14.998)  
+Line 9: Translation took 2.000 seconds total
+Translating line 10  in thread id 0x108bd0000
+Translating: wODAf "_0$$ naHonu_1$$ nrgb bbdC mufAwaDap_1$$ fiy_1$$ AlOchr_0$$ Alstp AlOwlY min_1$$ 2005 , Ow fiy_1$$ qisom_1$$ vAniy_2$$ min_1$$ sanap_1$$ IVA tEVr AlOmr_0$$ (_0$$ ._0$$ ._0$$ )_0$$ l`kin~a_1$$ lA_1$$ >amokan_1$$ On_0$$ Had~ad_1$$ tAriyx_1$$ bdC_0$$ mufAwaDap_1$$ EAm_1$$ 2006 "_0$$ ._0$$ 
+Line 10: Collecting options took 0.000 seconds
+Line 10: Search took 2.000 seconds
+BEST TRANSLATION: He added, "We want start negotiations in the first six months of the 2005 or in the second section of the year it if the matter (...) and but could not specify a date of the year 2006. [11111111111111111111111111111111111111]  [total=-98.734] core=(-10.000,-38.000,0.000,-9.640,-1.989,-0.652,-10.276,-1.153,-1.860,-166.834,-50.179,-79.203,-34.970,-68.877,19.998)  
+Line 10: Translation took 2.000 seconds total
+Translating line 11  in thread id 0x108bd0000
+Translating: tasoliym_1$$ zaEiym_1$$ kAly IlY_0$$ wilAyap_1$$ mut~aHid_1$$ 
+Line 11: Collecting options took 0.000 seconds
+Line 11: Search took 0.000 seconds
+BEST TRANSLATION: leader kAly|UNK|UNK|UNK handed over to the United States. [111111]  [total=-117.941] core=(-6.000,-8.000,-100.000,0.000,0.000,-4.037,-1.750,0.000,-0.427,-33.840,-2.582,-9.038,-7.026,-11.137,3.000)  
+Line 11: Translation took 0.000 seconds total
+Translating line 12  in thread id 0x108bd0000
+Translating: 4_0$$ -_0$$ 12_0$$ (_0$$ If_0$$ b )_0$$ -_0$$ Vkr murAsil_1$$ wkAlp frAnos_1$$ brs On_0$$ zaEiym_1$$ kAly (_0$$ januwb_1$$ grb )_0$$ jylbrtw , OHd_0$$ Okbr_0$$ mhrby muxad~ir_1$$ fiy_1$$ EAlam_1$$ , sal~am_1$$ msAC_0$$ jumoEap_1$$ IlY_0$$ wilAyap_1$$ mut~aHid_1$$ ._0$$ 
+Line 12: Collecting options took 0.000 seconds
+Line 12: Search took 2.000 seconds
+BEST TRANSLATION: 4 - 12/02 (AFP) - A France Press correspondent that kAly|UNK|UNK|UNK leader of the jylbrtw|UNK|UNK|UNK one of the biggest mhrby|UNK|UNK|UNK drugs in the world and handed over in the evening of Friday to the United States. [111111111111111111111111111111111111]  [total=-374.722] core=(-8.000,-36.000,-300.000,-6.590,-0.413,-0.966,-7.689,-1.533,-1.189,-140.647,-24.220,-70.340,-25.786,-57.075,14.998)  
+Line 12: Translation took 2.000 seconds total
+Translating line 13  in thread id 0x108bd0000
+Translating: naqal-u_1$$ (_0$$ 64_0$$ EAm_1$$ )_0$$ muEotaqal_1$$ mnV EAm_1$$ 1995_0$$ min_1$$ sijon_1$$ fiy_1$$ Mlyp mSfHp IlY_0$$ qAEidap_2$$ Easokariy~_1$$ mujAwir_1$$ maTAr_1$$ dawoliy~_1$$ Hayovu_1$$ sal~am_1$$ IlY_0$$ msWwlyn_0$$ fiy_1$$ AlwkAlp AlOmyrkyp_0$$ mukAfaHap_1$$ muxad~ir_1$$ ._0$$ 
+Line 13: Collecting options took 0.000 seconds
+Line 13: Search took 1.000 seconds
+BEST TRANSLATION: The detainees of 64 years since 1995 from prison in a mechanism for mSfHp|UNK|UNK|UNK military bases and the neighboring international airport where handed over to officials in the American Agency and drug combating. [111111111111111111111111111111]  [total=-196.229] core=(-14.000,-33.000,-100.000,-8.946,-0.654,-1.741,-9.798,-0.069,-2.496,-172.929,-38.043,-50.135,-32.503,-54.585,17.998)  
+Line 13: Translation took 1.000 seconds total
+Translating line 14  in thread id 0x108bd0000
+Translating: tam~-i_1$$ Eamaliy~ap_1$$ naqol_1$$ HimAyap_1$$ 120_0$$ crTyA junodiy~_1$$ fiy_1$$ ITAr_0$$ qAflp say~Arap_1$$ bayonamA_1$$ Hal~aq_1$$ mirowaHiy~ap_1$$ llcrTp_0$$ fawoq_1$$ minoTaqap_1$$ ._0$$ 
+Line 14: Collecting options took 0.000 seconds
+Line 14: Search took 1.000 seconds
+BEST TRANSLATION: will protect policemen and 120 soldiers in the framework of a convoy of cars police while helicopters flew over the region. [111111111111111111]  [total=-66.836] core=(-22.000,-21.000,0.000,-2.711,-0.511,-5.974,-2.871,-2.335,-6.824,-108.004,-31.384,-35.406,-20.136,-31.408,13.999)  
+Line 14: Translation took 1.000 seconds total
+Translating line 15  in thread id 0x108bd0000
+Translating: fiy_1$$ tSryH lwkAlp frAnos_1$$ brs , qAl-u_1$$ kuwluwniyl_1$$ OwskAr AlmsWwl_0$$ Ean_1$$ Eamaliy~ap_1$$ tasoliym_1$$ "_0$$ Eamal_1$$ tanosiyq_1$$ maEa_1$$ firoqap_1$$ AlOmyrkyp_0$$ mukAfaHap_1$$ muxad~ir_1$$ sal~am_1$$ fiy_1$$ maTAr_1$$ qado_1$$ naqal-u_1$$ fiy_1$$ TAQrp mutawaj~ih_1$$ mbAcrp_0$$ IlY_0$$ wilAyap_1$$ mut~aHid_1$$ "_0$$ ._0$$ 
+Line 15: Collecting options took 0.000 seconds
+Line 15: Search took 2.000 seconds
+BEST TRANSLATION: In a statement to Agence France Presse Colonel Lafontaine. said the operation to work in coordination with the American drug conveyed to the airport in aircraft were directly to the United States. [11111111111111111111111111111111111]  [total=-111.191] core=(-18.000,-32.000,0.000,-19.497,0.000,-2.637,-23.688,0.000,-3.715,-144.845,-75.313,-97.928,-43.612,-56.681,20.998)  
+Line 15: Translation took 2.000 seconds total
+Translating line 16  in thread id 0x108bd0000
+Translating: wbdA hAdQA EndmA IlY_0$$ AlTAQrp_0$$ AlOmyrkyp_0$$ Al~a*iy_1$$ naqal-u_1$$ IlY_0$$ mayAmiy_1$$ fiy_1$$ fluwriydA_1$$ ._0$$ 
+Line 16: Collecting options took 0.000 seconds
+Line 16: Search took 0.000 seconds
+BEST TRANSLATION: The hAdQA|UNK|UNK|UNK when it to the American plane that transported to Miami in Florida. [1111111111111]  [total=-138.240] core=(-4.000,-14.000,-100.000,-5.124,-1.285,-0.636,-2.933,-0.069,-1.160,-69.041,-17.837,-21.676,-15.540,-19.732,8.999)  
+Line 16: Translation took 0.000 seconds total
+Translating line 17  in thread id 0x108bd0000
+Translating: wOfAdt_0$$ suloTap_1$$ OnhA samaH-a_1$$ li_1$$ {it~iSAl_1$$ hAtifiy~_1$$ bIfrAd EAQlth min_1$$ AlsyArp AlmSfHp Al~a*iy_1$$ kAn_1$$ fiy_1$$ ._0$$ 
+Line 17: Collecting options took 0.000 seconds
+Line 17: Search took 1.000 seconds
+BEST TRANSLATION: The authorities it allowed a telephone conversation bIfrAd|UNK|UNK|UNK his family of which was in car producing armoured "multi-lock" doors. [1111111111111111]  [total=-155.019] core=(-8.000,-19.000,-100.000,-9.945,0.000,-0.827,-9.210,0.000,-0.508,-93.548,-30.868,-30.401,-16.146,-27.073,10.999)  
+Line 17: Translation took 1.000 seconds total
+Translating line 18  in thread id 0x108bd0000
+Translating: wxDE baEod_1$$ Vlk_0$$ faHoS_1$$ OjrAhA_0$$ OHd_0$$ OTbAC AlcrTp ._0$$ 
+Line 18: Collecting options took 0.000 seconds
+Line 18: Search took 0.000 seconds
+BEST TRANSLATION: After that, for putting by one of the police. [111111111]  [total=-40.549] core=(-8.000,-9.000,0.000,-3.395,0.000,-2.255,-4.884,0.000,-0.762,-46.154,-32.999,-37.431,-18.886,-21.097,6.999)  
+Line 18: Translation took 0.000 seconds total
+Translating line 19  in thread id 0x108bd0000
+Translating: qado_1$$ samaH-a_1$$ AlrQys Alkwlwmby OlfArw_0$$ bItmAm Eamaliy~ap_1$$ tasoliym_1$$ fiy_1$$ vAmin_1$$ min_1$$ tcryn_0$$ vAniy_2$$ /_0$$ nuwfimobir_1$$ ._0$$ 
+Line 19: Collecting options took 0.000 seconds
+Line 19: Search took 1.000 seconds
+BEST TRANSLATION: The President Columbian Alfaro to complete the process of handing over on November / November. [1111111111111111]  [total=-65.069] core=(-8.000,-15.000,0.000,-6.948,0.000,-1.653,-6.899,0.000,-1.960,-96.905,-31.953,-46.461,-22.619,-30.860,11.999)  
+Line 19: Translation took 1.000 seconds total
+Translating line 20  in thread id 0x108bd0000
+Translating: wjAC_0$$ fiy_1$$ Almrswm AlVy_0$$ waqaE-a_1$$ AlrQys waziyr_1$$ dAxiliy~_1$$ Eadol_1$$ sObOs On_0$$ kuwluwmobiyA_1$$ wAfaq_1$$ EalaY_1$$ tasoliym_1$$ EalaY_1$$ OsAs_0$$ tuhomap_1$$ "_0$$ taSodiyr_1$$ muxad~ir_1$$ IlY_0$$ wilAyap_1$$ mut~aHid_1$$ wHyAzp kuwkAyiyn_1$$ wtwzyEh wtbyyD AlOmwAl_0$$ Eabor_1$$ cbkp_0$$ dawoliy~_1$$ min_1$$ AlmWssAt Alwhmyp "_0$$ ._0$$ 
+Line 20: Collecting options took 0.000 seconds
+Line 20: Search took 1.000 seconds
+BEST TRANSLATION: A decree which was signed by President of the Interior Minister of Justice sObOs|UNK|UNK|UNK Columbia agreed that the charges of drugs on the basis of exporting to the United States to launch the charges of cocaine. wtbyyD|UNK|UNK|UNK funds through the international institutions Alwhmyp|UNK|UNK|UNK it." [1111111111111111111111111111111111111]  [total=-412.489] core=(-24.000,-44.000,-300.000,-12.124,0.000,-6.888,-11.787,0.000,-7.285,-189.107,-50.029,-75.267,-43.547,-70.705,22.998)  
+Line 20: Translation took 1.000 seconds total
+Translating line 21  in thread id 0x108bd0000
+Translating: wqdm AlOmyrkywn fiy_1$$ kAnwn AlOwl_0$$ /_0$$ diysamobir_1$$ Talab_2$$ tasoliym_1$$ Almlqb "_0$$ lAEb AlcTrnj_0$$ "_0$$ , wcqyqh ._0$$ 
+Line 21: Collecting options took 0.000 seconds
+Line 21: Search took 1.000 seconds
+BEST TRANSLATION: The Americans are in December / December requests to hand over the alias "the player chess and the wcqyqh|UNK|UNK|UNK [11111111111111111]  [total=-170.812] core=(-3.000,-19.000,-100.000,-12.540,0.000,-0.050,-11.082,-0.672,-0.157,-119.579,-24.418,-39.212,-27.279,-31.950,13.999)  
+Line 21: Translation took 1.000 seconds total
+Translating line 22  in thread id 0x108bd0000
+Translating: wtthm maHokamap_1$$ fluwriydA_1$$ niyuwyuwrok_1$$ Alcqyqyn taSodiyr_1$$ kam~iy~ap_1$$ kabiyr_1$$ min_1$$ kuwkAyiyn_1$$ IlY_0$$ wilAyap_1$$ mut~aHid_1$$ bay~in_1$$ 1990 tam~uwz_1$$ /_0$$ yuwliyuw_1$$ 2002_0$$ wtbyyD mQAt miloyuwn_1$$ min_1$$ duwlAr_1$$ Earoqalap_1$$ Eamal_1$$ AlqDAC_0$$ AlOmyrky_0$$ ._0$$ 
+Line 22: Collecting options took 0.000 seconds
+Line 22: Search took 1.000 seconds
+BEST TRANSLATION: New York who accuse the court Florida exported large quantities of cocaine. to the United States between 1990 July / July 2002, wtbyyD|UNK|UNK|UNK hundreds of millions of dollars to obstruct the work of the American [11111111111111111111111111111]  [total=-198.770] core=(-10.000,-35.000,-100.000,-13.087,0.000,-3.426,-15.544,0.000,-1.398,-184.967,-33.747,-46.030,-26.187,-53.283,17.998)  
+Line 22: Translation took 1.000 seconds total
+Translating line 23  in thread id 0x108bd0000
+Translating: fiy_1$$ fluwriydA_1$$ rfDt wkAlp mukAfaHap_1$$ muxad~ir_1$$ taEoliyq_1$$ EalaY_1$$ qrAr kuwluwmobiyA_1$$ ._0$$ 
+Line 23: Collecting options took 0.000 seconds
+Line 23: Search took 0.000 seconds
+BEST TRANSLATION: in Florida and agency had refused to comment on the decision of the Columbia [11111111111]  [total=-44.020] core=(-13.000,-14.000,0.000,-2.979,-2.809,-1.157,-0.251,-3.462,-0.957,-69.735,-16.650,-28.874,-17.892,-23.423,7.999)  
+Line 23: Translation took 0.000 seconds total
+Translating line 24  in thread id 0x108bd0000
+Translating: tTAbq fiy_1$$ wijohap_1$$ naZar_1$$ bay~in_1$$ Onqrp_0$$ muwsokuw_1$$ Hawol_1$$ mukAfaHap_1$$ AlIrhAb_0$$ 
+Line 24: Collecting options took 0.000 seconds
+Line 24: Search took 1.000 seconds
+BEST TRANSLATION: in Ankara views between Moscow on fighting terrorism. [1111111111]  [total=-32.989] core=(-8.000,-8.000,0.000,-4.227,0.000,-3.316,-1.670,0.000,-1.865,-49.822,-15.900,-22.738,-8.705,-11.433,6.999)  
+Line 24: Translation took 1.000 seconds total
+Translating line 25  in thread id 0x108bd0000
+Translating: (_0$$ mrfq Suwrap_1$$ )_0$$ 
+Line 25: Collecting options took 0.000 seconds
+Line 25: Search took 0.000 seconds
+BEST TRANSLATION: (Accompanied with photo) [1111]  [total=-8.207] core=(0.000,-3.000,0.000,-1.609,0.000,0.000,0.000,0.000,0.000,-14.189,-1.099,-8.444,-1.386,-8.217,1.000)  
+Line 25: Translation took 0.000 seconds total
+Translating line 26  in thread id 0x108bd0000
+Translating: Onqrp_0$$ 6_0$$ -_0$$ 12_0$$ (_0$$ If_0$$ b )_0$$ -_0$$ OElnt_0$$ ruwsiyA_1$$ turkiyA_1$$ yawom_1$$ {ivonayoni_1$$ Ean_1$$ tTAbq fiy_1$$ wijohap_1$$ naZar_1$$ bay~in_1$$ EalaY_1$$ SEyd mukAfaHap_1$$ AlIrhAb_0$$ waq~aE_1$$ Eadad_1$$ min_1$$ {it~ifAqiy~ap_1$$ AltEAwn xilAla_1$$ ziyArap_1$$ tAriyxiy~_1$$ llrQys_0$$ ruwsiy~_1$$ flAdiymiyr_1$$ buwtiyn_1$$ IlY_0$$ turkiyA_1$$ ._0$$ 
+Line 26: Collecting options took 0.000 seconds
+Line 26: Search took 2.000 seconds
+BEST TRANSLATION: Ankara 6 - 12/02 (AFP) - Russian announced today, Monday, in Turkey, the views between the anti-terrorism signed a number of the cooperation agreement in the historic visit to the Russian President Vladimir Putin to Turkey. [111111111111111111111111111111111111111]  [total=-97.356] core=(-20.000,-36.000,0.000,-11.215,-1.609,-4.552,-10.370,-0.917,-4.887,-165.992,-37.458,-65.660,-38.140,-53.212,22.998)  
+Line 26: Translation took 2.000 seconds total
+Translating line 27  in thread id 0x108bd0000
+Translating: tam~-i_1$$ tawoqiyE_1$$ st {it~ifAqiy~ap_1$$ vnAQyp Hawol_1$$ mawoDuwE_1$$ muxotalif_1$$ min_1$$ {iqotiSAdiy~_2$$ Easokariy~_1$$ gayor_1$$ , kamA_1$$ waqaE-a_1$$ buwtiyn_1$$ naZiyr_1$$ turokiy~_1$$ OHmd_0$$ njdt zAr-u_1$$ fiy_1$$ xitAm_1$$ muHAdavap_1$$ Alrsmyp IElAnA Hawol_1$$ taEomiyq_1$$ AltEAwn AlvnAQy_0$$ ._0$$ 
+Line 27: Collecting options took 0.000 seconds
+Line 27: Search took 1.000 seconds
+BEST TRANSLATION: Six a bilateral agreement was signed on various issues of economic and military as Putin and his Turkish counterpart Ahmed Ahmet Necdet Sezar at the end of the official talks on boosting bilateral cooperation and hearts. [1111111111111111111111111111111]  [total=-101.387] core=(-33.000,-36.000,0.000,-6.997,-2.423,-5.760,-11.639,-1.869,-6.941,-163.069,-47.910,-67.204,-27.031,-55.171,20.998)  
+Line 27: Translation took 1.000 seconds total
+Translating line 28  in thread id 0x108bd0000
+Translating: qAl-u_1$$ AlrQys ruwsiy~_1$$ "_0$$ In_0$$ AlIElAn_0$$ Almctrk_0$$ Had~ad_1$$ mstqbl EalAqap_1$$ >aboraz_1$$ Eazom_1$$ EalaY_1$$ taTowiyr_1$$ tEAwnnA "_0$$ ._0$$ 
+Line 28: Collecting options took 0.000 seconds
+Line 28: Search took 1.000 seconds
+BEST TRANSLATION: Russian President said that the announcement by the future of the common keenness on developing cooperation relations highlight the [11111111111111111]  [total=-62.360] core=(-24.000,-19.000,0.000,-4.912,-0.854,-2.698,-5.842,-1.099,-4.196,-87.212,-35.611,-40.201,-27.720,-32.839,12.999)  
+Line 28: Translation took 1.000 seconds total
+Translating line 29  in thread id 0x108bd0000
+Translating: wckr turkiyA_1$$ EalaY_1$$ dEmhA ruwsiyA_1$$ fiy_1$$ mukAfaHap_1$$ AlIrhAb_0$$ , mlmHA bVlk_0$$ IlY_0$$ Onh_0$$ tam~-i_1$$ txTY xilAf_1$$ fiy_1$$ wijohap_1$$ naZar_1$$ Al~a*iy_1$$ Odt IlY_0$$ tadahowur_1$$ EalAqap_1$$ bay~in_1$$ balad_1$$ EalaY_1$$ madaY_1$$ sanap_1$$ ._0$$ 
+Line 29: Collecting options took 0.000 seconds
+Line 29: Search took 2.000 seconds
+BEST TRANSLATION: He thanked to support and Russia in combating terrorism and ministry," alluding to be overcome the differences in views which led to the deterioration of relations between the two countries over the last years. [111111111111111111111111111111]  [total=-73.200] core=(0.000,-34.000,0.000,-12.897,0.000,0.000,-11.686,0.000,0.000,-135.736,-27.055,-57.585,-32.317,-57.828,14.998)  
+Line 29: Translation took 2.000 seconds total
+Translating line 30  in thread id 0x108bd0000
+Translating: qAl-u_1$$ buwtiyn_1$$ "_0$$ OnnA llOmp turokiy~_1$$ qiyAdap_1$$ turkiyA_1$$ lldEm AlmEnwy siyAsiy~_1$$ AlVy_0$$ qdmth ruwsiyA_1$$ fiy_1$$ kifAH_1$$ Did~_1$$ AlIrhAb_0$$ dawoliy~_1$$ "_0$$ ._0$$ 
+Line 30: Collecting options took 0.000 seconds
+Line 30: Search took 1.000 seconds
+BEST TRANSLATION: Putin said "we are Turkish nation, moral support the political leadership Turkey accepted and Russia in the international struggle against terrorism. [111111111111111111111]  [total=-69.770] core=(-27.000,-21.000,0.000,-4.892,-1.022,-4.692,-5.373,-1.077,-7.116,-114.372,-22.113,-35.966,-18.029,-29.054,13.999)  
+Line 30: Translation took 1.000 seconds total
+Translating line 31  in thread id 0x108bd0000
+Translating: kar~as_1$$ hVh_0$$ ziyArap_1$$ Al~a*iy_1$$ {isotamar~_1$$ yawom_1$$ AltqArb bay~in_1$$ balad_1$$ AllVyn_0$$ saj~al_1$$ Harakap_1$$ AltjAryp bay~in_1$$ tazAyud_1$$ kabiyr_1$$ mnV nhAyp Harob_1$$ bArid_1$$ ._0$$ 
+Line 31: Collecting options took 0.000 seconds
+Line 31: Search took 1.000 seconds
+BEST TRANSLATION: two-day visit to this rapprochement between the two countries and the trade movement between the two recorded a big increase since the end of the cold war [111111111111111111111]  [total=-64.328] core=(-31.000,-27.000,0.000,-1.956,-3.045,-2.894,-2.147,-0.948,-5.061,-100.629,-28.005,-41.889,-29.767,-47.830,12.999)  
+Line 31: Translation took 1.000 seconds total
+Translating line 32  in thread id 0x108bd0000
+Translating: wchdt_0$$ EalAqap_1$$ siyAsiy~_1$$ bay~in_1$$ balad_1$$ fiy_1$$ mADiy_1$$ fatorap_1$$ min_1$$ tawat~ur_1$$ sabab_1$$ tbAdl {it~ihAm_1$$ bay~in_1$$ bmsAndp AlIrhAb_0$$ , kAn_1$$ muwsokuw_1$$ tWkd On_0$$ turkiyA_1$$ tgD Taraf_1$$ Ean_1$$ taHar~uk_1$$ AlnAcTyn AlcycAn_0$$ EalaY_1$$ OrDhA mA_1$$ tthm Onqrp_0$$ ruwsiyA_1$$ bIywAC {inofiSAliy~_1$$ AlOkrAd ._0$$ 
+Line 32: Collecting options took 0.000 seconds
+Line 32: Search took 1.000 seconds
+BEST TRANSLATION: The political relations between the two countries in the tension in the last period due to the exchange of accusations between bmsAndp|UNK|UNK|UNK terrorism Moscow confirmed that Turkey to have the activists Chechnya on its Ankara which accuses Russia as the Kurds separatist [11111111111111111111111111111111111111]  [total=-223.977] core=(-28.000,-42.000,-100.000,-11.126,-2.193,-6.125,-13.635,-2.430,-5.370,-199.047,-67.117,-90.338,-40.644,-57.847,26.997)  
+Line 32: Translation took 1.000 seconds total
+Translating line 33  in thread id 0x108bd0000
+Translating: wcdd_0$$ buwtiyn_1$$ EalaY_1$$ wujuwd_1$$ "_0$$ nuqoTap_1$$ tlAq fiy_1$$ wijohap_1$$ naZar_1$$ Hawol_1$$ sabiyl_1$$ mukAfaHap_1$$ AlIrhAb_0$$ "_0$$ ._0$$ 
+Line 33: Collecting options took 0.000 seconds
+Line 33: Search took 1.000 seconds
+BEST TRANSLATION: Putin stressed that there were points tlAq|UNK|UNK|UNK in views on the ways and means of fighting terrorism." [1111111111111111]  [total=-140.540] core=(-4.000,-17.000,-100.000,-5.272,-0.368,-1.328,-3.056,-2.152,-0.167,-73.029,-12.276,-29.691,-11.590,-35.057,7.999)  
+Line 33: Translation took 1.000 seconds total
+Translating line 34  in thread id 0x108bd0000
+Translating: wycyr AlIElAn_0$$ Almctrk_0$$ muwaq~aE_1$$ bay~in_1$$ AlrQysyn_0$$ xSwSA IlY_0$$ Ohmyp "_0$$ taEoziyz_1$$ jahod_1$$ Almctrkp_0$$ fiy_1$$ majAl_1$$ mukAfaHap_1$$ AlIrhAb_0$$ "_0$$ , kamA_1$$ "_0$$ ydyn AlIrhAb_0$$ bkl OckAlh "_0$$ ._0$$ 
+Line 34: Collecting options took 0.000 seconds
+Line 34: Search took 1.000 seconds
+BEST TRANSLATION: He announced that the joint agreement signed between the two presidents especially to the importance of enhancing joint efforts in the field of combating terrorism and "the Condemning terrorism in all its forms and [111111111111111111111111111]  [total=-81.122] core=(0.000,-34.000,0.000,-18.061,0.000,0.000,-17.839,0.000,0.000,-137.186,-40.762,-57.449,-36.471,-61.110,16.998)  
+Line 34: Translation took 1.000 seconds total
+Translating line 35  in thread id 0x108bd0000
+Translating: buwtiyn_1$$ huwa_1$$ Owl rQys_0$$ ruwsiy~_1$$ zAr-u_1$$ turkiyA_1$$ mnV EAm_1$$ 1972_0$$ ._0$$ 
+Line 35: Collecting options took 0.000 seconds
+Line 35: Search took 1.000 seconds
+BEST TRANSLATION: Putin is the first since the Russian president visited Turkey in 1972. [11111111111]  [total=-35.436] core=(-12.000,-12.000,0.000,-1.137,-0.800,-2.406,-0.542,-0.186,-2.337,-66.435,-8.161,-13.105,-10.538,-17.176,6.999)  
+Line 35: Translation took 1.000 seconds total
+Translating line 36  in thread id 0x108bd0000
+Translating: wsyltqy rQys_0$$ AlwzrAC_0$$ rjb Tay~ib_1$$ OrdwgAn qibal_1$$ On_0$$ gAdar_1$$ EASimap_1$$ turokiy~_1$$ msAC_0$$ ._0$$ 
+Line 36: Collecting options took 0.000 seconds
+Line 36: Search took 0.000 seconds
+BEST TRANSLATION: It will Prime Minister called for a before the Turkish capital in the evening. [1111111111111]  [total=-54.335] core=(-18.000,-14.000,0.000,-2.982,0.000,-3.293,-3.555,0.000,-4.859,-67.437,-42.150,-47.486,-17.060,-26.352,8.999)  
+Line 36: Translation took 0.000 seconds total
+Translating line 37  in thread id 0x108bd0000
+Translating: duw_1$$ fylbAn >arAd_1$$ "_0$$ OQmp faranosiy~_1$$ takal~am_1$$ Allgp faranosiy~_1$$ "_0$$ 
+Line 37: Collecting options took 0.000 seconds
+Line 37: Search took 0.000 seconds
+BEST TRANSLATION: de Villepin Selecting talked to the French language of the French [1111111111]  [total=-43.305] core=(-10.000,-11.000,0.000,-2.968,0.000,-1.821,-2.457,0.000,-3.594,-70.571,-22.642,-19.379,-13.973,-15.842,7.999)  
+Line 37: Translation took 0.000 seconds total
+Translating line 38  in thread id 0x108bd0000
+Translating: bAriys_1$$ 6_0$$ -_0$$ 12_0$$ (_0$$ If_0$$ b )_0$$ -_0$$ OEln_0$$ waziyr_1$$ dAxiliy~_1$$ faranosiy~_1$$ dwmynyk duw_1$$ fylbAn fiy_1$$ muqAbalap_1$$ maEa_1$$ SaHiyfap_1$$ "_0$$ bAryzyAn /_0$$ "_0$$ tncrhA fiy_1$$ Eadad_1$$ yawom_1$$ gd AlvlAvAC_0$$ Onh_0$$ "_0$$ min_1$$ gyr maqobuwl_1$$ On_0$$ kAn_1$$ vlv AlOQmp fiy_1$$ balad_1$$ lA_1$$ takal~am_1$$ lgtnA "_0$$ muTAlib_1$$ b "_0$$ OQmp faranosiy~_1$$ takal~am_1$$ Allgp faranosiy~_1$$ "_0$$ ._0$$ 
+Line 38: Collecting options took 0.000 seconds
+Line 38: Search took 2.000 seconds
+BEST TRANSLATION: Paris 6 - 12/02 (AFP) - French Interior Minister Dominique de Villepin in an interview with Al bAryzyAn|UNK|UNK|UNK published in the number of the day after tomorrow Tuesday that it is not acceptable that one-third of Moreover, talked in the country did not prove who demanded that "the Selecting talked about the French language and French [1111111111111111111111111111111111111111111111111111111]  [total=-256.648] core=(-25.000,-56.000,-100.000,-13.499,-0.465,-3.709,-19.104,-2.724,-4.154,-257.564,-65.563,-113.089,-59.358,-107.334,28.997)  
+Line 38: Translation took 2.000 seconds total
+Translating line 39  in thread id 0x108bd0000
+Translating: qAl-u_1$$ waziyr_1$$ dAxiliy~_1$$ mukal~af_1$$ milaf~_1$$ AlOdyAn_0$$ wAlVy_0$$ {isotaqobal_1$$ yawom_1$$ {ivonayoni_1$$ kamA_1$$ qAl-u_1$$ maSodar_1$$ mtTAbqp wafod_1$$ min_1$$ majolis_1$$ diyAnap_1$$ AlIslAmyp fiy_1$$ frnsA Hayovu_1$$ OwDH_0$$ li_1$$ mcAryEh fiy_1$$ majAl_1$$ tOhyl_0$$ AlOQmp , Onh_0$$ "_0$$ min_1$$ OSl HiwAl_1$$ 1200_0$$ ImAmA fiy_1$$ balad_1$$ 75_0$$ %_0$$ min_1$$ layosa_1$$ faranosiy~_1$$ vulov_1$$ lA_1$$ takal~am_1$$ lgtnA "_0$$ ._0$$ 
+Line 39: Collecting options took 0.000 seconds
+Line 39: Search took 3.000 seconds
+BEST TRANSLATION: The Minister of Interior charged with the file of religions which received today, Monday, sources were a delegation from the Islamic religion in France where he said in the field of rehabilitation and mcAryEh|UNK|UNK|UNK Moreover, it out of about 1200 ImAmA|UNK|UNK|UNK in the country 75% of the French is not a senior prove two thirds of the [11111111111111111111111111111111111111111111111111]  [total=-361.807] core=(-28.000,-57.000,-200.000,-21.792,-4.043,-4.946,-17.629,-0.530,-3.767,-264.011,-81.183,-107.752,-66.827,-92.180,34.996)  
+Line 39: Translation took 3.000 seconds total
+Translating line 40  in thread id 0x108bd0000
+Translating: wODAf "_0$$ hVA AlOmr_0$$ layosa_1$$ maqobuwl_1$$ ._0$$ 
+Line 40: Collecting options took 0.000 seconds
+Line 40: Search took 0.000 seconds
+BEST TRANSLATION: He added that this matter is not accepted [1111111]  [total=-18.415] core=(0.000,-8.000,0.000,-2.794,0.000,0.000,-3.251,0.000,0.000,-30.717,-9.123,-15.821,-10.832,-14.442,4.000)  
+Line 40: Translation took 0.000 seconds total
+Translating line 41  in thread id 0x108bd0000
+Translating: yjb On_0$$ kAn_1$$ fiy_1$$ frnsA OQmp faranosiy~_1$$ Allgp faranosiy~_1$$ "_0$$ ._0$$ 
+Line 41: Collecting options took 0.000 seconds
+Line 41: Search took 1.000 seconds
+BEST TRANSLATION: should be in France and French Selecting the French language [11111111111]  [total=-36.273] core=(-12.000,-10.000,0.000,-1.491,-1.609,-1.915,-0.480,-0.326,-1.019,-62.034,-13.715,-16.413,-10.341,-13.551,5.999)  
+Line 41: Translation took 1.000 seconds total
+Translating line 42  in thread id 0x108bd0000
+Translating: wOwDH_0$$ "_0$$ yjb min_1$$ Ojl_0$$ Vlk_0$$ IxDAE kl mrcH_0$$ lhVh muhim~_1$$ EalaY_1$$ AlswAC ltOhyl_0$$ diyniy~_1$$ (_0$$ taHotu_1$$ msWwlyp_0$$ AlmWssAt AlqAQmp )_0$$ wtOhyl_0$$ dnywy (_0$$ taHotu_1$$ msWwlyp_0$$ AljAmEp )_0$$ min_1$$ xilAla_1$$ IETAQh daros_1$$ fiy_1$$ qAnuwn_1$$ tarobiyap_1$$ madaniy~_1$$ {iT~ilAE_1$$ EalaY_1$$ Eamal_1$$ AlmWssAt faranosiy~_1$$ "_0$$ mwDHA On_0$$ "_0$$ hVA AltOhyl_0$$ sybdO_0$$ maEa_1$$ bdC_0$$ EAm_1$$ AldrAsy 2005 "_0$$ ._0$$ 
+Line 42: Collecting options took 0.000 seconds
+Line 42: Search took 2.000 seconds
+BEST TRANSLATION: He should have of each candidate for this task to rehabilitate the religious under the responsibility of the institutions and rehabilitating dnywy|UNK|UNK|UNK under the responsibility of the League of IETAQh|UNK|UNK|UNK study of law and institutions to get acquainted with work for French pointing out that the qualification would start with the start of the school year 2005. [1111111111111111111111111111111111111111111111111111111]  [total=-390.915] core=(-44.000,-57.000,-200.000,-27.745,-3.324,-8.662,-20.357,-5.728,-7.362,-236.894,-140.633,-177.634,-89.843,-102.465,38.996)  
+Line 42: Translation took 2.000 seconds total
+Translating line 43  in thread id 0x108bd0000
+Translating: wOcAr_0$$ IlY_0$$ Onh_0$$ >arAd_1$$ OyDA_0$$ "_0$$ tnZym tOhyl_0$$ mtwASl llOQmp AlVyn_0$$ mAras_1$$ wAjib_1$$ diyniy~_1$$ HAliy~_1$$ "_0$$ ._0$$ 
+Line 43: Collecting options took 0.000 seconds
+Line 43: Search took 1.000 seconds
+BEST TRANSLATION: He pointed out that he also wants to a constant llOQmp|UNK|UNK|UNK who practice their religious and current [11111111111111111]  [total=-154.110] core=(-14.000,-17.000,-100.000,-1.909,-4.969,-2.294,-2.249,-4.183,-2.597,-72.587,-41.796,-48.099,-17.940,-28.944,10.999)  
+Line 43: Translation took 1.000 seconds total
+Translating line 44  in thread id 0x108bd0000
+Translating: qAl-u_1$$ duw_1$$ fylbAn OyDA_0$$ On_0$$ Eadad_1$$ musolim_1$$ AlmmArsyn fiy_1$$ frnsA "_0$$ hum_1$$ taqoriyb_1$$ bnfs AlcryHp ladaY_1$$ AlOdyAn_0$$ AlOxrY_0$$ "_0$$ Oy_0$$ "_0$$ Oql_0$$ min_1$$ 10_0$$ %_0$$ min_1$$ OSl xmsp miloyuwn_1$$ nasamap_1$$ "_0$$ ._0$$ 
+Line 44: Collecting options took 0.000 seconds
+Line 44: Search took 2.000 seconds
+BEST TRANSLATION: He also de Villepin that the number of Muslims in France AlmmArsyn|UNK|UNK|UNK understand is almost the same sum to any other religions than 10 percent out of five million souls and [11111111111111111111111111111111]  [total=-196.828] core=(-20.000,-31.000,-100.000,-13.424,-1.609,-5.637,-10.167,-2.833,-3.516,-151.179,-50.904,-60.733,-36.107,-49.669,21.998)  
+Line 44: Translation took 2.000 seconds total
+Translating line 45  in thread id 0x108bd0000
+Translating: wODAf On_0$$ "_0$$ musolim_1$$ faranosiy~_1$$ bOglbythm sAHiq_1$$ muEotadil_1$$ "_0$$ muDiyf_1$$ Onh_0$$ "_0$$ min_1$$ OSl 1685 mkAnA llEbAdp Hasab_1$$ IHSAC OEd_0$$ fiy_1$$ AlOwl_0$$ min_1$$ tcryn_0$$ AlOwl_0$$ /_0$$ Oktwbr_0$$ {iEotabar_1$$ Oql_0$$ min_1$$ xamos_1$$ min_1$$ EalaY_1$$ EalAqap_1$$ Harakap_1$$ mutaTar~if_1$$ "_0$$ ._0$$ 
+Line 45: Collecting options took 0.000 seconds
+Line 45: Search took 1.000 seconds
+BEST TRANSLATION: He added that the French bOglbythm|UNK|UNK|UNK moderate and the vast adding that the place 1685|UNK|UNK|UNK llEbAdp|UNK|UNK|UNK according to the IHSAC|UNK|UNK|UNK prepared in the first of the 4th of October is less than one of the movement of the extremist [11111111111111111111111111111111111111]  [total=-508.840] core=(-24.000,-39.000,-400.000,-11.887,0.000,-3.831,-13.104,-1.946,-7.275,-154.002,-83.118,-101.343,-43.528,-55.139,21.998)  
+Line 45: Translation took 1.000 seconds total
+Translating line 46  in thread id 0x108bd0000
+Translating: wODAf "_0$$ lA_1$$ wajad-i_1$$ Htmyp fiy_1$$ tnAmy Harakap_1$$ mutaTar~if_1$$ fiy_1$$ frnsA "_0$$ muDiyf_1$$ "_0$$ kAn_1$$ ywjd fiy_1$$ Iyl -_0$$ duw_1$$ -_0$$ frAnos_1$$ fiy_1$$ EAm_1$$ 2000_0$$ saboE_2$$ OmAkn_0$$ EbAdp mutaTar~if_1$$ vm OSbHt_0$$ 32_0$$ fiy_1$$ 2003 ._0$$ 
+Line 46: Collecting options took 0.000 seconds
+Line 46: Search took 2.000 seconds
+BEST TRANSLATION: He added: "I do not find it in the growing extremists in France and adding that there was Eil de - AFP - in 2000 at seven EbAdp|UNK|UNK|UNK extremist and then became 32 in 2003. [11111111111111111111111111111111111]  [total=-215.533] core=(-18.000,-35.000,-100.000,-15.552,-4.048,-7.432,-11.024,-3.555,-4.919,-184.280,-47.649,-63.820,-42.369,-65.328,23.998)  
+Line 46: Translation took 2.000 seconds total
+Translating line 47  in thread id 0x108bd0000
+Translating: faDol_1$$ Eamaliy~ap_1$$ muwaj~ah_1$$ jaEal-a_1$$ hVA raqom_1$$ {inoxafaD_1$$ IlY_0$$ 20_0$$ "_0$$ ._0$$ 
+Line 47: Collecting options took 0.000 seconds
+Line 47: Search took 1.000 seconds
+BEST TRANSLATION: operations aimed to make this figure went down to 20 it." [11111111111]  [total=-41.309] core=(-6.000,-11.000,0.000,-6.700,0.000,-2.318,-4.765,0.000,-0.654,-61.239,-17.960,-22.741,-21.280,-23.810,7.999)  
+Line 47: Translation took 1.000 seconds total
+user	62.347
+sys	0.284
