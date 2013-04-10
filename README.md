@@ -23,7 +23,10 @@ _____
 
 Baseline SMT Training & Evaluation
 -----------------------------------
-Start from root directory and execute the following:
+
+**Training**
+______________
+Starting from project root directory, run the following:
 ```
 cd SMT/Baseline
 mkdir -p work/LM
@@ -44,6 +47,12 @@ $SCRIPTS_ROOTDIR/training/mert-moses.pl data/Tune/Tune_data.mt04.50.ar data/Tune
 1. /home/ubuntu/tools/bin points to GIZA++ binaries directory
 2. LM model must be absolute path
 
+
+**Evaluation**
+Starting from project root directory, run the following:
+```
+
+```
 
 perl $MADAHOME/MADA+TOKAN.pl config=conf/template.madaconfig file=data/Train/Train_data.clean.ar TOKAN_SCHEME="SCHEME=ATP MARKNOANALYSIS" 
 
