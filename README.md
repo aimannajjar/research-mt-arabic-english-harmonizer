@@ -33,9 +33,7 @@ $SCRIPTS_ROOTDIR/training/train-model.perl  -external-bin-dir /home/ubuntu/tools
                                             -corpus data/Train/Train_data.clean \
                                             -f ar -e en -alignment grow-diag-final-and \
                                             -reordering msd-bidirectional-fe \
-                                            -lm 0:3:./work/LM/LM_data+Train_data.en.lm \
-                                            -threads all
-
+                                            -lm 0:3:/home/ubuntu/workspace/mt-arabic-english-harmonizer/SMT/Baseline/work/LM/LM_data+Train_data.en.lm
 
 ```
 _Note that:_
