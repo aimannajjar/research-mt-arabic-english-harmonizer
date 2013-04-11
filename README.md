@@ -89,7 +89,7 @@ MT evaluation scorer ended on 2013 Apr 11 at 00:25:04
 Improving the Baseling using Harmonizer
 ----------------------------------------
 To improve the baseline, we would like to train a harmonizer that is capable of making Arabic source text more similar to the English target text by using single tokens for various Arabic surface forms that map to single English word.
-To achieve this, we (1) Train a Harmonizer and then (2) Use the Harmonizer to harmonize trainig parallal corpus, tuning data and test data.
+To achieve this, we (1) Train a Harmonizer and then (2) Use the Harmonizer to harmonize trainig parallal corpus, tuning data and test data. Note that once a harmonizer is trained, it needs not to be retrianed everytime to be reused.
 
 **1) Training the Harmonizer**
 _______________________________
@@ -101,15 +101,18 @@ To train the Harmonizer, we do the following:
 4. Extract features where same lemma maps to different English forms (Class 2)
 5. Train an SVM model using data from step 3 and step 4
 
-The following sequence of commands perform the steps above, we are using the same paralal corpus and English LM to train our harmonizer, but a different data set can be also used to train the harmonizer
+The following sequence of commands perform the steps above, we are using the same paralal corpus and English LM to train our harmonizer, but a different data set can be also used to train the harmonizer:
 ```
+cd harmonizer
+
+# Make sure conf/template.madaconfig points to correct MADA installation directory
 perl $MADAHOME/MADA+TOKAN.pl config=conf/template.madaconfig file=data/Train/Train_data.clean.ar TOKAN_SCHEME="SCHEME=ATP MARKNOANALYSIS" 
 
-ngram-count -order 3 -interpolate -kndiscount -unk -text data/LM/LM_data+Train_data.en -lm work/LM/LM_data+Train_data.en.lm
-
 python harmonizer/factorize-corpus.py data/Train/Train_data.clean.ar.bw.mada  > data/Train/Train_data.clean.factored.ar
-
 cp data/Train/Train_data.clean.en data/Train/Train_data.clean.factored.en
+
+mkdir -p work/LM
+cp ../../LM_data+Train_data.en.lm work/LM/
 
 $SCRIPTS_ROOTDIR/training/train-model.perl  -external-bin-dir /Users/aiman/tools/bin \
                                             -root-dir /Users/aiman/Development/mt-project/work \
