@@ -14,7 +14,7 @@ The experiments described here were done on the following environment:
 
 **Data**
 _____
-* Training Data: 34k Sentence Pairs (Cleaned) - Roughly 996423 words according to MADA output
+* Training Data: 34k Sentence Pairs (Cleaned) - Roughly 996458 words according to MADA output
   > https://dl.dropbox.com/s/agv9khd6mvfa8as/TrainData.zip
 
 * LM Model: 106930 Sentences 
