@@ -31,7 +31,7 @@
 
 # This is the home directory where MADA is installed on your system.
 
-MADA_HOME = /Users/aiman/tools/MADA-3.2
+MADA_HOME = /home/ubuntu/tools/MADA-3.2
 
 
 ########################
@@ -49,7 +49,7 @@ MADA_HOME = /Users/aiman/tools/MADA-3.2
 #
 #  Only the "disambig" executable is currently used by any element of MADA.
 
-SRI_NGRAM_TOOL = /Users/aiman/tools/srilm/bin/macosx/disambig
+SRI_NGRAM_TOOL = /home/ubuntu/tools/srilm/bin/i686-m64/disambig
 
 
 #########################
@@ -60,7 +60,7 @@ SRI_NGRAM_TOOL = /Users/aiman/tools/srilm/bin/macosx/disambig
 #  on your system.
 #
 
-SVM_TAGGER = /Users/aiman/tools/svmtool/bin/SVMTagger
+SVM_TAGGER = /home/ubuntu/tools/svmtools/bin/SVMTagger
 
 
 
@@ -126,7 +126,7 @@ RUN_TOKAN = YES
 #
 # Valid choices:  Buckwalter | BW | UTF8 | UTF-8 
 
-INPUT_ENCODING = BW
+INPUT_ENCODING = UTF8
 
 
 # Should MADA perform punctuation AND number separatation (placing 
