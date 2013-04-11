@@ -28,6 +28,7 @@ Baseline SMT Training & Evaluation
 ______________
 Starting from project root directory, run the following:
 ```
+# Start a project root dir
 cd SMT/Baseline
 mkdir -p work/LM
 cp ../../LM_data+Train_data.en.lm work/LM/
@@ -55,7 +56,7 @@ To evaluate the SMT, run the following:
 $SCRIPTS_ROOTDIR/training/filter-model-given-input.pl work/evaluation/filtered work/tuning/moses-tuned.ini data/Test/Test_data.mt05.src.ar
 /home/ubuntu/tools/moses/bin/moses -config work/evaluation/filtered/moses.ini -input-file data/Test/Test_data.mt05.src.ar 1> work/evaluation/Eval.tuned-filtered.output
 $SCRIPTS_ROOTDIR/wrap-xml.perl data/Test/Test_data.mt05.ref.ar.xml en my-system-name < work/evaluation/Eval.tuned-filtered.output > work/evaluation/Eval.tuned-filtered.output.sgm
-$SCRIPTS_ROOTDIR//mteval-v11b.pl -s data/Test/Test_data.mt05.src.ar.xml -r data/Test/Test_data.mt05.ref.en.xml -t work/evaluation/Eval.tuned-filtered.output.sgm –c
+$SCRIPTS_ROOTDIR/mteval-v11b.pl -s data/Test/Test_data.mt05.src.ar.xml -r data/Test/Test_data.mt05.ref.en.xml -t work/evaluation/Eval.tuned-filtered.output.sgm –c
 ```
 
 Last command should output the BLEU and NIST scores for the Baseline. In my case the output was (BLEU: 0.3104, NIST: 6.5153)
@@ -103,103 +104,72 @@ To train the Harmonizer, we do the following:
 
 The following sequence of commands perform the steps above, we are using the same paralal corpus and English LM to train our harmonizer, but a different data set can be also used to train the harmonizer:
 ```
+# Start a project root dir
 cd harmonizer
 
+## Analyze Arabic side of text
 # Make sure conf/template.madaconfig points to correct MADA installation directory
 perl $MADAHOME/MADA+TOKAN.pl config=conf/template.madaconfig file=data/Train/Train_data.clean.ar TOKAN_SCHEME="SCHEME=ATP MARKNOANALYSIS" 
 
+## Create an annotated corpus 
 python harmonizer/factorize-corpus.py data/Train/Train_data.clean.ar.bw.mada  > data/Train/Train_data.clean.factored.ar
 cp data/Train/Train_data.clean.en data/Train/Train_data.clean.factored.en
 
 mkdir -p work/LM
-cp ../../LM_data+Train_data.en.lm work/LM/
+cp ../LM_data+Train_data.en.lm work/LM/
 
-$SCRIPTS_ROOTDIR/training/train-model.perl  -external-bin-dir /Users/aiman/tools/bin \
-                                            -root-dir /Users/aiman/Development/mt-project/work \
-                                            -corpus data/Train/Train_data.clean.factored.small \
+$SCRIPTS_ROOTDIR/training/train-model.perl  -external-bin-dir /home/ubuntu/tools/bin \
+                                            -root-dir work \
+                                            -corpus data/Train/Train_data.clean.factored \
                                             -f ar -e en -alignment grow-diag-final-and \
                                             -reordering msd-bidirectional-fe \
-                                            -lm 0:3:/Users/aiman/Development/mt-project/work/LM/LM_data+Train_data.en.lm \
+                                            -lm 0:3:/home/ubuntu/workspace/mt-arabic-english-harmonizer/harmonizer/work/LM/LM_data+Train_data.en.lm \
                                             -alignment-factors 1-0 \
                                             -translation-factors 1,2-0
-
-python harmonizer/cluster-annotated-table.py work/model/phrase-table.1,2-0.gz > harmonizer_training_data.csv
-
-python harmonizer/train_harmonizer.py harmonizer_training_data.csv #### Saves the model as harmonizer_mode.pkl
+mkdir data/Harmonizer
+python cluster-annotated-table.py work/model/phrase-table.1,2-0.gz > data/Harmonizer/harmonizer_training_data.csv
+python train_harmonizer.py data/Harmonizer/harmonizer_training_data.csv 
 ```
 
-########### TRAINING & EVALUATING THE BASELINE SYSTEM ############
-Trained with 34000 Sentences (cleaned)
+**1) Using the Harmonizer to improve our data**
+_________________________________________________
+Now that we have a Harmonizer ready to be used. We will use it to harmonize our training data and tuning data to build an improved SMT. **Note:** the harmonizer takes an annotated corpus text as input and produces the harmonized data. We will use the same annotated corpus text we used when trained our harmonizer to save time
+```
+# Start a project root dir
 
-cd SMT/Baseline
+# Copy the annotated corpus we created when we trained the harmonizer
+cp harmonizer/data/Train/Train_data.clean.factored.ar harmonizer/data/Train/Train_data.clean.factored.en SMT/Improved/data/Train/
+
+# Use the harmonizer to create a harmonized corpus from the annotated one
+python harmonizer/harmonizer.py harmonizer/harmonizer_model.pkl SMT/Improved/data/Train/Train_data.clean.factored.ar > SMT/Improved/data/Train/Train_data.clean.harmonized.ar
+cp SMT/Improved/data/Train/Train_data.clean.en SMT/Improved/data/Train/Train_data.clean.harmonized.en 
+
+# Build SMT
+cd SMT/Improved
 mkdir -p work/LM
 cp ../../LM_data+Train_data.en.lm work/LM/
-
-$SCRIPTS_ROOTDIR/training/train-model.perl  -external-bin-dir /Users/aiman/tools/bin \
-                                            -root-dir work \
-                                            -corpus data/Train/Train_data.clean \
-                                            -f ar -e en -alignment grow-diag-final-and \
-                                            -reordering msd-bidirectional-fe \
-                                            -lm 0:3:/Users/aiman/Development/mt-project/work/LM/LM_data+Train_data.en.lm
-
-
-$SCRIPTS_ROOTDIR/training/filter-model-given-input.pl work/evaluation/filtered work/model/moses.ini data/Test/Test_data.mt05.src.ar
-
-
-nohup nice /Users/aiman/tools/mosesdecoder/bin/moses -config work/evaluation/filtered/moses.ini -input-file data/Test/Test_data.mt05.src.ar 1> work/evaluation/Eval.filtered.output 2> work/evaluation/filtered.decode.out &
-
-$SCRIPTS_ROOTDIR/wrap-xml.perl data/Test/Test_data.mt05.ref.ar.xml en my-system-name < work/evaluation/Eval.filtered.output > work/evaluation/Eval.filtered.output.sgm
-
-$SCRIPTS_ROOTDIR/generic/mteval-v11b.pl -s data/Test/Test_data.mt05.src.ar.xml -r data/Test/Test_data.mt05.ref.en.xml -t work/evaluation/Eval.filtered.output.sgm –c
-
-
-
-MT evaluation scorer began on 2013 Apr 7 at 22:00:24
-command line:  /Users/aiman/tools/mosesdecoder/scripts/generic/mteval-v11b.pl -s data/Test/Test_data.mt05.src.ar.xml -r data/Test/Test_data.mt05.ref.en.xml -t work/evaluation/Eval.filtered.output.sgm –c
-  Evaluation of Arabic-to-English translation using:
-    src set "mt05_arabic_evlset_v0" (4 docs, 48 segs)
-    ref set "mt05_arabic_evlset_v0-ref" (4 refs)
-    tst set "mt05_arabic_evlset_v0" (1 systems)
-
-NIST score = 6.3133  BLEU score = 0.3124 for system "ahd"
-
-# ------------------------------------------------------------------------
-
-Individual N-gram scoring
-        1-gram   2-gram   3-gram   4-gram   5-gram   6-gram   7-gram   8-gram   9-gram
-        ------   ------   ------   ------   ------   ------   ------   ------   ------
- NIST:  5.0049   1.0157   0.2046   0.0570   0.0311   0.0108   0.0058   0.0022   0.0000  "ahd"
-
- BLEU:  0.7170   0.3981   0.2510   0.1582   0.0933   0.0519   0.0323   0.0169   0.0052  "ahd"
-
-# ------------------------------------------------------------------------
-Cumulative N-gram scoring
-        1-gram   2-gram   3-gram   4-gram   5-gram   6-gram   7-gram   8-gram   9-gram
-        ------   ------   ------   ------   ------   ------   ------   ------   ------
- NIST:  5.0049   6.0206   6.2252   6.2822   6.3133   6.3241   6.3299   6.3321   6.3321  "ahd"
-
- BLEU:  0.6866   0.5116   0.3977   0.3124   0.2432   0.1866   0.1444   0.1098   0.0779  "ahd"
-MT evaluation scorer ended on 2013 Apr 7 at 22:00:25
-
-
-
-########### TRAINING & EVALUATING THE IMPROVED SYSTEM ############
-
-mkdir -p SMT/Improved/data/Train
-
-* Improvment: Harmonize training data with English Language
-python harmonizer/harmonizer.py harmonizer_model.pkl data/Train/Train_data.clean.factored.ar > SMT/Improved/data/Train/Train_data.clean.harmonized.ar
-
-cp data/Train/Train_data.clean.factored.en SMT/Improved/data/Train/Train_data.clean.harmonized.en 
-
-cd SMT/Improved
-
-$SCRIPTS_ROOTDIR/training/train-model.perl  -external-bin-dir /Users/aiman/tools/bin \
+$SCRIPTS_ROOTDIR/training/train-model.perl  -external-bin-dir /home/ubuntu/tools/bin \
                                             -root-dir work \
                                             -corpus data/Train/Train_data.clean.harmonized \
                                             -f ar -e en -alignment grow-diag-final-and \
                                             -reordering msd-bidirectional-fe \
-                                            -lm 0:3:/Users/aiman/Development/mt-project/work/LM/LM_data+Train_data.en.lm
+                                            -lm 0:3:/home/ubuntu/workspace/mt-arabic-english-harmonizer/SMT/Improved/work/LM/LM_data+Train_data.en.lm
+
+
+# Harmonize tuning data
+cd ../../
+perl $MADAHOME/MADA+TOKAN.pl config=conf/template.madaconfig file=SMT/Improved/data/Tune/Tune_data.mt04.50.ar TOKAN_SCHEME="SCHEME=ATP MARKNOANALYSIS" 
+
+# Create an annotated tuning data 
+python harmonizer/factorize-corpus.py SMT/Improved/data/Tune/Tune_data.mt04.50.ar.bw.mada  > SMT/Improved/data/Tune/Tune_data.mt04.50.factored.ar
+
+# Use harmonizer on tuning data
+python harmonizer/harmonizer.py harmonizer/harmonizer_model.pkl SMT/Improved/data/Tune/Tune_data.mt04.50.factored.ar > SMT/Improved/data/Tune/Tune_data.mt04.50.harmonized.ar
+cp SMT/Improved/data/Tune/Tune_data.mt04.50.en SMT/Improved/data/Tune/Tune_data.mt04.50.harmonized.en
+
+
+# Tune our SMT
+
 
 
 # Harmonize test data
@@ -331,6 +301,6 @@ $SCRIPTS_ROOTDIR/generic/mteval-v11b.pl -s data/Test/Test_data.mt05.src.ar.xml -
         MT evaluation scorer ended on 2013 Apr 8 at 11:41:04
 
 
-
+```
 
         
