@@ -87,7 +87,7 @@ Cumulative N-gram scoring
 MT evaluation scorer ended on 2013 Apr 11 at 00:25:04
 ```
 
-Improving the Baseling using Harmonizer
+Improving the Baseline using Harmonizer
 ----------------------------------------
 To improve the baseline, we would like to train a harmonizer that is capable of making Arabic source text more similar to the English target text by using single tokens for various Arabic surface forms that map to single English word.
 To achieve this, we (1) Train a Harmonizer and then (2) Use the Harmonizer to harmonize trainig parallal corpus, tuning data and test data. Note that once a harmonizer is trained, it needs not to be retrianed everytime to be reused.
