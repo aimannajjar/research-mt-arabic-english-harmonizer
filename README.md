@@ -86,6 +86,23 @@ Cumulative N-gram scoring
 MT evaluation scorer ended on 2013 Apr 11 at 00:25:04
 ```
 
+Improving the Baseling using Harmonizer
+----------------------------------------
+To improve the baseline, we would like to train a harmonizer that is capable of making Arabic source text more similar to the English target text by using single tokens for various Arabic surface forms that map to single English word.
+To achieve this, we (1) Train a Harmonizer and then (2) Use the Harmonizer to harmonize trainig parallal corpus, tuning data and test data.
+
+**1) Training the Harmonizer**
+_______________________________
+To train the Harmonizer, we do the following:
+
+1. Analyze the Arabic side of the training corpus and annotate it with lemmas and morphological features
+2. Train a factored phrase table that maps lemmas+features to English words
+3. Extract features where same lemma maps to same English form (Class 1)
+4. Extract features where same lemma maps to different English forms (Class 2)
+5. Train an SVM model using data from step 3 and step 4
+
+
+
 
 perl $MADAHOME/MADA+TOKAN.pl config=conf/template.madaconfig file=data/Train/Train_data.clean.ar TOKAN_SCHEME="SCHEME=ATP MARKNOANALYSIS" 
 
