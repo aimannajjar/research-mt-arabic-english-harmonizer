@@ -187,19 +187,19 @@ Now we have improved data, we can use it to build and evaluate our SMT the same 
 cd SMT/Improved
 mkdir -p work/LM
 cp ../../LM_data+Train_data.en.lm work/LM/
-$SCRIPTS_ROOTDIR/training/train-model.perl  -external-bin-dir /home/ubuntu/tools/bin \
+nohup $SCRIPTS_ROOTDIR/training/train-model.perl -external-bin-dir /home/ubuntu/tools/bin \
                                             -root-dir work \
                                             -corpus data/Train/Train_data.clean.harmonized \
                                             -f ar -e en -alignment grow-diag-final-and \
                                             -reordering msd-bidirectional-fe \
-                                            -lm 0:3:/home/ubuntu/workspace/mt-arabic-english-harmonizer/SMT/Improved/work/LM/LM_data+Train_data.en.lm
+                                            -lm 0:3:/home/ubuntu/workspace/mt-arabic-english-harmonizer/SMT/Improved/work/LM/LM_data+Train_data.en.lm &> training.output &
 
 
 
 # Tune our SMT
 cd SMT/Improved
 mkdir -p work/tuning
-$SCRIPTS_ROOTDIR/training/mert-moses.pl data/Tune/Tune_data.mt04.50.harmonized.ar data/Tune/Tune_data.mt04.50.harmonized.en /home/ubuntu/tools/moses/bin/moses work/model/moses.ini --working-dir /home/ubuntu/workspace/mt-arabic-english-harmonizer/SMT/Improved/work/tuning/mert --rootdir $SCRIPTS_ROOTDIR --decoder-flags "-v 0" --mertdir=/home/ubuntu/tools/moses/mert --predictable-seed
+nohup $SCRIPTS_ROOTDIR/training/mert-moses.pl data/Tune/Tune_data.mt04.50.harmonized.ar data/Tune/Tune_data.mt04.50.harmonized.en /home/ubuntu/tools/moses/bin/moses work/model/moses.ini --working-dir /home/ubuntu/workspace/mt-arabic-english-harmonizer/SMT/Improved/work/tuning/mert --rootdir $SCRIPTS_ROOTDIR --decoder-flags "-v 0" --mertdir=/home/ubuntu/tools/moses/mert --predictable-seed &> tuner.output &
 $SCRIPTS_ROOTDIR/scripts/reuse-weights.perl work/tuning/mert/moses.ini < work/model/moses.ini > work/tuning/moses-tuned.ini
 ```
 
