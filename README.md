@@ -98,9 +98,9 @@ To train the Harmonizer, we do the following:
 
 1. Analyze the Arabic side of the training corpus and annotate it with lemmas and morphological features
 2. Train a factored phrase table that maps lemmas+features to English words
-3. Extract features where same lemma maps to same English form (Class 1)
-4. Extract features where same lemma maps to different English forms (Class 2)
-5. Train an SVM model using data from step 3 and step 4
+3. Extract features where same lemma maps to same English form (Label "collapsible")
+4. Extract features where same lemma maps to different English forms (Label "non-collapsible")
+5. Train a binary classifier data from step 3 and step 4
 
 The following sequence of commands perform the steps above, we are using the same parallal corpus and English LM to train our harmonizer, but a different data set can be also used to train the harmonizer:
 ```
@@ -131,6 +131,7 @@ mkdir data/Harmonizer
 python cluster-annotated-table.py work/model/phrase-table.1,2-0.gz > data/Harmonizer/harmonizer_training_data.csv
 python train_harmonizer.py data/Harmonizer/harmonizer_training_data.csv true
 ```
+*Note:* In my case, the annotated corpus yieleded 34634 total entries. 5322 labeled collapsible and 29312 non-collapsible (almost a ratio of 1 positive to 5 negative)
 
 **1) Using the Harmonizer to improve our data**
 _________________________________________________
