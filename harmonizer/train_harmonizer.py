@@ -76,6 +76,8 @@ if __name__ == '__main__':
             feature_val = fields[i].strip()
             feature_vectors_names.append(feature_val)
             feature_vectors.append(int(features_keys[feature_val]))
+        
+	print "Training %s" % feature_vectors
 
         features.append(np.array(feature_vectors))
         labels.append(label)

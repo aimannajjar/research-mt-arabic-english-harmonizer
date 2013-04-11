@@ -126,7 +126,7 @@ RUN_TOKAN = YES
 #
 # Valid choices:  Buckwalter | BW | UTF8 | UTF-8 
 
-INPUT_ENCODING = UTF8
+INPUT_ENCODING = BW
 
 
 # Should MADA perform punctuation AND number separatation (placing 
