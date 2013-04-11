@@ -1,6 +1,7 @@
 # Improved Statistical Machine Trasnlation by Harmonizing Source and Target Text Before Training and Testing #
 
-The purpose of this document is to illustrate how to replicate the experiment that I have made and which I was able to improve the BLEU score of a Arabic-English baseline SMT
+The purpose of this document is to illustrate how to replicate the experiment that I have made and which I was able to improve the BLEU score of a Arabic-English baseline SMT from 0.3104 to 0.3321.
+
 
 Environment & Data
 -------------------
@@ -214,8 +215,34 @@ $SCRIPTS_ROOTDIR/training/filter-model-given-input.pl work/evaluation/filtered w
 $SCRIPTS_ROOTDIR/wrap-xml.perl data/Test/Test_data.mt05.ref.ar.xml en my-system-name < work/evaluation/Eval.tuned-filtered.output > work/evaluation/Eval.tuned-filtered.output.sgm
 $SCRIPTS_ROOTDIR/mteval-v11b.pl -s data/Test/Test_data.mt05.src.ar.xml -r data/Test/Test_data.mt05.ref.en.xml -t work/evaluation/Eval.tuned-filtered.output.sgm –c
 
+MT evaluation scorer began on 2013 Apr 11 at 19:56:13
+command line:  /home/ubuntu/tools/moses/scripts/mteval-v11b.pl -s data/Test/Test_data.mt05.src.ar.xml -r data/Test/Test_data.mt05.ref.en.xml -t work/evaluation/Eval.tuned-filtered.output.sgm –c
+  Evaluation of Arabic-to-English translation using:
+    src set "mt05_arabic_evlset_v0" (4 docs, 48 segs)
+    ref set "mt05_arabic_evlset_v0-ref" (4 refs)
+    tst set "mt05_arabic_evlset_v0" (1 systems)
 
-PUT RESULTS HERE
+NIST score = 6.5534  BLEU score = 0.3321 for system "ahd"
+
+# ------------------------------------------------------------------------
+
+Individual N-gram scoring
+        1-gram   2-gram   3-gram   4-gram   5-gram   6-gram   7-gram   8-gram   9-gram
+        ------   ------   ------   ------   ------   ------   ------   ------   ------
+ NIST:  5.1455   1.0917   0.2286   0.0629   0.0247   0.0109   0.0071   0.0036   0.0031  "ahd"
+
+ BLEU:  0.7318   0.4258   0.2744   0.1713   0.1023   0.0620   0.0381   0.0219   0.0157  "ahd"
+
+# ------------------------------------------------------------------------
+Cumulative N-gram scoring
+        1-gram   2-gram   3-gram   4-gram   5-gram   6-gram   7-gram   8-gram   9-gram
+        ------   ------   ------   ------   ------   ------   ------   ------   ------
+ NIST:  5.1455   6.2373   6.4658   6.5287   6.5534   6.5643   6.5714   6.5750   6.5781  "ahd"
+
+ BLEU:  0.6986   0.5329   0.4206   0.3321   0.2600   0.2031   0.1589   0.1233   0.0976  "ahd"
+MT evaluation scorer ended on 2013 Apr 11 at 19:56:14
+
+
 
 ```
 
