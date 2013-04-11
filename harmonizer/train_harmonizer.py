@@ -87,8 +87,8 @@ if __name__ == '__main__':
         print "Training with Lemmas..."
     else:
         print "Training without Lemmas..."
-    # clf = svm.SVC()
-    clf = LinearSVC()
+    clf = svm.SVC()
+    #clf = LinearSVC()
     clf.fit(X,y)
 
     model = { "features_dict": features_keys, "classifier":clf}
