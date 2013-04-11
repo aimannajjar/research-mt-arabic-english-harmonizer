@@ -50,10 +50,11 @@ $SCRIPTS_ROOTDIR/scripts/reuse-weights.perl work/tuning/mert/moses.ini < work/mo
 
 **Evaluation:**
 ________________
+To evaluate the SMT, run the following:
 ```
 $SCRIPTS_ROOTDIR/training/filter-model-given-input.pl work/evaluation/filtered work/tuning/moses-tuned.ini data/Test/Test_data.mt05.src.ar
 /home/ubuntu/tools/moses/bin/moses -config work/evaluation/filtered/moses.ini -input-file data/Test/Test_data.mt05.src.ar 1> work/evaluation/Eval.filtered.output 2> work/evaluation/filtered.decode.out &
-
+/home/ubuntu/tools/moses/bin/moses -config work/evaluation/filtered/moses.ini -input-file data/Test/Test_data.mt05.src.ar 1> work/evaluation/Eval.tuned-filtered.output 2> work/evaluation/tuned-filtered.decode.out
 ```
 
 perl $MADAHOME/MADA+TOKAN.pl config=conf/template.madaconfig file=data/Train/Train_data.clean.ar TOKAN_SCHEME="SCHEME=ATP MARKNOANALYSIS" 
