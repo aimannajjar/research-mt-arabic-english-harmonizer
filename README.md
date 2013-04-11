@@ -1,3 +1,5 @@
+# Improved Statistical Machine Trasnlation by Harmonizing Source and Target Text Before Training and Testing #
+
 The purpose of this document is to illustrate how to replicate the experiment that I have made and which I was able to improve the BLEU score of a Arabic-English baseline SMT
 
 Environment & Data
@@ -225,6 +227,34 @@ Other Experiments Results:
 
 For reference, here are the results of other experiments that I did along with their stats:
 ```
+## Baseline ##
+MT evaluation scorer began on 2013 Apr 7 at 22:00:24
+command line:  /Users/aiman/tools/mosesdecoder/scripts/generic/mteval-v11b.pl -s data/Test/Test_data.mt05.src.ar.xml -r data/Test/Test_data.mt05.ref.en.xml -t work/evaluation/Eval.filtered.output.sgm –c
+  Evaluation of Arabic-to-English translation using:
+    src set "mt05_arabic_evlset_v0" (4 docs, 48 segs)
+    ref set "mt05_arabic_evlset_v0-ref" (4 refs)
+    tst set "mt05_arabic_evlset_v0" (1 systems)
+
+NIST score = 6.3133  BLEU score = 0.3124 for system "ahd"
+
+# ------------------------------------------------------------------------
+
+Individual N-gram scoring
+        1-gram   2-gram   3-gram   4-gram   5-gram   6-gram   7-gram   8-gram   9-gram
+        ------   ------   ------   ------   ------   ------   ------   ------   ------
+ NIST:  5.0049   1.0157   0.2046   0.0570   0.0311   0.0108   0.0058   0.0022   0.0000  "ahd"
+
+ BLEU:  0.7170   0.3981   0.2510   0.1582   0.0933   0.0519   0.0323   0.0169   0.0052  "ahd"
+
+# ------------------------------------------------------------------------
+Cumulative N-gram scoring
+        1-gram   2-gram   3-gram   4-gram   5-gram   6-gram   7-gram   8-gram   9-gram
+        ------   ------   ------   ------   ------   ------   ------   ------   ------
+ NIST:  5.0049   6.0206   6.2252   6.2822   6.3133   6.3241   6.3299   6.3321   6.3321  "ahd"
+
+ BLEU:  0.6866   0.5116   0.3977   0.3124   0.2432   0.1866   0.1444   0.1098   0.0779  "ahd"
+MT evaluation scorer ended on 2013 Apr 7 at 22:00:25
+
 ## Attempt 1: SVM Harmonizer Trained with 7000 Sentences ##
     - Yields dataset size: 15402 entry
     - 1972 of which belongs to class 1
