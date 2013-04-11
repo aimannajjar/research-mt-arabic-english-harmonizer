@@ -101,9 +101,8 @@ To train the Harmonizer, we do the following:
 4. Extract features where same lemma maps to different English forms (Class 2)
 5. Train an SVM model using data from step 3 and step 4
 
-
-
-
+The following sequence of commands perform the steps above, we are using the same paralal corpus and English LM to train our harmonizer, but a different data set can be also used to train the harmonizer
+```
 perl $MADAHOME/MADA+TOKAN.pl config=conf/template.madaconfig file=data/Train/Train_data.clean.ar TOKAN_SCHEME="SCHEME=ATP MARKNOANALYSIS" 
 
 ngram-count -order 3 -interpolate -kndiscount -unk -text data/LM/LM_data+Train_data.en -lm work/LM/LM_data+Train_data.en.lm
@@ -111,14 +110,6 @@ ngram-count -order 3 -interpolate -kndiscount -unk -text data/LM/LM_data+Train_d
 python harmonizer/factorize-corpus.py data/Train/Train_data.clean.ar.bw.mada  > data/Train/Train_data.clean.factored.ar
 
 cp data/Train/Train_data.clean.en data/Train/Train_data.clean.factored.en
-
-# Cleans up residue from a previous training (if any)
-rm -rfv work && mkdir -p work/LM && cp LM_data+Train_data.en.lm work/LM/ && rm -f data/Train/Train_data_factored.0-0.ar && rm -f data/Train/Train_data_factored.1-0.ar && rm -f data/Train/Train_data_factored.0-0.en && rm -f data/Train/Train_data_factored.1-0.en
-
-
-head -n 34000 data/Train/Train_data.clean.factored.ar > data/Train/Train_data.clean.factored.small.ar
-head -n 34000 data/Train/Train_data.clean.factored.en > data/Train/Train_data.clean.factored.small.en
-
 
 $SCRIPTS_ROOTDIR/training/train-model.perl  -external-bin-dir /Users/aiman/tools/bin \
                                             -root-dir /Users/aiman/Development/mt-project/work \
@@ -132,6 +123,7 @@ $SCRIPTS_ROOTDIR/training/train-model.perl  -external-bin-dir /Users/aiman/tools
 python harmonizer/cluster-annotated-table.py work/model/phrase-table.1,2-0.gz > harmonizer_training_data.csv
 
 python harmonizer/train_harmonizer.py harmonizer_training_data.csv #### Saves the model as harmonizer_mode.pkl
+```
 
 ########### TRAINING & EVALUATING THE BASELINE SYSTEM ############
 Trained with 34000 Sentences (cleaned)
