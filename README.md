@@ -109,10 +109,10 @@ cd harmonizer
 
 ## Analyze Arabic side of text
 # Make sure conf/template.madaconfig points to correct MADA installation directory
-perl $MADAHOME/MADA+TOKAN.pl config=conf/template.madaconfig file=data/Train/Train_data.clean.ar TOKAN_SCHEME="SCHEME=ATP MARKNOANALYSIS" 
+nohup perl $MADAHOME/MADA+TOKAN.pl config=conf/template.madaconfig file=data/Train/Train_data.clean.ar TOKAN_SCHEME="SCHEME=ATP MARKNOANALYSIS" &> mada.working.out &
 
 ## Create an annotated corpus 
-python harmonizer/factorize-corpus.py data/Train/Train_data.clean.ar.bw.mada > data/Train/Train_data.clean.factored.ar
+python factorize-corpus.py data/Train/Train_data.clean.ar.bw.mada > data/Train/Train_data.clean.factored.ar
 cp data/Train/Train_data.clean.en data/Train/Train_data.clean.factored.en
 
 mkdir -p work/LM
@@ -126,6 +126,7 @@ $SCRIPTS_ROOTDIR/training/train-model.perl  -external-bin-dir /home/ubuntu/tools
                                             -lm 0:3:/home/ubuntu/workspace/mt-arabic-english-harmonizer/harmonizer/work/LM/LM_data+Train_data.en.lm \
                                             -alignment-factors 1-0 \
                                             -translation-factors 1,2-0
+                                            
 mkdir data/Harmonizer
 python cluster-annotated-table.py work/model/phrase-table.1,2-0.gz > data/Harmonizer/harmonizer_training_data.csv
 python train_harmonizer.py data/Harmonizer/harmonizer_training_data.csv true
