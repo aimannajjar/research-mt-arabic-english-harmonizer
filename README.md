@@ -40,7 +40,7 @@ $SCRIPTS_ROOTDIR/training/train-model.perl  -external-bin-dir /home/ubuntu/tools
 
 mkdir -p work/tuning
 $SCRIPTS_ROOTDIR/training/mert-moses.pl data/Tune/Tune_data.mt04.50.ar data/Tune/Tune_data.mt04.50.en /home/ubuntu/tools/moses/bin/moses work/model/moses.ini --working-dir /home/ubuntu/workspace/mt-arabic-english-harmonizer/SMT/Baseline/work/tuning/mert --rootdir $SCRIPTS_ROOTDIR --decoder-flags "-v 0" --mertdir=/home/ubuntu/tools/moses/mert --predictable-seed
-
+$SCRIPTS_ROOTDIR/scripts/reuse-weights.perl work/tuning/mert/moses.ini < work/model/moses.ini > work/tuning/moses-tuned.ini
 ```
 **Notes:**
 
@@ -48,9 +48,11 @@ $SCRIPTS_ROOTDIR/training/mert-moses.pl data/Tune/Tune_data.mt04.50.ar data/Tune
 2. LM model must be absolute path
 
 
-**Evaluation**
-Starting from project root directory, run the following:
+**Evaluation:**
+________________
 ```
+$SCRIPTS_ROOTDIR/training/filter-model-given-input.pl work/evaluation/filtered work/tuning/moses-tuned.ini data/Test/Test_data.mt05.src.ar
+/home/ubuntu/tools/moses/bin/moses -config work/evaluation/filtered/moses.ini -input-file data/Test/Test_data.mt05.src.ar 1> work/evaluation/Eval.filtered.output 2> work/evaluation/filtered.decode.out &
 
 ```
 
