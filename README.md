@@ -53,9 +53,39 @@ ________________
 To evaluate the SMT, run the following:
 ```
 $SCRIPTS_ROOTDIR/training/filter-model-given-input.pl work/evaluation/filtered work/tuning/moses-tuned.ini data/Test/Test_data.mt05.src.ar
-/home/ubuntu/tools/moses/bin/moses -config work/evaluation/filtered/moses.ini -input-file data/Test/Test_data.mt05.src.ar 1> work/evaluation/Eval.filtered.output 2> work/evaluation/filtered.decode.out &
-/home/ubuntu/tools/moses/bin/moses -config work/evaluation/filtered/moses.ini -input-file data/Test/Test_data.mt05.src.ar 1> work/evaluation/Eval.tuned-filtered.output 2> work/evaluation/tuned-filtered.decode.out
+/home/ubuntu/tools/moses/bin/moses -config work/evaluation/filtered/moses.ini -input-file data/Test/Test_data.mt05.src.ar 1> work/evaluation/Eval.tuned-filtered.output
+$SCRIPTS_ROOTDIR/wrap-xml.perl data/Test/Test_data.mt05.ref.ar.xml en my-system-name < work/evaluation/Eval.tuned-filtered.output > work/evaluation/Eval.tuned-filtered.output.sgm
+$SCRIPTS_ROOTDIR//mteval-v11b.pl -s data/Test/Test_data.mt05.src.ar.xml -r data/Test/Test_data.mt05.ref.en.xml -t work/evaluation/Eval.tuned-filtered.output.sgm –c
 ```
+
+Last command should output the BLEU and NIST scores for the Baseline. In my case the output was (BLEU: 0.3104, NIST: 6.5153)
+```
+  Evaluation of Arabic-to-English translation using:
+    src set "mt05_arabic_evlset_v0" (4 docs, 48 segs)
+    ref set "mt05_arabic_evlset_v0-ref" (4 refs)
+    tst set "mt05_arabic_evlset_v0" (1 systems)
+
+NIST score = 6.5153  BLEU score = 0.3104 for system "ahd"
+
+# ------------------------------------------------------------------------
+
+Individual N-gram scoring
+        1-gram   2-gram   3-gram   4-gram   5-gram   6-gram   7-gram   8-gram   9-gram
+        ------   ------   ------   ------   ------   ------   ------   ------   ------
+ NIST:  5.1632   1.0553   0.2081   0.0583   0.0305   0.0077   0.0032   0.0018   0.0006  "ahd"
+
+ BLEU:  0.7229   0.3936   0.2421   0.1484   0.0836   0.0480   0.0270   0.0155   0.0122  "ahd"
+
+# ------------------------------------------------------------------------
+Cumulative N-gram scoring
+        1-gram   2-gram   3-gram   4-gram   5-gram   6-gram   7-gram   8-gram   9-gram
+        ------   ------   ------   ------   ------   ------   ------   ------   ------
+ NIST:  5.1632   6.2185   6.4265   6.4848   6.5153   6.5230   6.5262   6.5280   6.5286  "ahd"
+
+ BLEU:  0.7056   0.5207   0.4001   0.3104   0.2376   0.1813   0.1376   0.1045   0.0821  "ahd"
+MT evaluation scorer ended on 2013 Apr 11 at 00:25:04
+```
+
 
 perl $MADAHOME/MADA+TOKAN.pl config=conf/template.madaconfig file=data/Train/Train_data.clean.ar TOKAN_SCHEME="SCHEME=ATP MARKNOANALYSIS" 
 
