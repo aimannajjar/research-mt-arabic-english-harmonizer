@@ -133,7 +133,7 @@ python train_harmonizer.py data/Harmonizer/harmonizer_training_data.csv true
 ```
 *Note:* In my case, the annotated corpus yieleded 34634 total entries. 5322 labeled collapsible and 29312 non-collapsible (almost a ratio of 1 positive to 5 negative)
 
-**1) Using the Harmonizer to improve our data**
+**2) Using the Harmonizer to improve our data**
 _________________________________________________
 Now that we have a Harmonizer ready to be used. We will use it to harmonize our training data and tuning data to build an improved SMT. **Note:** the harmonizer takes an annotated corpus text as input and produces the harmonized data. We will use the same annotated corpus text we used when trained our harmonizer to save time
 ```
@@ -145,8 +145,44 @@ cp harmonizer/data/Train/Train_data.clean.factored.ar harmonizer/data/Train/Trai
 # Use the harmonizer to create a harmonized corpus from the annotated one
 python harmonizer/harmonizer.py harmonizer/harmonizer_model.pkl SMT/Improved/data/Train/Train_data.clean.factored.ar true > SMT/Improved/data/Train/Train_data.clean.harmonized.ar
 cp SMT/Improved/data/Train/Train_data.clean.en SMT/Improved/data/Train/Train_data.clean.harmonized.en 
+```
 
-# Build SMT
+Now we have a harmonized parallel corpus in the following paths:
+ > SMT/Improved/data/Train/Train_data.clean.harmonized.ar
+ > SMT/Improved/data/Train/Train_data.clean.harmonized.en 
+
+Let's repeat the same steps to harmonize our tuning data:
+```
+Start at project root dir
+
+# Harmonize tuning data
+perl $MADAHOME/MADA+TOKAN.pl config=harmonizer/conf/template.madaconfig file=SMT/Improved/data/Tune/Tune_data.mt04.50.ar TOKAN_SCHEME="SCHEME=ATP MARKNOANALYSIS" 
+
+# Create an annotated tuning data 
+python harmonizer/factorize-corpus.py SMT/Improved/data/Tune/Tune_data.mt04.50.ar.bw.mada > SMT/Improved/data/Tune/Tune_data.mt04.50.factored.ar
+
+# Use harmonizer on tuning data
+python harmonizer/harmonizer.py harmonizer/harmonizer_model.pkl SMT/Improved/data/Tune/Tune_data.mt04.50.factored.ar true > SMT/Improved/data/Tune/Tune_data.mt04.50.harmonized.ar
+cp SMT/Improved/data/Tune/Tune_data.mt04.50.en SMT/Improved/data/Tune/Tune_data.mt04.50.harmonized.en
+```
+
+And again for the test data:
+```
+Start at project root dir
+
+# Harmonize test data
+perl $MADAHOME/MADA+TOKAN.pl config=harmonizer/conf/template.madaconfig file=SMT/Improved/data/Test/Test_data.mt05.src.ar TOKAN_SCHEME="SCHEME=ATP MARKNOANALYSIS" 
+
+python harmonizer/factorize-corpus.py SMT/Improved/data/Test/Test_data.mt05.src.ar.bw.mada  > SMT/Improved/data/Test/Test_data.mt05.src.factored.ar
+python harmonizer/harmonizer.py harmonizer/harmonizer_model.pkl SMT/Improved/data/Test/Test_data.mt05.src.factored.ar > SMT/Improved/data/Test/Test_data.mt05.src.harmonized.ar
+cp SMT/Improved/data/Test/Test_data.mt05.src.en SMT/Improved/data/Test/Test_data.mt05.src.harmonized.en
+```
+
+**Building Improved SMT & Evaluation:**
+________________________________________
+Now we have improved data, we can use it to build and evaluate our SMT the same we way we did for our Baseline
+
+```
 cd SMT/Improved
 mkdir -p work/LM
 cp ../../LM_data+Train_data.en.lm work/LM/
@@ -158,17 +194,6 @@ $SCRIPTS_ROOTDIR/training/train-model.perl  -external-bin-dir /home/ubuntu/tools
                                             -lm 0:3:/home/ubuntu/workspace/mt-arabic-english-harmonizer/SMT/Improved/work/LM/LM_data+Train_data.en.lm
 
 
-# Harmonize tuning data
-cd ../../
-perl $MADAHOME/MADA+TOKAN.pl config=harmonizer/conf/template.madaconfig file=SMT/Improved/data/Tune/Tune_data.mt04.50.ar TOKAN_SCHEME="SCHEME=ATP MARKNOANALYSIS" 
-
-# Create an annotated tuning data 
-python harmonizer/factorize-corpus.py SMT/Improved/data/Tune/Tune_data.mt04.50.ar.bw.mada > SMT/Improved/data/Tune/Tune_data.mt04.50.factored.ar
-
-# Use harmonizer on tuning data
-python harmonizer/harmonizer.py harmonizer/harmonizer_model.pkl SMT/Improved/data/Tune/Tune_data.mt04.50.factored.ar true > SMT/Improved/data/Tune/Tune_data.mt04.50.harmonized.ar
-cp SMT/Improved/data/Tune/Tune_data.mt04.50.en SMT/Improved/data/Tune/Tune_data.mt04.50.harmonized.en
-
 
 # Tune our SMT
 cd SMT/Improved
@@ -176,18 +201,11 @@ mkdir -p work/tuning
 $SCRIPTS_ROOTDIR/training/mert-moses.pl data/Tune/Tune_data.mt04.50.harmonized.ar data/Tune/Tune_data.mt04.50.harmonized.en /home/ubuntu/tools/moses/bin/moses work/model/moses.ini --working-dir /home/ubuntu/workspace/mt-arabic-english-harmonizer/SMT/Improved/work/tuning/mert --rootdir $SCRIPTS_ROOTDIR --decoder-flags "-v 0" --mertdir=/home/ubuntu/tools/moses/mert --predictable-seed
 $SCRIPTS_ROOTDIR/scripts/reuse-weights.perl work/tuning/mert/moses.ini < work/model/moses.ini > work/tuning/moses-tuned.ini
 ```
-Now we have an improved data. Let's evaluate, remember, we first need to harmonize test data to be consistent
+
+**Evaluation:**
+________________
 
 ```
-Start at project root dir
-
-# Harmonize test data
-perl $MADAHOME/MADA+TOKAN.pl config=harmonizer/conf/template.madaconfig file=SMT/Improved/data/Test/Test_data.mt05.src.ar TOKAN_SCHEME="SCHEME=ATP MARKNOANALYSIS" 
-
-python harmonizer/factorize-corpus.py SMT/Improved/data/Test/Test_data.mt05.src.ar.bw.mada  > SMT/Improved/data/Test/Test_data.mt05.src.factored.ar
-python harmonizer/harmonizer.py harmonizer/harmonizer_model.pkl SMT/Improved/data/Test/Test_data.mt05.src.factored.ar > SMT/Improved/data/Test/Test_data.mt05.src.harmonized.ar
-cp SMT/Improved/data/Test/Test_data.mt05.src.en SMT/Improved/data/Test/Test_data.mt05.src.harmonized.en
-
 # Evaluate
 cd SMT/Improved
 $SCRIPTS_ROOTDIR/training/filter-model-given-input.pl work/evaluation/filtered work/tuning/moses-tuned.ini data/Test/Test_data.mt05.src.harmonized.ar
@@ -202,6 +220,9 @@ PUT RESULTS HERE
 
 
 
+
+Other Experiments Results:
+--------------------------
 
 For reference, here are the results of other experiments that I did along with their stats:
 ```
