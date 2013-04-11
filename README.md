@@ -174,8 +174,7 @@ Start at project root dir
 perl $MADAHOME/MADA+TOKAN.pl config=harmonizer/conf/template.madaconfig file=SMT/Improved/data/Test/Test_data.mt05.src.ar TOKAN_SCHEME="SCHEME=ATP MARKNOANALYSIS" 
 
 python harmonizer/factorize-corpus.py SMT/Improved/data/Test/Test_data.mt05.src.ar.bw.mada  > SMT/Improved/data/Test/Test_data.mt05.src.factored.ar
-python harmonizer/harmonizer.py harmonizer/harmonizer_model.pkl SMT/Improved/data/Test/Test_data.mt05.src.factored.ar > SMT/Improved/data/Test/Test_data.mt05.src.harmonized.ar
-cp SMT/Improved/data/Test/Test_data.mt05.src.en SMT/Improved/data/Test/Test_data.mt05.src.harmonized.en
+python harmonizer/harmonizer.py harmonizer/harmonizer_model.pkl SMT/Improved/data/Test/Test_data.mt05.src.factored.ar true > SMT/Improved/data/Test/Test_data.mt05.src.harmonized.ar
 ```
 
 **Building Improved SMT & Evaluation:**
