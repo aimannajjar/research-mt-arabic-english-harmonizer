@@ -393,6 +393,39 @@ MT evaluation scorer ended on 2013 Apr 7 at 22:00:25
         MT evaluation scorer ended on 2013 Apr 8 at 11:41:04
 
 
+
+## Baseline with Lemma Aligned Phrase Table ##
+
+To verify that the increased BLEU score was not just a result of using lemmas for word alignment, I tried a Baseline system in which alignment was done on lemmas but translation is done on surface form. The BLEU score for that system was:
+
+MT evaluation scorer began on 2013 Apr 22 at 05:31:05
+command line:  /home/ubuntu/tools/moses/scripts/mteval-v11b.pl -s data/Test/Test_data.mt05.src.ar.xml -r data/Test/Test_data.mt05.ref.en.xml -t work/evaluation/Eval.tuned-filtered.output.sgm –c
+  Evaluation of Arabic-to-English translation using:
+    src set "mt05_arabic_evlset_v0" (4 docs, 48 segs)
+    ref set "mt05_arabic_evlset_v0-ref" (4 refs)
+    tst set "mt05_arabic_evlset_v0" (1 systems)
+
+NIST score = 6.2619  BLEU score = 0.2928 for system "ahd"
+
+# ------------------------------------------------------------------------
+
+Individual N-gram scoring
+        1-gram   2-gram   3-gram   4-gram   5-gram   6-gram   7-gram   8-gram   9-gram
+        ------   ------   ------   ------   ------   ------   ------   ------   ------
+ NIST:  5.0390   0.9863   0.1669   0.0466   0.0232   0.0099   0.0065   0.0025   0.0015  "ahd"
+
+ BLEU:  0.7181   0.3896   0.2318   0.1370   0.0805   0.0465   0.0286   0.0140   0.0084  "ahd"
+
+# ------------------------------------------------------------------------
+Cumulative N-gram scoring
+        1-gram   2-gram   3-gram   4-gram   5-gram   6-gram   7-gram   8-gram   9-gram
+        ------   ------   ------   ------   ------   ------   ------   ------   ------
+ NIST:  5.0390   6.0253   6.1922   6.2387   6.2619   6.2718   6.2783   6.2809   6.2824  "ahd"
+
+ BLEU:  0.6850   0.5045   0.3832   0.2928   0.2241   0.1711   0.1316   0.0988   0.0747  "ahd"
+MT evaluation scorer ended on 2013 Apr 22 at 05:31:06
+
+
 ```
 
         
