@@ -8,6 +8,7 @@ public class ArCorpAnnot{
 		
 		String arCorp = args[0], factored_form = "", surf_form = "";
 		Scanner input = new Scanner(new File(arCorp));
+		FileWriter lemma_file = new FileWriter("LEMMA_SUMMARY.txt");
 
 		while(input.hasNextLine()) {
 
@@ -31,15 +32,18 @@ public class ArCorpAnnot{
 				String feat_vec = extract_feats(anal_vec);
 				factored_form += surf_form + "|" + lemma.replaceAll("\\|", "P")
 												+ "|" + feat_vec + " ";
+				lemma_file.write(lemma);
+				lemma_file.write("\n");
 				continue;
 
 			} if(noAnal(line)) {
 
-				factored_form += surf_form + "|" + surf_form + "|-1,-1,-1,-1,-1,-1,-1,-1,-1,-1 ";
+				factored_form += surf_form + "|" + surf_form + "|0,0,0,0,0,0,0,0,0,0 ";
 				continue;
 			}
 		}
 		System.out.println(factored_form.substring(0, factored_form.length() - 1));
+		lemma_file.close();
 	}
 
 	public static boolean isVec(String line) { return line.startsWith("*"); }
@@ -58,12 +62,12 @@ public class ArCorpAnnot{
 		for (int i = 10 ; i < 18 ; i++) {
 			col_idx = anal_vec[i].indexOf(':');
 			feat_val = anal_vec[i].substring(col_idx + 1);
-			feat_vec += feat_val.equals("na") ? "-1,"
+			feat_vec += feat_val.equals("na") ? "0,"
 							: "" + (int)feat_val.charAt(0) + ",";
 		}
 		col_idx = anal_vec[rat_idx].indexOf(':');
 		feat_val = anal_vec[rat_idx].substring(col_idx + 1);
-		feat_vec += feat_val.equals("na") ? "-1"
+		feat_vec += feat_val.equals("na") ? "0"
 						: "" + (int)feat_val.charAt(0);
 		return feat_vec;
 	}
