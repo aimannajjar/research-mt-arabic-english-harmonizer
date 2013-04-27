@@ -395,6 +395,34 @@ MT evaluation scorer ended on 2013 Apr 7 at 22:00:25
          BLEU:  0.7124   0.5242   0.3994   0.3100   0.2385   0.1796   0.1337   0.0973   0.0682  "ahd"
         MT evaluation scorer ended on 2013 Apr 8 at 11:41:04
 
+## Improved with Normalized Lemmas and Removed Diacritics ##
+
+MT evaluation scorer began on 2013 Apr 27 at 22:11:10
+command line:  /home/ubuntu/tools/moses/scripts/mteval-v11b.pl -s data/Test/Test_data.mt05.src.ar.xml -r data/Test/Test_data.mt05.ref.en.xml -t work/evaluation/Eval.tuned-filtered.output.sgm –c
+  Evaluation of Arabic-to-English translation using:
+    src set "mt05_arabic_evlset_v0" (4 docs, 48 segs)
+    ref set "mt05_arabic_evlset_v0-ref" (4 refs)
+    tst set "mt05_arabic_evlset_v0" (1 systems)
+
+NIST score = 6.4830  BLEU score = 0.3090 for system "ahd"
+
+# ------------------------------------------------------------------------
+
+Individual N-gram scoring
+        1-gram   2-gram   3-gram   4-gram   5-gram   6-gram   7-gram   8-gram   9-gram
+        ------   ------   ------   ------   ------   ------   ------   ------   ------
+ NIST:  5.1916   1.0277   0.1954   0.0451   0.0232   0.0112   0.0079   0.0056   0.0036  "ahd"
+
+ BLEU:  0.7191   0.3906   0.2410   0.1439   0.0888   0.0573   0.0414   0.0289   0.0232  "ahd"
+
+# ------------------------------------------------------------------------
+Cumulative N-gram scoring
+        1-gram   2-gram   3-gram   4-gram   5-gram   6-gram   7-gram   8-gram   9-gram
+        ------   ------   ------   ------   ------   ------   ------   ------   ------
+ NIST:  5.1916   6.2194   6.4147   6.4598   6.4830   6.4942   6.5021   6.5077   6.5113  "ahd"
+
+ BLEU:  0.7071   0.5212   0.4008   0.3090   0.2400   0.1885   0.1515   0.1229   0.1019  "ahd"
+MT evaluation scorer ended on 2013 Apr 27 at 22:11:10
 
 
 ## Baseline with Lemma Aligned Phrase Table ##
