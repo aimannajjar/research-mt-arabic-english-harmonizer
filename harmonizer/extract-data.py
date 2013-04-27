@@ -3,10 +3,10 @@ Created on Mar 21, 2013
 
 @author: aiman.najjar
 
-This script scans a factored phrase table and cluster and generate CSV training data
-That can be used to train a "harmoinizer" classifier 
+This script scans a factored phrase table and generate CSV training data 
+that can be used to train a "harmoinizer" classifier 
 
-USAGE: python cluster-annotated-table.py phrase-table
+USAGE: python extract-data.py phrase-table
 
 
 '''
@@ -20,15 +20,18 @@ if __name__ == '__main__':
 
     logging.basicConfig(level=logging.ERROR)
 
+    # Validate arguments
     arglist = sys.argv 
     if len(arglist) < 2:
-        print "Usage: phrase-table"
+        print "Usage: extract-data.py phrase-table"
         sys.exit(1) #exit interpreter
 
     phrase_table_filename = arglist[1]
 
+    # Load phrase table in memory
+    # We will load only interesting entries, entries that has
+    # multi-token phrases in the source side will be skipped
     phrase_table = dict()
-
     for line in gzip.open(phrase_table_filename, 'rb'):
         
         (source,target, score1, score2, score3) = line.split("|||")
@@ -46,6 +49,7 @@ if __name__ == '__main__':
 
         (lemma, features_vector) = source.split("|")
         (pos, features) = features_vector.split(",")
+
         phrase_table[target].append( (lemma,pos,features) )
 
 

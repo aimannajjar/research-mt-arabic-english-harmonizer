@@ -3,9 +3,9 @@ Created on Mar 21, 2013
 
 @author: aiman.najjar
 
-This script creates a factored training corpus out out of a MADA analysis file.
+This script creates an annotated training corpus out out of a MADA analysis file.
 
-USAGE: factorize-corpus.py mada_analysis_file.bw.mada
+USAGE: annotate-corpus.py mada_analysis_file.bw.mada
 
 
 This will outout will be printed on stdout, you can use direction to store it in a file
@@ -48,7 +48,7 @@ if __name__ == '__main__':
 
     arglist = sys.argv 
     if len(arglist) < 2:
-        print "Usage: python factorize-corpus.py mada_analysis_file"
+        print "Usage: python annotate-corpus.py mada_analysis_file"
         sys.exit(1) #exit interpreter
 
     mada_filename = arglist[1]
