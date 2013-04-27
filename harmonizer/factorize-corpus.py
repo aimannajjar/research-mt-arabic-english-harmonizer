@@ -41,6 +41,24 @@ Yaa' and Alif maqsoora => y
 '''
 import logging
 import sys
+
+def normalize_word(word):
+    # Normalizes Alif forms and removes diacritics
+    return word.strip().replace("|", "A")
+                    .replace(">", "A")
+                    .replace("&", "A")
+                    .replace("<", "A")
+                    .replace("Y", "y")
+                    .replace("F", "")
+                    .replace("N", "")
+                    .replace("K", "")
+                    .replace("a", "")
+                    .replace("u", "")
+                    .replace("i", "")
+                    .replace("~", "")
+                    .replace("o", "")
+                    .replace("{", "")
+
 if __name__ == '__main__':
 
     logging.basicConfig(level=logging.ERROR)
@@ -78,7 +96,7 @@ if __name__ == '__main__':
 
         elif line.startswith(";;WORD"):
             parts = line.partition(";;WORD ")
-            word = parts[2].strip().replace("|", "P")
+            word = normalize_word(parts[2])
 
         elif line.startswith("*"):
             analysis = line[1:]
@@ -96,7 +114,7 @@ if __name__ == '__main__':
                 val = part[part.index(":")+1:] .replace("|", "P")
 
                 if var == "lex":
-                    lemma = val
+                    lemma = normalize_word(val)
                 elif var.startswith("prc") or var == "enc0":
                     clitics += val + ","
                 elif var.startswith("pos"):
@@ -121,7 +139,7 @@ if __name__ == '__main__':
         
         
     # print last sentence analysis
-    print factored_sentence.strip() # we don't want newline here, hence we use write()
+    print factored_sentence.strip() 
 
 
 
