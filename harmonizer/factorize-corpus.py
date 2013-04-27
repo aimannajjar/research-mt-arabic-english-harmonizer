@@ -14,7 +14,7 @@ The output format will be as follows:
     * Each line represents a sentence
 
     * Each word will be represented with the following factors:
-        surface form|lemma|POS,FEATURE_VECTOR
+        surface form|lemma|POS,MORPH_FEATURES
 
     * FEATURE_VECTOR is simply a 18-char string representing the following features
         (in this order):
@@ -30,11 +30,8 @@ The output format will be as follows:
      - Each feature will have 2 characters in the string (single-char values will be padded with x)
           
 Example output of the word "yrfD":
-    yrfD|rafaD-u_1|verb,x3xixaxuxmxsnanana
+    yrfD|rafaD|verb,x3xixaxuxmxsnanana
 
-
-Alif forms  => A
-Yaa' and Alif maqsoora => y
 
 
 

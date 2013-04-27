@@ -1,3 +1,21 @@
+'''
+Created on Mar 21, 2013
+
+@author: aiman.najjar
+
+This script harmonizes an annotated corpus based on a harmonizer model
+The harmonizer model can be trained using train_harmonizer script
+
+USAGE: python harmonizer.py model-file annotated-corpus 
+
+The corpus must be annotated as such:
+Each line represents a sentence, words are spearated by spaces and each 
+word is represented in the following form:
+
+  surface form|lemma|pos,morphological_features
+
+
+'''
 
 import sys
 import re
@@ -10,32 +28,34 @@ SKIP_UNSEEN_LEMMAS = True
 
 def main(argv):  
 
-  arglist = sys.argv 
-  if len(arglist) < 3:
-      print "Usage: harmonizer.py harmonizer-model corpus [no-lemmas]"
-      sys.exit(1) #exit interpreter
 
-  no_lemmas = False
-  if len(arglist) > 3:
-    no_lemmas = True
+  # Validate and parse arguments
+  arglist = sys.argv 
+  if len(arglist) < 2:
+      print "Usage: harmonizer.py model-file annotated-corpus"
+      sys.exit(1) 
 
   harmonizer_model_filename = arglist[1]
   corpus_filename = arglist[2]
 
-
+  # Read model from disk
   with open(harmonizer_model_filename, 'rb') as fid:
       model = cPickle.load(fid)
 
   features_dict = model["features_dict"]
   classifier = model["classifier"]
-
+  no_lemmas = model["no_lemmas"]
   
+  # Iterate through sentences
   for line in open(corpus_filename, 'rb'):
 
-    harmonized_sentence = ""
-    words_in_sentence = line.split(" ")    
+    harmonized_sentence = "" 
 
+    # Iterate through words in sentence
+    words_in_sentence = line.split(" ")    
     for word in words_in_sentence:
+
+        
         (surface, lemma, features_vector) = word.split("|")
         (pos, features) = features_vector.split(",")
         features_array = re.findall('..', features)
