@@ -115,24 +115,24 @@ cd harmonizer
 nohup perl $MADAHOME/MADA+TOKAN.pl config=conf/template.madaconfig file=data/Train/Train_data.clean.ar TOKAN_SCHEME="SCHEME=ATP MARKNOANALYSIS" &> mada.working.out &
 
 ## Create an annotated corpus 
-python factorize-corpus.py data/Train/Train_data.clean.ar.bw.mada > data/Train/Train_data.clean.factored.ar
-cp data/Train/Train_data.clean.en data/Train/Train_data.clean.factored.en
+python annotate-corpus.py data/Train/Train_data.clean.ar.bw.mada > data/Train/Train_data.clean.annotated.ar
+cp data/Train/Train_data.clean.en data/Train/Train_data.clean.annotated.en
 
 mkdir -p work/LM
 cp ../LM_data+Train_data.en.lm work/LM/
 
-$SCRIPTS_ROOTDIR/training/train-model.perl  -external-bin-dir /home/ubuntu/tools/bin \
+nohup $SCRIPTS_ROOTDIR/training/train-model.perl  -external-bin-dir /home/ubuntu/tools/bin \
                                             -root-dir work \
-                                            -corpus data/Train/Train_data.clean.factored \
+                                            -corpus data/Train/Train_data.clean.annotated \
                                             -f ar -e en -alignment grow-diag-final-and \
                                             -reordering msd-bidirectional-fe \
                                             -lm 0:3:/home/ubuntu/workspace/mt-arabic-english-harmonizer/harmonizer/work/LM/LM_data+Train_data.en.lm \
                                             -alignment-factors 1-0 \
-                                            -translation-factors 1,2-0
+                                            -translation-factors 1,2-0 >& training.out &
                                             
 mkdir data/Harmonizer
-python cluster-annotated-table.py work/model/phrase-table.1,2-0.gz > data/Harmonizer/harmonizer_training_data.csv
-python train_harmonizer.py data/Harmonizer/harmonizer_training_data.csv true
+python extract-data.py work/model/phrase-table.1,2-0.gz > data/Harmonizer/harmonizer_training_data.csv
+python train_harmonizer.py data/Harmonizer/harmonizer_training_data.csv
 ```
 *Note:* In my case, the annotated corpus yieleded 34634 total entries. 5322 labeled collapsible and 29312 non-collapsible (almost a ratio of 1 positive to 5 negative)
 
@@ -146,7 +146,7 @@ Now that we have a Harmonizer ready to be used. We will use it to harmonize our 
 cp harmonizer/data/Train/Train_data.clean.factored.ar harmonizer/data/Train/Train_data.clean.factored.en SMT/Improved/data/Train/
 
 # Use the harmonizer to create a harmonized corpus from the annotated one
-python harmonizer/harmonizer.py harmonizer/harmonizer_model.pkl SMT/Improved/data/Train/Train_data.clean.factored.ar true > SMT/Improved/data/Train/Train_data.clean.harmonized.ar
+python harmonizer/harmonizer.py harmonizer/harmonizer_model.pkl SMT/Improved/data/Train/Train_data.clean.factored.ar > SMT/Improved/data/Train/Train_data.clean.harmonized.ar
 cp SMT/Improved/data/Train/Train_data.clean.en SMT/Improved/data/Train/Train_data.clean.harmonized.en 
 ```
 
@@ -165,7 +165,7 @@ perl $MADAHOME/MADA+TOKAN.pl config=harmonizer/conf/template.madaconfig file=SMT
 python harmonizer/factorize-corpus.py SMT/Improved/data/Tune/Tune_data.mt04.50.ar.bw.mada > SMT/Improved/data/Tune/Tune_data.mt04.50.factored.ar
 
 # Use harmonizer on tuning data
-python harmonizer/harmonizer.py harmonizer/harmonizer_model.pkl SMT/Improved/data/Tune/Tune_data.mt04.50.factored.ar true > SMT/Improved/data/Tune/Tune_data.mt04.50.harmonized.ar
+python harmonizer/harmonizer.py harmonizer/harmonizer_model.pkl SMT/Improved/data/Tune/Tune_data.mt04.50.factored.ar > SMT/Improved/data/Tune/Tune_data.mt04.50.harmonized.ar
 cp SMT/Improved/data/Tune/Tune_data.mt04.50.en SMT/Improved/data/Tune/Tune_data.mt04.50.harmonized.en
 ```
 
@@ -177,7 +177,7 @@ Start at project root dir
 perl $MADAHOME/MADA+TOKAN.pl config=harmonizer/conf/template.madaconfig file=SMT/Improved/data/Test/Test_data.mt05.src.ar TOKAN_SCHEME="SCHEME=ATP MARKNOANALYSIS" 
 
 python harmonizer/factorize-corpus.py SMT/Improved/data/Test/Test_data.mt05.src.ar.bw.mada  > SMT/Improved/data/Test/Test_data.mt05.src.factored.ar
-python harmonizer/harmonizer.py harmonizer/harmonizer_model.pkl SMT/Improved/data/Test/Test_data.mt05.src.factored.ar true > SMT/Improved/data/Test/Test_data.mt05.src.harmonized.ar
+python harmonizer/harmonizer.py harmonizer/harmonizer_model.pkl SMT/Improved/data/Test/Test_data.mt05.src.factored.ar > SMT/Improved/data/Test/Test_data.mt05.src.harmonized.ar
 ```
 
 **Building Improved SMT & Evaluation:**
