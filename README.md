@@ -143,7 +143,7 @@ Now that we have a Harmonizer ready to be used. We will use it to harmonize our 
 # Start at project root dir
 mkdir -p SMT/Improved/data/Train
 mkdir -p SMT/Improved/data/Tune
-
+mkdir -p SMT/Improved/data/Test
 
 # Copy the annotated corpus we created when we trained the harmonizer
 cp harmonizer/data/Train/Train_data.clean.annotated.ar harmonizer/data/Train/Train_data.clean.annotated.en SMT/Improved/data/Train/
@@ -161,6 +161,9 @@ Let's repeat the same steps to harmonize our tuning data:
 ```
 Start at project root dir
 
+# Copy original tuning data from Baseline
+cp -v SMT/Baseline/data/Tune/* SMT/Improved/data/Tune/
+
 # Harmonize tuning data
 perl $MADAHOME/MADA+TOKAN.pl config=harmonizer/conf/template.madaconfig file=SMT/Improved/data/Tune/Tune_data.mt04.50.ar TOKAN_SCHEME="SCHEME=ATP MARKNOANALYSIS" 
 
@@ -175,6 +178,9 @@ cp SMT/Improved/data/Tune/Tune_data.mt04.50.en SMT/Improved/data/Tune/Tune_data.
 And again for the test data:
 ```
 Start at project root dir
+
+# Copy original testing data from Baseline
+cp -v SMT/Baseline/data/Test/* SMT/Improved/data/Test/
 
 # Harmonize test data
 perl $MADAHOME/MADA+TOKAN.pl config=harmonizer/conf/template.madaconfig file=SMT/Improved/data/Test/Test_data.mt05.src.ar TOKAN_SCHEME="SCHEME=ATP MARKNOANALYSIS" 
