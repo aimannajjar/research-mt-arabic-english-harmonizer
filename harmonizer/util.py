@@ -10,7 +10,7 @@ def normalize_word(word):
                                     .replace(">", "A")
                                     .replace("&", "A")
                                     .replace("<", "A")
-                                    .replace("Y", "y")
+                                    .replace("Y", "y"))
                                     # .replace("F", "")
                                     # .replace("N", "")
                                     # .replace("K", "")
