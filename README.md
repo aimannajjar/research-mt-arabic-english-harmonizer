@@ -115,7 +115,7 @@ cd harmonizer
 nohup perl $MADAHOME/MADA+TOKAN.pl config=conf/template.madaconfig file=data/Train/Train_data.clean.ar TOKAN_SCHEME="SCHEME=ATP MARKNOANALYSIS" &> mada.working.out &
 
 ## Create an annotated corpus 
-python annotate-corpus.py data/Train/Train_data.clean.ar.bw.mada > data/Train/Train_data.clean.annotated.ar
+python annotate-corpus.py data/Train/Train_data.clean.ar.bw.mada -o data/Train/Train_data.clean.annotated.ar
 cp data/Train/Train_data.clean.en data/Train/Train_data.clean.annotated.en
 
 mkdir -p work/LM
@@ -132,7 +132,7 @@ nohup $SCRIPTS_ROOTDIR/training/train-model.perl  -external-bin-dir /home/ubuntu
                                             
 mkdir data/Harmonizer
 python extract-data.py work/model/phrase-table.1,2-0.gz > data/Harmonizer/harmonizer_training_data.csv
-python train_harmonizer.py data/Harmonizer/harmonizer_training_data.csv
+python train_harmonizer.py data/Harmonizer/harmonizer_training_data.csv -o harmonizer_model.pkl
 ```
 *Note:* In my case, the annotated corpus yieleded 34634 total entries. 5322 labeled collapsible and 29312 non-collapsible (almost a ratio of 1 positive to 5 negative)
 
@@ -149,7 +149,7 @@ mkdir -p SMT/Improved/data/Test
 cp harmonizer/data/Train/Train_data.clean.annotated.ar harmonizer/data/Train/Train_data.clean.annotated.en SMT/Improved/data/Train/
 
 # Use the harmonizer to create a harmonized corpus from the annotated one
-python harmonizer/harmonizer.py harmonizer/harmonizer_model.pkl SMT/Improved/data/Train/Train_data.clean.annotated.ar > SMT/Improved/data/Train/Train_data.clean.harmonized.ar
+python harmonizer/harmonizer.py harmonizer/harmonizer_model.pkl SMT/Improved/data/Train/Train_data.clean.annotated.ar -o SMT/Improved/data/Train/Train_data.clean.harmonized.ar
 cp SMT/Baseline/data/Train/Train_data.clean.en SMT/Improved/data/Train/Train_data.clean.harmonized.en 
 ```
 
@@ -168,10 +168,10 @@ cp -v SMT/Baseline/data/Tune/* SMT/Improved/data/Tune/
 perl $MADAHOME/MADA+TOKAN.pl config=harmonizer/conf/template.madaconfig file=SMT/Improved/data/Tune/Tune_data.mt04.50.ar TOKAN_SCHEME="SCHEME=ATP MARKNOANALYSIS" 
 
 # Create an annotated tuning data 
-python harmonizer/annotate-corpus.py SMT/Improved/data/Tune/Tune_data.mt04.50.ar.bw.mada > SMT/Improved/data/Tune/Tune_data.mt04.50.annotated.ar
+python harmonizer/annotate-corpus.py SMT/Improved/data/Tune/Tune_data.mt04.50.ar.bw.mada -o SMT/Improved/data/Tune/Tune_data.mt04.50.annotated.ar
 
 # Use harmonizer on tuning data
-python harmonizer/harmonizer.py harmonizer/harmonizer_model.pkl SMT/Improved/data/Tune/Tune_data.mt04.50.annotated.ar > SMT/Improved/data/Tune/Tune_data.mt04.50.harmonized.ar
+python harmonizer/harmonizer.py harmonizer/harmonizer_model.pkl SMT/Improved/data/Tune/Tune_data.mt04.50.annotated.ar -o SMT/Improved/data/Tune/Tune_data.mt04.50.harmonized.ar
 cp SMT/Improved/data/Tune/Tune_data.mt04.50.en SMT/Improved/data/Tune/Tune_data.mt04.50.harmonized.en
 ```
 
@@ -185,8 +185,8 @@ cp -v SMT/Baseline/data/Test/* SMT/Improved/data/Test/
 # Harmonize test data
 perl $MADAHOME/MADA+TOKAN.pl config=harmonizer/conf/template.madaconfig file=SMT/Improved/data/Test/Test_data.mt05.src.ar TOKAN_SCHEME="SCHEME=ATP MARKNOANALYSIS" 
 
-python harmonizer/annotate-corpus.py SMT/Improved/data/Test/Test_data.mt05.src.ar.bw.mada  > SMT/Improved/data/Test/Test_data.mt05.src.annotated.ar
-python harmonizer/harmonizer.py harmonizer/harmonizer_model.pkl SMT/Improved/data/Test/Test_data.mt05.src.annotated.ar > SMT/Improved/data/Test/Test_data.mt05.src.harmonized.ar
+python harmonizer/annotate-corpus.py SMT/Improved/data/Test/Test_data.mt05.src.ar.bw.mada  -o SMT/Improved/data/Test/Test_data.mt05.src.annotated.ar
+python harmonizer/harmonizer.py harmonizer/harmonizer_model.pkl SMT/Improved/data/Test/Test_data.mt05.src.annotated.ar -o SMT/Improved/data/Test/Test_data.mt05.src.harmonized.ar
 ```
 
 **Building Improved SMT & Evaluation:**
