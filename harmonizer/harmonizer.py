@@ -19,6 +19,7 @@ word is represented in the following form:
 
 import sys
 import re
+import argparse
 import cPickle
 import numpy as np
 from sklearn import svm
@@ -29,17 +30,22 @@ SKIP_UNSEEN_LEMMAS = True
 def main(argv):  
 
 
-  # Validate and parse arguments
-  arglist = sys.argv 
-  if len(arglist) < 2:
-      print "Usage: harmonizer.py model-file annotated-corpus"
-      sys.exit(1) 
+  parser = argparse.ArgumentParser(description='Given a harmonizer model file and an annotated corpus, ' +
+                                               'this scripts generates a new corpus that is more harmonized ' +
+                                               'with target language',
+                                  epilog="Aiman Najjar, Columbia Unviersity <an2434@columbia.edu>")
 
-  harmonizer_model_filename = arglist[1]
-  corpus_filename = arglist[2]
+  parser.add_argument('model_file', metavar='MODEL_FILE', type=argparse.FileType('r'),
+                     help='The trained harmonizer model file')
+
+  parser.add_argument('--out', '-o', metavar='OUTPUT_CORPUS', type=argparse.FileType('wb'),
+                      default=sys.stdout, help='Location to save harmonized corpus')
+
+
+  args = parser.parse_args()
 
   # Read model from disk
-  with open(harmonizer_model_filename, 'rb') as fid:
+  with args.model_file as fid:
       model = cPickle.load(fid)
 
   features_dict = model["features_dict"]
@@ -89,7 +95,7 @@ def main(argv):
         else:
           harmonized_sentence = harmonized_sentence + surface + " "
         
-    print harmonized_sentence
+    args.out.write(harmonized_sentence + "\n")
 
 
 if __name__ == '__main__':
