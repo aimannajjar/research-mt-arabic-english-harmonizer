@@ -6,6 +6,9 @@ import re
 
 def normalize_word(word, schemes):
     normalized_word = word.strip()
+    
+    if schemes is None:
+        return normalized_word
 
     if "NORM_ALIFS" in schemes:
         normalize_word = (normalize_word.replace("|", "A")
