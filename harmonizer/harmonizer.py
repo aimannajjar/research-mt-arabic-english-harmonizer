@@ -35,8 +35,12 @@ def main(argv):
                                                'with target language',
                                   epilog="Aiman Najjar, Columbia Unviersity <an2434@columbia.edu>")
 
-  parser.add_argument('model_file', metavar='MODEL_FILE', type=argparse.FileType('r'),
+  parser.add_argument('model_file', metavar='MODEL', type=argparse.FileType('r'),
                      help='The trained harmonizer model file')
+
+  parser.add_argument('corpus_file', metavar='CORPUS', type=argparse.FileType('r'),
+                     help='Annotated corpus from which to generate harmonized corpus')
+
 
   parser.add_argument('--out', '-o', metavar='OUTPUT_CORPUS', type=argparse.FileType('wb'),
                       default=sys.stdout, help='Location to save harmonized corpus')
@@ -53,7 +57,7 @@ def main(argv):
   no_lemmas = model["no_lemmas"]
   
   # Iterate through sentences
-  for line in open(corpus_filename, 'rb'):
+  for line in args.corpus_file:
 
     harmonized_sentence = "" 
 
