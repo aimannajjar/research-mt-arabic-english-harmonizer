@@ -4,9 +4,6 @@ Created on Mar 21, 2013
 @author: aiman.najjar
 
 This script trains a harmoinizer model given CSV training data file
-Model will be saved on disk under this name: harmonizer_model.pkl
-
-USAGE: python train_harmonizer.py training_data.csv [train-with-lemmas]
 
 When "train-with-lemmas" is set, lemmas will be used as additional 
 features to train the binary classifier. If you do not wish to use 
@@ -29,6 +26,7 @@ import sys
 import gzip
 import os
 import re
+import argparse
 import numpy as np
 import cPickle
 from sklearn import svm
@@ -37,24 +35,32 @@ if __name__ == '__main__':
 
     logging.basicConfig(level=logging.ERROR)
 
+    parser = argparse.ArgumentParser(description='Given a CSV training data, this script trains ' +
+                                                 'a binary classifier to label collapsible and ' +
+                                                 'non-collapsible tokens',
+                                    epilog="Aiman Najjar, Columbia Unviersity <an2434@columbia.edu>")
 
-    # Validate agruments
-    arglist = sys.argv 
-    if len(arglist) < 2:
-        print "Usage: train_harmonizer.py data_file_name.csv [train-with-lemmas]"
-        sys.exit(1) #exit interpreter
+    parser.add_argument('csv_file', metavar='CSV_FILE', type=argparse.FileType('r'),
+                       help='The comma-separated training data file')
 
-    data_filename = arglist[1]
-    no_lemmas = True
-    if len(arglist) > 2:
-        no_lemmas = False
+    parser.add_argument('--out', '-o', metavar='OUTPUT_MODEL', type=argparse.FileType('wb'),
+                        default=sys.stdout, required=True, help='Location to save trained model at')
+
+    parser.add_argument('--train-lemmas', '-l', dest="train_lemmas", choices=['Y', 'N'], default='N',
+                        metavar="TRAIN_LEMMAS", help="Specifies whether lemmas should be used as features " +
+                                                     "when training the classifier model")
+
+    args = parser.parse_args()
+
+    no_lemmas = (args.train_lemmas == "N")
+
 
     # First pass on data:
     # Map string values to numerical values
     # This is needed for the SVM library to work  
     features_keys = dict() # Maps string to number
     key_id = 0    
-    for line in open(data_filename, 'rb'):
+    for line in args.csv_file:
         fields = line.split(",")
         label = fields[0]        
 
@@ -74,7 +80,8 @@ if __name__ == '__main__':
     features = [] # Features vectors 
     labels = []  # Labels (Collapsible = 1, Non-collapsible = 0)
 
-    for line in open(data_filename, 'rb'):
+    csv_file.seek(0)
+    for line in args.csv_file:
 
         # Parse training sample
         fields = line.split(",")
@@ -122,11 +129,11 @@ if __name__ == '__main__':
 
     # Dump model on disk (pickle)
     model = { "features_dict": features_keys, "classifier":clf, "no_lemmas":no_lemmas}
-    with open('harmonizer_model.pkl', 'wb') as fid:
+    with args.out as fid:
         cPickle.dump(model, fid)    
 
     # Done
-    print "Done. Saved harmonizer_model.pkl"
+    print "Done. Saved model on disk"
         
 
 
