@@ -80,7 +80,7 @@ if __name__ == '__main__':
     features = [] # Features vectors 
     labels = []  # Labels (Collapsible = 1, Non-collapsible = 0)
 
-    csv_file.seek(0)
+    args.csv_file.seek(0)
     for line in args.csv_file:
 
         # Parse training sample
