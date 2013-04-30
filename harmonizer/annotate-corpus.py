@@ -5,10 +5,6 @@ Created on Mar 21, 2013
 
 This script creates an annotated training corpus out out of a MADA analysis file.
 
-USAGE: annotate-corpus.py mada_analysis_file.bw.mada
-
-
-This will outout will be printed on stdout, you can use direction to store it in a file
 
 The output format will be as follows:
     * Each line represents a sentence
@@ -38,37 +34,52 @@ Example output of the word "yrfD":
 '''
 import logging
 import sys
+import argparse
 from util import *
-
 
 
 if __name__ == '__main__':
 
+
+    parser = argparse.ArgumentParser(description='Given a MADA analysis file, this scripts ' +
+                                                 'crates a corpus annotated with Lemmas and ' +
+                                                 'Morpohological features',
+                                    epilog="Aiman Najjar, Columbia Unviersity <an2434@columbia.edu>")
+
+    parser.add_argument('mada_file', metavar='MADA_FILE', type=argparse.FileType('r'),
+                       help='MADA analysis file (.mada file)')
+
+    parser.add_argument('--out', '-o', metavar='OUTPUT_FILE', type=argparse.FileType('w'),
+                        default=sys.stdout, help='Specify to save output on disk')
+
+    parser.add_argument('--preprocess', '-p', dest="preprocess", nargs="+",
+                        choices=['NORM_ALIFS', 'NORM_YAA', 'REMOVE_DIACRITICS', 'REMOVE_WORD_SENSE'],
+                        metavar="SCHEME", help="Pre-processing schemes to applied to tokens during annotation: " + 
+                             "'NORM_ALIFS', 'NORM_YAA', REMOVE_DIACRITICS', 'REMOVE_WORD_SENSE'")
+
+    args = parser.parse_args()
+
+    print args
+
     logging.basicConfig(level=logging.ERROR)
 
-    arglist = sys.argv 
-    if len(arglist) < 2:
-        print "Usage: python annotate-corpus.py mada_analysis_file"
-        sys.exit(1) #exit interpreter
-
-    mada_filename = arglist[1]
 
     factored_sentence = ""
     sentence = ""
     sentence_id = -1
-    for line in open("%s" % mada_filename):
+    for line in args.mada_file:
 
 
         # Extract analysis for each sentence
         if line.startswith(";;;"):
             if sentence_id >= 0:
                 if factored_sentence.strip() != "":
-                    print factored_sentence.strip() # print previous sentence analysis
+                    args.out.write(factored_sentence.strip() + "\n") # print previous sentence analysis
                 else:
                     sentence_no_analysis = ""
                     for word in sentence.strip().split(" "):
                         sentence_no_analysis += "%s|%s|%s,%s " % (word, word, "na", "nanananananananana")
-                    print sentence_no_analysis.strip()
+                    args.out.write(sentence_no_analysis.strip()+"\n")
 
 
             # New sentence, reset analysis
@@ -79,7 +90,7 @@ if __name__ == '__main__':
 
         elif line.startswith(";;WORD"):
             parts = line.partition(";;WORD ")
-            word = normalize_word(parts[2])
+            word = normalize_word(parts[2], args.preprocess)
 
         elif line.startswith("*"):
             analysis = line[1:]
@@ -97,7 +108,7 @@ if __name__ == '__main__':
                 val = part[part.index(":")+1:] .replace("|", "P")
 
                 if var == "lex":
-                    lemma = normalize_word(val)
+                    lemma = normalize_word(val, args.preprocess)
                 elif var.startswith("prc") or var == "enc0":
                     clitics += val + ","
                 elif var.startswith("pos"):
@@ -122,7 +133,7 @@ if __name__ == '__main__':
         
         
     # print last sentence analysis
-    print factored_sentence.strip() 
+    args.out.write(factored_sentence.strip()+"\n")
 
 
 
