@@ -54,7 +54,10 @@ def main(argv):
 
   features_dict = model["features_dict"]
   classifier = model["classifier"]
-  no_lemmas = model["no_lemmas"]
+  
+  no_lemmas = True
+  if no_lemmas in model:
+    no_lemmas = model["no_lemmas"]
   
   # Iterate through sentences
   for line in args.corpus_file:
