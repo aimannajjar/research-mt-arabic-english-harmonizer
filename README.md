@@ -130,11 +130,11 @@ nohup $SCRIPTS_ROOTDIR/training/train-model.perl  -external-bin-dir /home/ubuntu
                                             -alignment-factors 1-0 \
                                             -translation-factors 1,2-0 >& training.out &
                                             
-mkdir data/Harmonizer
-cp work/model/phrase-table.1,2-0.gz data/Harmonizer/phrase-table.gz
+mkdir data/Harmonizer-Dataset-1
+cp work/model/phrase-table.1,2-0.gz data/Harmonizer-Dataset-1/phrase-table.gz
 rm -rfv work # we are only interested in phrase table for data extraction 
-python extract-data.py work/model/phrase-table.gz -o data/Harmonizer/harmonizer_training_data.csv
-python train_harmonizer.py data/Harmonizer/harmonizer_training_data.csv -o harmonizer_model.pkl
+python extract-data.py data/Harmonizer-Dataset-1/phrase-table.gz -o data/Harmonizer-Dataset-1/harmonizer_training_data.csv
+python train_harmonizer.py data/Harmonizer-Dataset-1/harmonizer_training_data.csv -o data/Harmonizer-Dataset-1/harmonizer_model.pkl
 
 ```
 *Note:* In my case, the annotated corpus yieleded 34634 total entries. 5322 labeled collapsible and 29312 non-collapsible (almost a ratio of 1 positive to 5 negative)
@@ -152,7 +152,7 @@ mkdir -p SMT/Improved/data/Test
 cp harmonizer/data/Train/Train_data.clean.annotated.ar harmonizer/data/Train/Train_data.clean.annotated.en SMT/Improved/data/Train/
 
 # Use the harmonizer to create a harmonized corpus from the annotated one
-python harmonizer/harmonizer.py harmonizer/harmonizer_model.pkl SMT/Improved/data/Train/Train_data.clean.annotated.ar -o SMT/Improved/data/Train/Train_data.clean.harmonized.ar
+python harmonizer/harmonizer.py harmonizer/data/Harmonizer-Dataset-1/harmonizer_model.pkl SMT/Improved/data/Train/Train_data.clean.annotated.ar -o SMT/Improved/data/Train/Train_data.clean.harmonized.ar
 cp SMT/Baseline/data/Train/Train_data.clean.en SMT/Improved/data/Train/Train_data.clean.harmonized.en 
 ```
 
