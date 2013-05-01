@@ -65,7 +65,6 @@ if __name__ == '__main__':
     factored_sentence = ""
     sentence = ""
     sentence_id = -1
-    line_no = 0
     print "Pre-processing schemes: %s" % args.preprocess
     print "Annotating sentences"
     for line in args.mada_file:
