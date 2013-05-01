@@ -96,7 +96,9 @@ if __name__ == '__main__':
         elif line.startswith(";;WORD"):
             parts = line.partition(";;WORD ")
             word = normalize_word(parts[2], args.preprocess)
-
+        elif line.startswith(";;NO-ANALYSIS"):
+            factored_sentence += "%s|%s|%s,%s " % (word, word, "na", "nanananananananana")
+            
         elif line.startswith("*"):
             analysis = line[1:]
             parts = analysis.split(" ")
