@@ -131,8 +131,11 @@ nohup $SCRIPTS_ROOTDIR/training/train-model.perl  -external-bin-dir /home/ubuntu
                                             -translation-factors 1,2-0 >& training.out &
                                             
 mkdir data/Harmonizer
-python extract-data.py work/model/phrase-table.1,2-0.gz > data/Harmonizer/harmonizer_training_data.csv
+cp work/model/phrase-table.1,2-0.gz data/Harmonizer/phrase-table.gz
+rm -rfv work # we are only interested in phrase table for data extraction 
+python extract-data.py work/model/phrase-table.gz -o data/Harmonizer/harmonizer_training_data.csv
 python train_harmonizer.py data/Harmonizer/harmonizer_training_data.csv -o harmonizer_model.pkl
+
 ```
 *Note:* In my case, the annotated corpus yieleded 34634 total entries. 5322 labeled collapsible and 29312 non-collapsible (almost a ratio of 1 positive to 5 negative)
 
