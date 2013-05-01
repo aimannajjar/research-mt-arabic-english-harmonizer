@@ -60,9 +60,9 @@ def main(argv):
     no_lemmas = model["no_lemmas"]
   
   if no_lemmas:
-    print "Harmoziner loaded. Lemmas were not used to train this model"
+    print "Harmonizer loaded. Lemmas were not used to train this model"
   else:
-    print "Harmoziner loaded. Lemmas were used to train this model"
+    print "Harmonizer loaded. Lemmas were used to train this model"
 
   line_no = 0
   # Iterate through sentences
