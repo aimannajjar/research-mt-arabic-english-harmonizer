@@ -41,6 +41,9 @@ if __name__ == '__main__':
     # Load phrase table in memory
     # We will load only interesting entries, entries that has
     # multi-token phrases in the source side will be skipped
+    print "Loading phrase table in memory"
+    print "Pre-processing schemes: %s" % args.preprocess
+    line_no = 0
     phrase_table = dict()
     for line in gzip.open(args.phrase_table, 'rb'):
         
@@ -61,6 +64,13 @@ if __name__ == '__main__':
         (pos, features) = features_vector.split(",")
 
         phrase_table[target].append( (normalize_word(lemma, args.preprocess),pos,features) )
+        
+        line_no = line_no + 1
+        if (line_no % 1000) == 0:
+            print "Loaded %d entry"
+
+    print "Phrase table loaded"
+
 
 
     # We will build this data using the factored phrase table

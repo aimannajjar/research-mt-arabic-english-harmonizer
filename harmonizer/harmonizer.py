@@ -108,7 +108,7 @@ def main(argv):
         else:
           harmonized_sentence = harmonized_sentence + surface + " "
     
-    line_no++
+    line_no = line_no + 1
 
     if (line_no % 1000) == 0:
       print "Harmonized %d sentences" % line_no
