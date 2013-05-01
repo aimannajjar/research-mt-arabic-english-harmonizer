@@ -82,8 +82,8 @@ if __name__ == '__main__':
                         sentence_no_analysis += "%s|%s|%s,%s " % (word, word, "na", "nanananananananana")
 
                     args.out.write(sentence_no_analysis.strip()+"\n")
-                    
-                if (sentence_id % 1000) == 0:
+
+                if ((sentence_id + 1) % 1000) == 0:
                     print "Annotated %d sentences" % sentence_id
 
 
