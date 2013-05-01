@@ -68,7 +68,7 @@ if __name__ == '__main__':
         
         line_no = line_no + 1
         if (line_no % 10000) == 0:
-            print "Loaded %d entry" $ line_no
+            print "Loaded %d entry" % line_no
 
     print "Phrase table loaded"
 
