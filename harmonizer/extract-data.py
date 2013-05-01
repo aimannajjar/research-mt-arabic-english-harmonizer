@@ -50,6 +50,8 @@ if __name__ == '__main__':
     print "Pre-processing schemes: %s" % args.preprocess
     line_no = 0
     phrase_table = dict()
+    total_skipped = 0 
+    total_considered = 0
     for line in gzip.open(args.phrase_table, 'rb'):
         
         (source,target, scores, alignments, scores2) = line.split("|||")
@@ -69,10 +71,9 @@ if __name__ == '__main__':
         phrase_prob = float(phrase_prob.strip())
         lex_prob = float(lex_prob.strip())
         avg_score = (inv_phrase_prob + inv_lex_prob + phrase_prob + lex_prob) / 4.0
-
+        total_considered = total_considered + 1
         if avg_score < args.score_threshold:
-            print "Skipping Entry '%s' -> '%s'" % (source, target)
-            print "Average score too low: %f" % avg_score
+            total_skipped = total_skipped + 1
             continue
 
         if target not in phrase_table:
@@ -88,6 +89,7 @@ if __name__ == '__main__':
             print "Loaded %d entries" % line_no
 
     print "Phrase table loaded"
+    print "%d/%d entries were skipped for having low scores" % (total_skipped, total_considered)
 
 
 
