@@ -113,7 +113,7 @@ def main(argv):
     if (line_no % 1000) == 0:
       print "Harmonized %d sentences" % line_no
 
-    args.out.write(harmonized_sentence + "\n")
+    args.out.write(harmonized_sentence.strip() + "\n")
   
   print "Done"    
 
