@@ -67,6 +67,7 @@ if __name__ == '__main__':
     sentence_id = -1
     line_no = 0
     print "Pre-processing schemes: %s" % args.preprocess
+    print "Annotating sentences"
     for line in args.mada_file:
 
 
@@ -80,10 +81,11 @@ if __name__ == '__main__':
                     for word in sentence.strip().split(" "):
                         sentence_no_analysis += "%s|%s|%s,%s " % (word, word, "na", "nanananananananana")
 
-                    line_no = line_no + 1
-                    if (line_no % 1000) == 0:
-                        print "Annotated %d sentences" % line_no
                     args.out.write(sentence_no_analysis.strip()+"\n")
+                    
+                if (sentence_id % 1000) == 0:
+                    print "Annotated %d sentences" % sentence_id
+
 
 
             # New sentence, reset analysis
