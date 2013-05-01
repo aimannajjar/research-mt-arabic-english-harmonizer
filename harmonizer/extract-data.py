@@ -67,8 +67,8 @@ if __name__ == '__main__':
         phrase_table[target].append( (normalize_word(lemma, args.preprocess),pos,features) )
         
         line_no = line_no + 1
-        if (line_no % 1000) == 0:
-            print "Loaded %d entry"
+        if (line_no % 10000) == 0:
+            print "Loaded %d entry" $ line_no
 
     print "Phrase table loaded"
 
