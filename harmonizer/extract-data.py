@@ -29,6 +29,10 @@ if __name__ == '__main__':
     parser.add_argument('--out', '-o', metavar='OUTPUT_FILE', type=argparse.FileType('w'),
                         default=sys.stdout, help='Where to save the generated CSV file', required=True)
 
+    parser.add_argument('--score-threshold', '-t', metavar='SCORE_THRESHOLD', type=float,
+                        default=0.0, help='Minimum average score threshold for entries to be considered')
+
+
     parser.add_argument('--preprocess', '-p', dest="preprocess", nargs="+",
                         choices=['NORM_ALIFS', 'NORM_YAA', 'REMOVE_DIACRITICS', 'REMOVE_WORD_SENSE'],
                         metavar="SCHEME", help="Pre-processing schemes to applied to tokens during data extraction: " + 
@@ -48,14 +52,27 @@ if __name__ == '__main__':
     phrase_table = dict()
     for line in gzip.open(args.phrase_table, 'rb'):
         
-        (source,target, score1, score2, score3) = line.split("|||")
+        (source,target, scores, alignments, scores2) = line.split("|||")
         source = source.strip()
         target = target.strip()
-        score1 = score1.strip()
-        score2 = score2.strip()
-        score3 = score3.strip()
+        scores = scores.strip()
+        alignments = alignments.strip()
+        scores2 = scores2.strip()
 
         if source.strip().count(" ") > 0:
+            continue
+
+        # Compute score average
+        (inv_phrase_prob, inv_lex_prob, phrase_prob, lex_prob, penalty) = scores.split(" ")
+        inv_phrase_prob = float(inv_phrase_prob.strip())
+        inv_lex_prob = float(inv_lex_prob.strip())
+        phrase_prob = float(phrase_prob.strip())
+        lex_prob = float(lex_prob.strip())
+        avg_score = (inv_phrase_prob + inv_lex_prob + phrase_prob + lex_prob) / 4.0
+
+        if avg_score < args.score_threshold:
+            print "Skipping Entry '%s' -> '%s'" % (source, target)
+            print "Average score too low: %f" % avg_score
             continue
 
         if target not in phrase_table:
