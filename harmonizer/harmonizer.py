@@ -85,20 +85,20 @@ def main(argv):
             harmonized_sentence = harmonized_sentence + surface + " "
             continue
           elif lemma not in features_dict and not SKIP_UNSEEN_LEMMAS:
-            features_vector.append(int(features_dict["na"]))  
+            features_vector.append(-1)  
           else:
             features_vector.append(int(features_dict[lemma]))
 
         if pos.strip() in features_dict:
           features_vector.append(features_dict[pos.strip()])
         else:
-          features_vector.append(int(features_dict["na"]))
+          features_vector.append(-2)
 
         for feature in features_array:
           if feature.strip() in features_dict:
             feature_val = int(features_dict[feature.strip()])
           else:
-            feature_val = int(features_dict["na"])
+            feature_val = int(-3)
           features_vector.append(feature_val)
 
         features_vector_np = np.array(features_vector)
