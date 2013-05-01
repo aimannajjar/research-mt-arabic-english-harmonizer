@@ -6,8 +6,6 @@ Created on Mar 21, 2013
 This script scans a factored phrase table and generate CSV training data 
 that can be used to train a "harmoinizer" classifier 
 
-USAGE: python extract-data.py phrase-table
-
 
 '''
 import logging
@@ -15,24 +13,36 @@ import sys
 import gzip
 import os
 import re
+from util import *
 
 if __name__ == '__main__':
 
+    parser = argparse.ArgumentParser(description='Given a phrase table, this scripts ' +
+                                                 'training data that can be used to train a ' +
+                                                 'harmonizer',
+                                    epilog="Aiman Najjar, Columbia Unviersity <an2434@columbia.edu>")
+
+    parser.add_argument('phrase_table', metavar='PHRASE_TABLE',
+                       help='Phrase table file in compressed format')
+
+    parser.add_argument('--out', '-o', metavar='OUTPUT_FILE', type=argparse.FileType('w'),
+                        default=sys.stdout, help='Where to save the generated CSV file', required=True)
+
+    parser.add_argument('--preprocess', '-p', dest="preprocess", nargs="+",
+                        choices=['NORM_ALIFS', 'NORM_YAA', 'REMOVE_DIACRITICS', 'REMOVE_WORD_SENSE'],
+                        metavar="SCHEME", help="Pre-processing schemes to applied to tokens during data extraction: " + 
+                             "'NORM_ALIFS', 'NORM_YAA', REMOVE_DIACRITICS', 'REMOVE_WORD_SENSE'")
+
+
+    args = parser.parse_args()
+
     logging.basicConfig(level=logging.ERROR)
-
-    # Validate arguments
-    arglist = sys.argv 
-    if len(arglist) < 2:
-        print "Usage: extract-data.py phrase-table"
-        sys.exit(1) #exit interpreter
-
-    phrase_table_filename = arglist[1]
 
     # Load phrase table in memory
     # We will load only interesting entries, entries that has
     # multi-token phrases in the source side will be skipped
     phrase_table = dict()
-    for line in gzip.open(phrase_table_filename, 'rb'):
+    for line in gzip.open(args.phrase_table, 'rb'):
         
         (source,target, score1, score2, score3) = line.split("|||")
         source = source.strip()
@@ -50,7 +60,7 @@ if __name__ == '__main__':
         (lemma, features_vector) = source.split("|")
         (pos, features) = features_vector.split(",")
 
-        phrase_table[target].append( (lemma,pos,features) )
+        phrase_table[target].append( (normalize_word(lemma, args.preprocess),pos,features) )
 
 
     # We will build this data using the factored phrase table
@@ -115,7 +125,7 @@ if __name__ == '__main__':
         for pos in training_data[lemma]:
             for features in training_data[lemma][pos]:
                 (collapse,phrase) = training_data[lemma][pos][features]
-                print '%s,%s,%s,%s' % (collapse,lemma.replace(",", "_"),pos,','.join(re.findall('..',features)))
+                args.out.write('%s,%s,%s,%s\n' % (collapse,lemma.replace(",", "_"),pos,','.join(re.findall('..',features))))
 
 
 

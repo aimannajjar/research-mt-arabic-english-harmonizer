@@ -50,7 +50,7 @@ if __name__ == '__main__':
                        help='MADA analysis file (.mada file)')
 
     parser.add_argument('--out', '-o', metavar='OUTPUT_FILE', type=argparse.FileType('w'),
-                        default=sys.stdout, help='Specify to save output on disk')
+                        default=sys.stdout, help='Specify to save output on disk', required=True)
 
     parser.add_argument('--preprocess', '-p', dest="preprocess", nargs="+",
                         choices=['NORM_ALIFS', 'NORM_YAA', 'REMOVE_DIACRITICS', 'REMOVE_WORD_SENSE'],
@@ -65,6 +65,8 @@ if __name__ == '__main__':
     factored_sentence = ""
     sentence = ""
     sentence_id = -1
+    line_no = 0
+    print "Pre-processing schemes: " % args.preprocess
     for line in args.mada_file:
 
 
@@ -77,6 +79,10 @@ if __name__ == '__main__':
                     sentence_no_analysis = ""
                     for word in sentence.strip().split(" "):
                         sentence_no_analysis += "%s|%s|%s,%s " % (word, word, "na", "nanananananananana")
+
+                    line_no++
+                    if (line_no % 1000) == 0:
+                        print "Annotated %d sentences" % line_no
                     args.out.write(sentence_no_analysis.strip()+"\n")
 
 
@@ -132,6 +138,7 @@ if __name__ == '__main__':
         
     # print last sentence analysis
     args.out.write(factored_sentence.strip()+"\n")
+    print "Done"
 
 
 

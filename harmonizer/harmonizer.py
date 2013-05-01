@@ -43,7 +43,7 @@ def main(argv):
 
 
   parser.add_argument('--out', '-o', metavar='OUTPUT_CORPUS', type=argparse.FileType('wb'),
-                      default=sys.stdout, help='Location to save harmonized corpus')
+                      default=sys.stdout, help='Location to save harmonized corpus', required=True)
 
 
   args = parser.parse_args()
@@ -54,11 +54,17 @@ def main(argv):
 
   features_dict = model["features_dict"]
   classifier = model["classifier"]
-  
+
   no_lemmas = True
   if no_lemmas in model:
     no_lemmas = model["no_lemmas"]
   
+  if no_lemmas:
+    print "Harmoziner loaded. Lemmas were not used to train this model"
+  else:
+    print "Harmoziner loaded. Lemmas were used to train this model"
+
+  line_no = 0
   # Iterate through sentences
   for line in args.corpus_file:
 
@@ -101,8 +107,15 @@ def main(argv):
           harmonized_sentence = harmonized_sentence + lemma + "$$ "
         else:
           harmonized_sentence = harmonized_sentence + surface + " "
-        
+    
+    line_no++
+
+    if (line_no % 1000) == 0:
+      print "Harmonized %d sentences" % line_no
+
     args.out.write(harmonized_sentence + "\n")
+  
+  print "Done"    
 
 
 if __name__ == '__main__':

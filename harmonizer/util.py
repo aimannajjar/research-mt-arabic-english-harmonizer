@@ -6,20 +6,20 @@ import re
 
 def normalize_word(word, schemes):
     normalized_word = word.strip()
-    
+
     if schemes is None:
         return normalized_word
 
     if "NORM_ALIFS" in schemes:
-        normalize_word = (normalize_word.replace("|", "A")
+        normalized_word = (normalized_word.replace("|", "A")
                                         .replace(">", "A")
                                         .replace("&", "A")
                                         .replace("<", "A"))
     if "NORM_YAA" in schemes:
-        normalize_word = normalize_word.replace("Y", "y")
+        normalized_word = normalized_word.replace("Y", "y")
 
     if "REMOVE_DIACRITICS" in schemes:
-        normalize_word = (normalize_word.replace("F", "")
+        normalized_word = (normalized_word.replace("F", "")
                                         .replace("N", "")
                                         .replace("K", "")
                                         .replace("a", "")
