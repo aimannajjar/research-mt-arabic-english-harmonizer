@@ -68,7 +68,7 @@ if __name__ == '__main__':
         
         line_no = line_no + 1
         if (line_no % 10000) == 0:
-            print "Loaded %d entry" % line_no
+            print "Loaded %d entries" % line_no
 
     print "Phrase table loaded"
 
@@ -79,6 +79,7 @@ if __name__ == '__main__':
     # value is a list of entries where each entry is this tuple
     #   (pos, feature_vector, classification)
     # classification is a binary class (true or false)
+    print "Extracting harmonization data"
     training_data = dict()
 
     for phrase in phrase_table:
@@ -130,7 +131,7 @@ if __name__ == '__main__':
 
                 
 
-
+    print "Data extracted. Generating CSV file"
     ## Export training data
     for lemma in training_data:
         for pos in training_data[lemma]:
@@ -138,6 +139,6 @@ if __name__ == '__main__':
                 (collapse,phrase) = training_data[lemma][pos][features]
                 args.out.write('%s,%s,%s,%s\n' % (collapse,lemma.replace(",", "_"),pos,','.join(re.findall('..',features))))
 
-
+    print "Done"
 
 
