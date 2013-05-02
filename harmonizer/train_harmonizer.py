@@ -111,9 +111,9 @@ if __name__ == '__main__':
         
 
         if label == 1:
-        	print "Collapsible Sample\t\t" % feature_vectors_string
+        	print "Collapsible Sample\t%s" % feature_vectors_string
         else:
-            print "Non-Collapsible Sample\t\t%s" % feature_vectors_string
+            print "Non-Collapsible Sample\t%s" % feature_vectors_string
 
         features.append(np.array(feature_vectors))
         labels.append(label)
