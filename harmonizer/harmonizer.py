@@ -60,9 +60,9 @@ def main(argv):
 
   no_lemmas = True
   if no_lemmas in model:
-    no_lemmas = model["no_lemmas"]
+    no_lemmas = bool(model["no_lemmas"])
   
-  if no_lemmas:
+  if no_lemmas == True:
     print "Harmonizer loaded. Lemmas were not used to train this model"
   else:
     print "Harmonizer loaded. Lemmas were used to train this model"
