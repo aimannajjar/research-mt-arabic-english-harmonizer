@@ -118,6 +118,9 @@ nohup perl $MADAHOME/MADA+TOKAN.pl config=conf/template.madaconfig file=data/Tra
 python annotate-corpus.py data/Train/Train_data.clean.ar.bw.mada -o data/Train/Train_data.clean.annotated.ar
 cp data/Train/Train_data.clean.en data/Train/Train_data.clean.annotated.en
 
+# Note, you can examine the annotated corpus to make sure that it did not miss tokens or corrupt it, a handy command for validation is diff, as follows:
+cat data/Train/Train_data.clean.annotated.ar | awk '{ for (i=1; i <= NF; i++) { split($i, arr, "|"); if (i < NF) { printf("%s ", arr[1]) } else { printf("%s\n",arr[1]) } } }' | diff -y --suppress-common-lines data/Train/Train_data.clean.ar - 
+
 mkdir -p work/LM
 cp ../LM_data+Train_data.en.lm work/LM/
 
@@ -133,7 +136,7 @@ nohup $SCRIPTS_ROOTDIR/training/train-model.perl  -external-bin-dir /home/ubuntu
 mkdir data/Harmonizer-Dataset-1
 cp work/model/phrase-table.1,2-0.gz data/Harmonizer-Dataset-1/phrase-table.gz
 rm -rfv work # we are only interested in phrase table for data extraction 
-python extract-data.py data/Harmonizer-Dataset-1/phrase-table.gz -o data/Harmonizer-Dataset-1/harmonizer_training_data.csv
+python extract-data.py data/Harmonizer-Dataset-1/phrase-table.gz -o data/Harmonizer-Dataset-3/harmonizer_training_data.csv
 python train_harmonizer.py data/Harmonizer-Dataset-1/harmonizer_training_data.csv -o data/Harmonizer-Dataset-1/harmonizer_model.pkl
 
 ```
@@ -152,7 +155,7 @@ mkdir -p SMT/Improved/data/Test
 cp harmonizer/data/Train/Train_data.clean.annotated.ar harmonizer/data/Train/Train_data.clean.annotated.en SMT/Improved/data/Train/
 
 # Use the harmonizer to create a harmonized corpus from the annotated one
-python harmonizer/harmonizer.py harmonizer/data/Harmonizer-Dataset-1/harmonizer_model.pkl SMT/Improved/data/Train/Train_data.clean.annotated.ar -o SMT/Improved/data/Train/Train_data.clean.harmonized.ar
+python harmonizer/harmonizer.py harmonizer/data/Harmonizer-Dataset-3/harmonizer_model.pkl SMT/Improved/data/Train/Train_data.clean.annotated.ar -o SMT/Improved/data/Train/Train_data.clean.harmonized.ar
 cp SMT/Baseline/data/Train/Train_data.clean.en SMT/Improved/data/Train/Train_data.clean.harmonized.en 
 ```
 
@@ -189,7 +192,7 @@ cp -v SMT/Baseline/data/Test/* SMT/Improved/data/Test/
 perl $MADAHOME/MADA+TOKAN.pl config=harmonizer/conf/template.madaconfig file=SMT/Improved/data/Test/Test_data.mt05.src.ar TOKAN_SCHEME="SCHEME=ATP MARKNOANALYSIS" 
 
 python harmonizer/annotate-corpus.py SMT/Improved/data/Test/Test_data.mt05.src.ar.bw.mada  -o SMT/Improved/data/Test/Test_data.mt05.src.annotated.ar
-python harmonizer/harmonizer.py harmonizer/data/Harmonizer-Dataset-2/harmonizer_model.pkl SMT/Improved/data/Test/Test_data.mt05.src.annotated.ar -o SMT/Improved/data/Test/Test_data.mt05.src.harmonized.ar
+python harmonizer/harmonizer.py harmonizer/data/Harmonizer-Dataset-3/harmonizer_model.pkl SMT/Improved/data/Test/Test_data.mt05.src.annotated.ar -o SMT/Improved/data/Test/Test_data.mt05.src.harmonized.ar
 ```
 
 **Building Improved SMT & Evaluation:**
