@@ -45,7 +45,7 @@ def main(argv):
   parser.add_argument('--out', '-o', metavar='OUTPUT_CORPUS', type=argparse.FileType('wb'),
                       default=sys.stdout, help='Location to save harmonized corpus', required=True)
 
-  parser.add_argument('--verbose', '-v', metavar='VERBOSE', action='store_true',
+  parser.add_argument('--verbose', '-v', action='store_true',
                       help='Verbose output, helpful to debug')
 
 
