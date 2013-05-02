@@ -46,13 +46,13 @@ if __name__ == '__main__':
     parser.add_argument('--out', '-o', metavar='OUTPUT_MODEL', type=argparse.FileType('wb'),
                         default=sys.stdout, required=True, help='Location to save trained model at')
 
-    parser.add_argument('--train-lemmas', '-l', dest="train_lemmas", choices=['Y', 'N'], default='N',
-                        metavar="TRAIN_LEMMAS", help="Specifies whether lemmas should be used as features " +
+    parser.add_argument('--train-lemmas', '-l', dest="train_lemmas", action='store_true', 
+                        metavar="TRAIN_LEMMAS", help="Specify to use lemmas as features " +
                                                      "when training the classifier model")
 
     args = parser.parse_args()
 
-    no_lemmas = (args.train_lemmas == "N")
+    no_lemmas = (not args.train_lemmas)
 
 
     # First pass on data:
