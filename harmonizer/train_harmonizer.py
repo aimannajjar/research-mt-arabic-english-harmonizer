@@ -47,8 +47,8 @@ if __name__ == '__main__':
                         default=sys.stdout, required=True, help='Location to save trained model at')
 
     parser.add_argument('--train-lemmas', '-l', dest="train_lemmas", action='store_true', 
-                        metavar="TRAIN_LEMMAS", help="Specify to use lemmas as features " +
-                                                     "when training the classifier model")
+                        help="Specify to use lemmas as features " +
+                                "when training the classifier model")
 
     args = parser.parse_args()
 
