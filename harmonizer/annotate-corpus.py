@@ -76,7 +76,7 @@ if __name__ == '__main__':
                 if factored_sentence.strip() != "":
                     if len(factored_sentence.split(" ")) != len(sentence.strip().split(" ")):
                         print "WARNING: Mismatch in number of tokens of annotated sentence (%d != %d)" % \
-                                (len(factored_sentence.split(" ")), en(sentence.strip().split(" ")))
+                                (len(factored_sentence.split(" ")), len(sentence.strip().split(" ")))
                         print "Source sentence: %s" %  sentence.strip()
                         print "Annotated sentence: %s" %  factored_sentence.strip()
 
