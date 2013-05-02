@@ -6,13 +6,13 @@ import re
 
 def normalize_word(word, schemes):
     normalized_word = word.strip()
+    normalized_word = normalized_word.replace("|", "A")
 
     if schemes is None:
         return normalized_word
 
     if "NORM_ALIFS" in schemes:
-        normalized_word = (normalized_word.replace("|", "A")
-                                        .replace(">", "A")
+        normalized_word = (normalized_word.replace(">", "A")
                                         .replace("&", "A")
                                         .replace("<", "A"))
     if "NORM_YAA" in schemes:
