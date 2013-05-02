@@ -73,6 +73,7 @@ if __name__ == '__main__':
         # Extract analysis for each sentence
         if line.startswith(";;;"):
             if sentence_id >= 0:
+                factored_sentence = factored_sentence.strip()
                 if factored_sentence.strip() != "":
                     if len(factored_sentence.split(" ")) != len(sentence.strip().split(" ")):
                         print "WARNING: Mismatch in number of tokens of annotated sentence (%d != %d)" % \
