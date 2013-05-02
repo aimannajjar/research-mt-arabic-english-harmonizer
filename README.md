@@ -35,12 +35,12 @@ Starting from project root directory, run the following:
 cd SMT/Baseline
 mkdir -p work/LM
 cp ../../LM_data+Train_data.en.lm work/LM/
-$SCRIPTS_ROOTDIR/training/train-model.perl  -external-bin-dir /home/ubuntu/tools/bin \
+nohup $SCRIPTS_ROOTDIR/training/train-model.perl  -external-bin-dir /home/ubuntu/tools/bin \
                                             -root-dir work \
                                             -corpus data/Train/Train_data.clean \
                                             -f ar -e en -alignment grow-diag-final-and \
                                             -reordering msd-bidirectional-fe \
-                                            -lm 0:3:/home/ubuntu/workspace/mt-arabic-english-harmonizer/SMT/Baseline/work/LM/LM_data+Train_data.en.lm
+                                            -lm 0:3:/home/ubuntu/workspace/mt-arabic-english-harmonizer/SMT/Baseline/work/LM/LM_data+Train_data.en.lm >& training.out &
 
 mkdir -p work/tuning
 $SCRIPTS_ROOTDIR/training/mert-moses.pl data/Tune/Tune_data.mt04.50.ar data/Tune/Tune_data.mt04.50.en /home/ubuntu/tools/moses/bin/moses work/model/moses.ini --working-dir /home/ubuntu/workspace/mt-arabic-english-harmonizer/SMT/Baseline/work/tuning/mert --rootdir $SCRIPTS_ROOTDIR --decoder-flags "-v 0" --mertdir=/home/ubuntu/tools/moses/mert --predictable-seed
@@ -136,7 +136,7 @@ nohup $SCRIPTS_ROOTDIR/training/train-model.perl  -external-bin-dir /home/ubuntu
 mkdir data/Harmonizer-Dataset-1
 cp work/model/phrase-table.1,2-0.gz data/Harmonizer-Dataset-1/phrase-table.gz
 rm -rfv work # we are only interested in phrase table for data extraction 
-python extract-data.py data/Harmonizer-Dataset-1/phrase-table.gz -o data/Harmonizer-Dataset-3/harmonizer_training_data.csv
+python extract-data.py data/Harmonizer-Dataset-1/phrase-table.gz -o data/Harmonizer-Dataset-1/harmonizer_training_data.csv
 python train_harmonizer.py data/Harmonizer-Dataset-1/harmonizer_training_data.csv -o data/Harmonizer-Dataset-1/harmonizer_model.pkl
 
 ```
@@ -155,7 +155,7 @@ mkdir -p SMT/Improved/data/Test
 cp harmonizer/data/Train/Train_data.clean.annotated.ar harmonizer/data/Train/Train_data.clean.annotated.en SMT/Improved/data/Train/
 
 # Use the harmonizer to create a harmonized corpus from the annotated one
-python harmonizer/harmonizer.py harmonizer/data/Harmonizer-Dataset-3/harmonizer_model.pkl SMT/Improved/data/Train/Train_data.clean.annotated.ar -o SMT/Improved/data/Train/Train_data.clean.harmonized.ar
+python harmonizer/harmonizer.py harmonizer/data/Harmonizer-Dataset-1/harmonizer_model.pkl SMT/Improved/data/Train/Train_data.clean.annotated.ar -o SMT/Improved/data/Train/Train_data.clean.harmonized.ar
 cp SMT/Baseline/data/Train/Train_data.clean.en SMT/Improved/data/Train/Train_data.clean.harmonized.en 
 ```
 
@@ -188,11 +188,27 @@ Start at project root dir
 # Copy original testing data from Baseline
 cp -v SMT/Baseline/data/Test/* SMT/Improved/data/Test/
 
-# Harmonize test data
+# Harmonize test data mt05
 perl $MADAHOME/MADA+TOKAN.pl config=harmonizer/conf/template.madaconfig file=SMT/Improved/data/Test/Test_data.mt05.src.ar TOKAN_SCHEME="SCHEME=ATP MARKNOANALYSIS" 
-
 python harmonizer/annotate-corpus.py SMT/Improved/data/Test/Test_data.mt05.src.ar.bw.mada  -o SMT/Improved/data/Test/Test_data.mt05.src.annotated.ar
-python harmonizer/harmonizer.py harmonizer/data/Harmonizer-Dataset-3/harmonizer_model.pkl SMT/Improved/data/Test/Test_data.mt05.src.annotated.ar -o SMT/Improved/data/Test/Test_data.mt05.src.harmonized.ar
+python harmonizer/harmonizer.py harmonizer/data/Harmonizer-Dataset-1/harmonizer_model.pkl SMT/Improved/data/Test/Test_data.mt05.src.annotated.ar -o SMT/Improved/data/Test/Test_data.mt05.src.harmonized.ar
+
+# Harmonize test data mt06
+perl $MADAHOME/MADA+TOKAN.pl config=harmonizer/conf/template.madaconfig file=SMT/Improved/data/Test/mt06_arabic_evalset_nist_part_v1.ar TOKAN_SCHEME="SCHEME=ATP MARKNOANALYSIS"
+python harmonizer/annotate-corpus.py SMT/Improved/data/Test/mt06_arabic_evalset_nist_part_v1.ar.bw.mada  -o SMT/Improved/data/Test/mt06_arabic_evalset_nist_part_v1.annotated.ar
+python harmonizer/harmonizer.py harmonizer/data/Harmonizer-Dataset-1/harmonizer_model.pkl SMT/Improved/data/Test/mt06_arabic_evalset_nist_part_v1.annotated.ar -o SMT/Improved/data/Test/mt06_arabic_evalset_nist_part_v1.harmonized.ar
+
+# Harmonize test data mt08
+perl $MADAHOME/MADA+TOKAN.pl config=harmonizer/conf/template.madaconfig file=SMT/Improved/data/Test/mt08_arabic_evalset_current_v0.ar TOKAN_SCHEME="SCHEME=ATP MARKNOANALYSIS"
+python harmonizer/annotate-corpus.py SMT/Improved/data/Test/mt08_arabic_evalset_current_v0.ar.bw.mada  -o SMT/Improved/data/Test/mt08_arabic_evalset_current_v0.annotated.ar
+python harmonizer/harmonizer.py harmonizer/data/Harmonizer-Dataset-1/harmonizer_model.pkl SMT/Improved/data/Test/mt08_arabic_evalset_current_v0.annotated.ar -o SMT/Improved/data/Test/mt08_arabic_evalset_current_v0.harmonized.ar
+
+# Harmonize test data mt09
+perl $MADAHOME/MADA+TOKAN.pl config=harmonizer/conf/template.madaconfig file=SMT/Improved/data/Test/mt09_arabic_evalset_current_v0.ar TOKAN_SCHEME="SCHEME=ATP MARKNOANALYSIS"
+python harmonizer/annotate-corpus.py SMT/Improved/data/Test/mt09_arabic_evalset_current_v0.ar.bw.mada  -o SMT/Improved/data/Test/mt09_arabic_evalset_current_v0.annotated.ar
+python harmonizer/harmonizer.py harmonizer/data/Harmonizer-Dataset-1/harmonizer_model.pkl SMT/Improved/data/Test/mt09_arabic_evalset_current_v0.annotated.ar -o SMT/Improved/data/Test/mt09_arabic_evalset_current_v0.harmonized.ar
+
+
 ```
 
 **Building Improved SMT & Evaluation:**
