@@ -1,0 +1,77 @@
+nohup: ignoring input
+
+===========
+
+Running Preprocessor
+
+ Cleaning, tagging, punctuation separating and converting input as necessary
+ Finished creating processed Buckwalter file Tune_data.mt04.50.ar.bw -- 50 lines total
+
+Finished preprocessing. Time :  0 wallclock secs ( 0.00 usr  0.00 sys +  0.02 cusr  0.00 csys =  0.02 CPU)
+
+===========
+
+Running MADA
+
+Running Morphological Analysis...
+loading database [/home/ubuntu/tools/MADA-3.2/MADA/almor.db] in [analysis] mode ...
+...Done
+
+Analyzing Words in Tune_data.mt04.50.ar.bw...
+...Done. 1093 words analyzed.
+-- Finished Morphological Analysis.  Time:  4 wallclock secs ( 0.00 usr  0.00 sys +  3.51 cusr  0.31 csys =  3.82 CPU)
+===========
+
+Generating SVMTool files and Ngram file format...
+
+Developing lexeme ngrams
+Developing diac ngrams
+
+Done.
+-- Finished file generation.  Time:  0 wallclock secs ( 0.00 usr  0.00 sys +  0.66 cusr  0.08 csys =  0.74 CPU)
+===========
+
+Running SVMTools SVMTagger to classify...
+SVMTools Classification Running ...
+   Classifying feature asp...  Time:   3 wallclock secs ( 0.00 usr  0.00 sys +  2.10 cusr  0.20 csys =  2.30 CPU)
+   Classifying feature cas...  Time:   4 wallclock secs ( 0.00 usr  0.00 sys +  4.34 cusr  0.36 csys =  4.70 CPU)
+   Classifying feature enc0...  Time:   3 wallclock secs ( 0.00 usr  0.00 sys +  2.01 cusr  0.12 csys =  2.13 CPU)
+   Classifying feature gen...  Time:   2 wallclock secs ( 0.00 usr  0.00 sys +  2.15 cusr  0.14 csys =  2.29 CPU)
+   Classifying feature mod...  Time:   2 wallclock secs ( 0.00 usr  0.00 sys +  2.22 cusr  0.21 csys =  2.43 CPU)
+   Classifying feature num...  Time:   3 wallclock secs ( 0.00 usr  0.01 sys +  2.15 cusr  0.22 csys =  2.38 CPU)
+   Classifying feature per...  Time:   2 wallclock secs ( 0.00 usr  0.00 sys +  2.19 cusr  0.17 csys =  2.36 CPU)
+   Classifying feature pos...  Time:   4 wallclock secs ( 0.00 usr  0.00 sys +  3.80 cusr  0.32 csys =  4.12 CPU)
+   Classifying feature prc0...  Time:   2 wallclock secs ( 0.00 usr  0.00 sys +  1.83 cusr  0.14 csys =  1.97 CPU)
+   Classifying feature prc1...  Time:   2 wallclock secs ( 0.00 usr  0.00 sys +  1.81 cusr  0.14 csys =  1.95 CPU)
+   Classifying feature prc2...  Time:   2 wallclock secs ( 0.00 usr  0.00 sys +  1.66 cusr  0.13 csys =  1.79 CPU)
+   Classifying feature prc3...  Time:   1 wallclock secs ( 0.01 usr  0.00 sys +  1.42 cusr  0.12 csys =  1.55 CPU)
+   Classifying feature stt...  Time:   4 wallclock secs ( 0.00 usr  0.00 sys +  3.11 cusr  0.27 csys =  3.38 CPU)
+   Classifying feature vox...  Time:   2 wallclock secs ( 0.00 usr  0.00 sys +  2.25 cusr  0.17 csys =  2.42 CPU)
+Done.
+-- Finished SVM tagging.  Time: 36 wallclock secs ( 0.00 usr  0.00 sys + 33.07 cusr  2.74 csys = 35.81 CPU)
+===========
+
+Selecting Analysis...
+Done.
+-- Finished Analysis Selection.  Time:  1 wallclock secs ( 0.00 usr  0.00 sys +  0.48 cusr  0.04 csys =  0.52 CPU)
+===========
+
+-- Finished MADA. Total Time: 41 wallclock secs ( 0.00 usr  0.00 sys + 37.72 cusr  3.17 csys = 40.89 CPU)
+
+===========
+
+Running TOKAN
+
+Parsing TOKAN scheme(s)...
+# Input <token-def> =( SCHEME=ATB ENCODEALL:SAFEBW )
+loading database [/home/ubuntu/tools/MADA-3.2/MADA/almor.db] in [generation] mode ...
+...Finished loading ALMOR database
+Reading MADA file to tokenize...
+
+Finished TOKAN. Time:  4 wallclock secs ( 0.00 usr  0.00 sys +  3.95 cusr  0.37 csys =  4.32 CPU)
+
+===========
+
+Finished All of MADA+TOKAN.  Final Total Time: 45 wallclock secs ( 0.00 usr  0.00 sys + 41.72 cusr  3.56 csys = 45.28 CPU)
+===========
+
