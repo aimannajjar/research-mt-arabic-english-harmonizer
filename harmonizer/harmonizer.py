@@ -125,7 +125,7 @@ def main(argv):
         else:
           harmonized_sentence = harmonized_sentence + surface + " "
           if args.verbose:
-            print "Label: NonCollapisble"
+            print "Label: Non-Collapisble"
 
         if args.verbose:
           print ""

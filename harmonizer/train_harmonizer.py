@@ -94,6 +94,7 @@ if __name__ == '__main__':
         # -------------------------------------
         # Build features vector for this sample
         feature_vectors = []
+        feature_vectors_string = []
 
         # If lemmas are used as features, we start from column 1
         # otherwise we start from column 2
@@ -106,9 +107,10 @@ if __name__ == '__main__':
             feature_val = fields[i].strip()
             feature_numerical_val = int(features_keys[feature_val])
             feature_vectors.append(feature_numerical_val)
+            feature_vectors_string.append(feature_val)
         
 
-    	print "Training %s" % feature_vectors
+    	print "Training %s" % feature_vectors_string
 
         features.append(np.array(feature_vectors))
         labels.append(label)
