@@ -24,8 +24,9 @@ import cPickle
 import numpy as np
 from sklearn import svm
 from sklearn.svm import LinearSVC
+from util import *
 
-SKIP_UNSEEN_LEMMAS = True
+SKIP_UNSEEN_LEMMAS = False
 
 def main(argv):  
 
@@ -41,9 +42,16 @@ def main(argv):
   parser.add_argument('corpus_file', metavar='CORPUS', type=argparse.FileType('r'),
                      help='Annotated corpus from which to generate harmonized corpus')
 
-
   parser.add_argument('--out', '-o', metavar='OUTPUT_CORPUS', type=argparse.FileType('wb'),
                       default=sys.stdout, help='Location to save harmonized corpus', required=True)
+
+
+  parser.add_argument('--preprocess', '-p', dest="preprocess", nargs="+",
+                      choices=['NORM_ALIFS', 'NORM_YAA', 'REMOVE_DIACRITICS', 'REMOVE_WORD_SENSE'],
+                      metavar="SCHEME", help="Pre-processing schemes to applied to tokens before classification, " +
+                           "must be consisted with schemes used when model was trained: " +
+                           "'NORM_ALIFS', 'NORM_YAA', REMOVE_DIACRITICS', 'REMOVE_WORD_SENSE'")
+
 
   parser.add_argument('--verbose', '-v', action='store_true',
                       help='Verbose output, helpful to debug')
@@ -81,6 +89,8 @@ def main(argv):
         (surface, lemma, features_vector) = word.split("|")
         (pos, features) = features_vector.split(",")
         features_array = re.findall('..', features)
+
+        lemma = normalize_word(lemma, args.preprocess)
 
         features_vector = []
         features_vector_strings = []
