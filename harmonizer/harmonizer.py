@@ -59,7 +59,7 @@ def main(argv):
   classifier = model["classifier"]
 
   no_lemmas = True
-  if no_lemmas in model:
+  if "no_lemmas" in model:
     no_lemmas = bool(model["no_lemmas"])
   
   if no_lemmas == True:
