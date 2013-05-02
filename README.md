@@ -56,15 +56,14 @@ $SCRIPTS_ROOTDIR/scripts/reuse-weights.perl work/tuning/mert/moses.ini < work/mo
 ________________
 To evaluate the SMT, run the following:
 ```
+# MT05 Test
+
 $SCRIPTS_ROOTDIR/training/filter-model-given-input.pl work/evaluation/filtered work/tuning/moses-tuned.ini data/Test/Test_data.mt05.src.ar
 /home/ubuntu/tools/moses/bin/moses -config work/evaluation/filtered/moses.ini -input-file data/Test/Test_data.mt05.src.ar 1> work/evaluation/Eval.tuned-filtered.output
 $SCRIPTS_ROOTDIR/wrap-xml.perl data/Test/Test_data.mt05.ref.ar.xml en my-system-name < work/evaluation/Eval.tuned-filtered.output > work/evaluation/Eval.tuned-filtered.output.sgm
 $SCRIPTS_ROOTDIR/mteval-v11b.pl -s data/Test/Test_data.mt05.src.ar.xml -r data/Test/Test_data.mt05.ref.en.xml -t work/evaluation/Eval.tuned-filtered.output.sgm –c
-```
 
-Last command should output the BLEU and NIST scores for the Baseline. In my case the output was (BLEU: 0.3104, NIST: 6.5153)
-```
-  Evaluation of Arabic-to-English translation using:
+Evaluation of Arabic-to-English translation using:
     src set "mt05_arabic_evlset_v0" (4 docs, 48 segs)
     ref set "mt05_arabic_evlset_v0-ref" (4 refs)
     tst set "mt05_arabic_evlset_v0" (1 systems)
@@ -88,6 +87,26 @@ Cumulative N-gram scoring
 
  BLEU:  0.7056   0.5207   0.4001   0.3104   0.2376   0.1813   0.1376   0.1045   0.0821  "ahd"
 MT evaluation scorer ended on 2013 Apr 11 at 00:25:04
+
+
+# MT06
+rm -r work/evaluation/filtered
+$SCRIPTS_ROOTDIR/training/filter-model-given-input.pl work/evaluation/filtered work/tuning/moses-tuned.ini data/Test/mt06_arabic_evalset_nist_part_v1.ar
+/home/ubuntu/tools/moses/bin/moses -config work/evaluation/filtered/moses.ini -input-file data/Test/mt06_arabic_evalset_nist_part_v1.ar 1> work/evaluation/Eval.tuned-filtered.output
+$SCRIPTS_ROOTDIR/wrap-xml.perl data/Test/mt06_arabic_evalset_nist_part_v1-ref.sgm en my-system-name < work/evaluation/Eval.tuned-filtered.output > work/evaluation/Eval.tuned-filtered.output.sgm
+$SCRIPTS_ROOTDIR/mteval-v11b.pl -s data/Test/mt06_arabic_evalset_nist_part_v1.sgm -r data/Test/mt06_arabic_evalset_nist_part_v1-ref.sgm -t work/evaluation/Eval.tuned-filtered.output.sgm –c
+
+# Illegal division by zero...
+
+rm -r work/evaluation/filtered
+$SCRIPTS_ROOTDIR/training/filter-model-given-input.pl work/evaluation/filtered work/tuning/moses-tuned.ini data/Test/mt08_arabic_evalset_current_v0.ar
+/home/ubuntu/tools/moses/bin/moses -config work/evaluation/filtered/moses.ini -input-file data/Test/mt08_arabic_evalset_current_v0.ar 1> work/evaluation/Eval.tuned-filtered.output
+$SCRIPTS_ROOTDIR/wrap-xml.perl data/Test/mt08_arabic_evalset_current_v0-ref.sgm en my-system-name < work/evaluation/Eval.tuned-filtered.output > work/evaluation/Eval.tuned-filtered.output.sgm
+$SCRIPTS_ROOTDIR/mteval-v11b.pl -s data/Test/mt08_arabic_evalset_current_v0.sgm -r data/Test/mt08_arabic_evalset_current_v0-ref.sgm -t work/evaluation/Eval.tuned-filtered.output.sgm –c
+
+# Illegal division by zero...
+
+
 ```
 
 Improving the Baseline using Harmonizer
