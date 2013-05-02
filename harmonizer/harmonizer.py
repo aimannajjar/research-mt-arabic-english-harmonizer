@@ -46,7 +46,7 @@ def main(argv):
                       default=sys.stdout, help='Location to save harmonized corpus', required=True)
 
   parser.add_argument('--verbose', '-v', metavar='VERBOSE', action='store_true',
-                      help='Verbose output, helpful to debug', required=True)
+                      help='Verbose output, helpful to debug')
 
 
   args = parser.parse_args()
