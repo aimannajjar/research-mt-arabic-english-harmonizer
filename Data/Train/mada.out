@@ -1,0 +1,85 @@
+nohup: ignoring input
+
+===========
+
+Running Preprocessor
+
+ Cleaning, tagging, punctuation separating and converting input as necessary
+ Finished creating processed Buckwalter file Train_data.ar.bw -- 34762 lines total
+
+Finished preprocessing. Time :  5 wallclock secs ( 0.00 usr  0.00 sys +  4.59 cusr  0.03 csys =  4.62 CPU)
+
+===========
+
+Running MADA
+
+Running Morphological Analysis...
+loading database [/home/ubuntu/tools/MADA-3.2/MADA/almor.db] in [analysis] mode ...
+...Done
+
+Analyzing Words in Train_data.ar.bw...
+[0.05M][0.1M][0.15M][0.2M][0.25M][0.3M][0.35M][0.4M][0.45M][0.5M]
+[0.55M][0.6M][0.65M][0.7M][0.75M][0.8M][0.85M][0.9M][0.95M][1M]
+...Done. 1014940 words analyzed.
+-- Finished Morphological Analysis.  Time: 233 wallclock secs ( 0.01 usr  0.00 sys + 231.33 cusr  1.36 csys = 232.70 CPU)
+===========
+
+Generating SVMTool files and Ngram file format...
+[0.05M][0.1M][0.15M][0.2M][0.25M][0.3M][0.35M][0.4M][0.45M][0.5M]
+[0.55M][0.6M][0.65M][0.7M][0.75M][0.8M][0.85M][0.9M][0.95M][1M]
+
+Developing lexeme ngrams
+Developing diac ngrams
+
+Done.
+-- Finished file generation.  Time: 186 wallclock secs ( 0.00 usr  0.00 sys + 181.81 cusr  3.52 csys = 185.33 CPU)
+===========
+
+Running SVMTools SVMTagger to classify...
+SVMTools Classification Running ...
+   Classifying feature asp...  Time:  175 wallclock secs ( 0.00 usr  0.00 sys + 175.09 cusr  0.76 csys = 175.85 CPU)
+   Classifying feature cas...  Time:  453 wallclock secs ( 0.00 usr  0.00 sys + 447.97 cusr  4.76 csys = 452.73 CPU)
+   Classifying feature enc0...  Time:  174 wallclock secs ( 0.01 usr  0.00 sys + 173.84 cusr  0.66 csys = 174.51 CPU)
+   Classifying feature gen...  Time:  195 wallclock secs ( 0.00 usr  0.00 sys + 194.54 cusr  1.18 csys = 195.72 CPU)
+   Classifying feature mod...  Time:  185 wallclock secs ( 0.00 usr  0.00 sys + 184.04 cusr  1.04 csys = 185.08 CPU)
+   Classifying feature num...  Time:  190 wallclock secs ( 0.00 usr  0.00 sys + 189.83 cusr  1.15 csys = 190.98 CPU)
+   Classifying feature per...  Time:  179 wallclock secs ( 0.00 usr  0.00 sys + 178.01 cusr  0.89 csys = 178.90 CPU)
+   Classifying feature pos...  Time:  269 wallclock secs ( 0.00 usr  0.00 sys + 267.31 cusr  2.42 csys = 269.73 CPU)
+   Classifying feature prc0...  Time:  187 wallclock secs ( 0.00 usr  0.01 sys + 187.01 cusr  1.02 csys = 188.04 CPU)
+   Classifying feature prc1...  Time:  165 wallclock secs ( 0.00 usr  0.00 sys + 164.60 cusr  0.64 csys = 165.24 CPU)
+   Classifying feature prc2...  Time:  175 wallclock secs ( 0.00 usr  0.00 sys + 175.17 cusr  0.65 csys = 175.82 CPU)
+   Classifying feature prc3...  Time:  158 wallclock secs ( 0.00 usr  0.00 sys + 157.87 cusr  0.58 csys = 158.45 CPU)
+   Classifying feature stt...  Time:  275 wallclock secs ( 0.00 usr  0.00 sys + 272.91 cusr  2.68 csys = 275.59 CPU)
+   Classifying feature vox...  Time:  178 wallclock secs ( 0.00 usr  0.00 sys + 178.00 cusr  0.94 csys = 178.94 CPU)
+Done.
+-- Finished SVM tagging.  Time: 2967 wallclock secs ( 0.00 usr  0.00 sys + 2954.92 cusr 19.61 csys = 2974.53 CPU)
+===========
+
+Selecting Analysis...
+[0.05M][0.1M][0.15M][0.2M][0.25M][0.3M][0.35M][0.4M][0.45M][0.5M]
+[0.55M][0.6M][0.65M][0.7M][0.75M][0.8M][0.85M][0.9M][0.95M][1M]
+Done.
+-- Finished Analysis Selection.  Time: 487 wallclock secs ( 0.00 usr  0.01 sys + 453.07 cusr 29.12 csys = 482.20 CPU)
+===========
+
+-- Finished MADA. Total Time: 3873 wallclock secs ( 0.01 usr  0.01 sys + 3821.13 cusr 53.61 csys = 3874.76 CPU)
+
+===========
+
+Running TOKAN
+
+Parsing TOKAN scheme(s)...
+# Input <token-def> =( SCHEME=ATB ENCODEALL:SAFEBW )
+loading database [/home/ubuntu/tools/MADA-3.2/MADA/almor.db] in [generation] mode ...
+...Finished loading ALMOR database
+Reading MADA file to tokenize...
+[0.05M][0.1M][0.15M][0.2M][0.25M][0.3M][0.35M][0.4M][0.45M][0.5M]
+[0.55M][0.6M][0.65M][0.7M][0.75M][0.8M][0.85M][0.9M][0.95M][1M]
+
+Finished TOKAN. Time: 234 wallclock secs ( 0.00 usr  0.00 sys + 231.95 cusr  2.17 csys = 234.12 CPU)
+
+===========
+
+Finished All of MADA+TOKAN.  Final Total Time: 4112 wallclock secs ( 0.00 usr  0.00 sys + 4057.69 cusr 55.83 csys = 4113.52 CPU)
+===========
+
