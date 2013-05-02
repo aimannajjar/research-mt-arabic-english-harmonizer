@@ -45,6 +45,9 @@ def main(argv):
   parser.add_argument('--out', '-o', metavar='OUTPUT_CORPUS', type=argparse.FileType('wb'),
                       default=sys.stdout, help='Location to save harmonized corpus', required=True)
 
+  parser.add_argument('--verbose', '-v', metavar='VERBOSE', action='store_true',
+                      help='Verbose output, helpful to debug', required=True)
+
 
   args = parser.parse_args()
 
@@ -80,33 +83,52 @@ def main(argv):
         features_array = re.findall('..', features)
 
         features_vector = []
+        features_vector_strings = []
         if not no_lemmas:
           if lemma not in features_dict and SKIP_UNSEEN_LEMMAS:
             harmonized_sentence = harmonized_sentence + surface + " "
             continue
           elif lemma not in features_dict and not SKIP_UNSEEN_LEMMAS:
             features_vector.append(int(features_dict["na"]))
+            features_vector_strings.append("na")
           else:
             features_vector.append(int(features_dict[lemma]))
+            features_vector_strings.append(lemma)
 
         if pos.strip() in features_dict:
           features_vector.append(int(features_dict[pos.strip()]))
+          features_vector_strings.append(pos.strip())
         else:
           features_vector.append(int(features_dict["na"]))
+          features_vector_strings.append("na")
 
         for feature in features_array:
           if feature.strip() in features_dict:
             feature_val = int(features_dict[feature.strip()])
+            features_vector_strings.append(feature.strip())
           else:
             feature_val = int(features_dict["na"])
+            features_vector_strings.append("na")
+
           features_vector.append(feature_val)
 
         features_vector_np = np.array(features_vector)
+
+        if args.verbose:
+          print "Classifying %s" % lemma
+          print "Features: %s" % features_vector_strings
         
         if classifier.predict(features_vector_np)[0] == 1:
           harmonized_sentence = harmonized_sentence + lemma + "$$ "
+          if args.verbose:
+            print "Label: Collapisble"
         else:
           harmonized_sentence = harmonized_sentence + surface + " "
+          if args.verbose:
+            print "Label: NonCollapisble"
+
+        if args.verbose:
+          print ""
     
     line_no = line_no + 1
 
