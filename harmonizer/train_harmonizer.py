@@ -110,7 +110,10 @@ if __name__ == '__main__':
             feature_vectors_string.append(feature_val)
         
 
-    	print "Training %s" % feature_vectors_string
+        if label == 1:
+        	print "Collapsible Sample\t\t" % feature_vectors_string
+        else:
+            print "Non-Collapsible Sample\t\t%s" % feature_vectors_string
 
         features.append(np.array(feature_vectors))
         labels.append(label)
@@ -120,12 +123,7 @@ if __name__ == '__main__':
     X = np.array(features)
     y = np.array(labels)
 
-
-    # Begin classifier training
-    if not no_lemmas:
-        print "Training with Lemmas..."
-    else:
-        print "Training without Lemmas..."
+    print "Building model"
     clf = svm.SVC()
     clf.fit(X,y)
 
