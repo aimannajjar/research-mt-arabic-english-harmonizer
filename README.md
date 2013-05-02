@@ -174,7 +174,7 @@ perl $MADAHOME/MADA+TOKAN.pl config=harmonizer/conf/template.madaconfig file=SMT
 python harmonizer/annotate-corpus.py SMT/Improved/data/Tune/Tune_data.mt04.50.ar.bw.mada -o SMT/Improved/data/Tune/Tune_data.mt04.50.annotated.ar
 
 # Use harmonizer on tuning data
-python harmonizer/harmonizer.py harmonizer/harmonizer_model.pkl SMT/Improved/data/Tune/Tune_data.mt04.50.annotated.ar -o SMT/Improved/data/Tune/Tune_data.mt04.50.harmonized.ar
+python harmonizer/harmonizer.py harmonizer/data/Harmonizer-Dataset-1/harmonizer_model.pkl SMT/Improved/data/Tune/Tune_data.mt04.50.annotated.ar -o SMT/Improved/data/Tune/Tune_data.mt04.50.harmonized.ar
 cp SMT/Improved/data/Tune/Tune_data.mt04.50.en SMT/Improved/data/Tune/Tune_data.mt04.50.harmonized.en
 ```
 
@@ -189,7 +189,7 @@ cp -v SMT/Baseline/data/Test/* SMT/Improved/data/Test/
 perl $MADAHOME/MADA+TOKAN.pl config=harmonizer/conf/template.madaconfig file=SMT/Improved/data/Test/Test_data.mt05.src.ar TOKAN_SCHEME="SCHEME=ATP MARKNOANALYSIS" 
 
 python harmonizer/annotate-corpus.py SMT/Improved/data/Test/Test_data.mt05.src.ar.bw.mada  -o SMT/Improved/data/Test/Test_data.mt05.src.annotated.ar
-python harmonizer/harmonizer.py harmonizer/harmonizer_model.pkl SMT/Improved/data/Test/Test_data.mt05.src.annotated.ar -o SMT/Improved/data/Test/Test_data.mt05.src.harmonized.ar
+python harmonizer/harmonizer.py harmonizer/data/Harmonizer-Dataset-2/harmonizer_model.pkl SMT/Improved/data/Test/Test_data.mt05.src.annotated.ar -o SMT/Improved/data/Test/Test_data.mt05.src.harmonized.ar
 ```
 
 **Building Improved SMT & Evaluation:**
