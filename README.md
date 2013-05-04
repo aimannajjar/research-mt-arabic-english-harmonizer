@@ -33,17 +33,19 @@ Starting from project root directory, run the following:
 ```
 # Start at project root dir
 cd SMT/Baseline
+cp -r ../../Data .
 mkdir -p work/LM
-cp ../../LM_data+Train_data.en.lm work/LM/
+cp Data/EnglishLangModel.lm work/LM/
+
 nohup $SCRIPTS_ROOTDIR/training/train-model.perl  -external-bin-dir /home/ubuntu/tools/bin \
                                             -root-dir work \
-                                            -corpus data/Train/Train_data.clean \
+                                            -corpus Data/Train/Train_data \
                                             -f ar -e en -alignment grow-diag-final-and \
                                             -reordering msd-bidirectional-fe \
-                                            -lm 0:3:/home/ubuntu/workspace/mt-arabic-english-harmonizer/SMT/Baseline/work/LM/LM_data+Train_data.en.lm >& training.out &
+                                            -lm 0:3:/home/ubuntu/workspace/mt-arabic-english-harmonizer/SMT/Baseline/work/LM/EnglishLangModel.lm >& training.out &
 
 mkdir -p work/tuning
-$SCRIPTS_ROOTDIR/training/mert-moses.pl data/Tune/Tune_data.mt04.50.ar data/Tune/Tune_data.mt04.50.en /home/ubuntu/tools/moses/bin/moses work/model/moses.ini --working-dir /home/ubuntu/workspace/mt-arabic-english-harmonizer/SMT/Baseline/work/tuning/mert --rootdir $SCRIPTS_ROOTDIR --decoder-flags "-v 0" --mertdir=/home/ubuntu/tools/moses/mert --predictable-seed
+nohup $SCRIPTS_ROOTDIR/training/mert-moses.pl Data/Tune/Tune_data.mt04.50.ar Data/Tune/Tune_data.mt04.50.en /home/ubuntu/tools/moses/bin/moses work/model/moses.ini --working-dir /home/ubuntu/workspace/mt-arabic-english-harmonizer/SMT/1/work/tuning/mert --rootdir $SCRIPTS_ROOTDIR --decoder-flags "-v 0" --mertdir=/home/ubuntu/tools/moses/mert --predictable-seed >& tuning.out &
 $SCRIPTS_ROOTDIR/scripts/reuse-weights.perl work/tuning/mert/moses.ini < work/model/moses.ini > work/tuning/moses-tuned.ini
 ```
 **Notes:**
@@ -58,43 +60,17 @@ To evaluate the SMT, run the following:
 ```
 # MT05 Test
 
-$SCRIPTS_ROOTDIR/training/filter-model-given-input.pl work/evaluation/filtered work/tuning/moses-tuned.ini data/Test/Test_data.mt05.src.ar
-/home/ubuntu/tools/moses/bin/moses -config work/evaluation/filtered/moses.ini -input-file data/Test/Test_data.mt05.src.ar 1> work/evaluation/Eval.tuned-filtered.output
-$SCRIPTS_ROOTDIR/wrap-xml.perl data/Test/Test_data.mt05.ref.ar.xml en my-system-name < work/evaluation/Eval.tuned-filtered.output > work/evaluation/Eval.tuned-filtered.output.sgm
-$SCRIPTS_ROOTDIR/mteval-v11b.pl -s data/Test/Test_data.mt05.src.ar.xml -r data/Test/Test_data.mt05.ref.en.xml -t work/evaluation/Eval.tuned-filtered.output.sgm –c
-
-Evaluation of Arabic-to-English translation using:
-    src set "mt05_arabic_evlset_v0" (4 docs, 48 segs)
-    ref set "mt05_arabic_evlset_v0-ref" (4 refs)
-    tst set "mt05_arabic_evlset_v0" (1 systems)
-
-NIST score = 6.5153  BLEU score = 0.3104 for system "ahd"
-
-# ------------------------------------------------------------------------
-
-Individual N-gram scoring
-        1-gram   2-gram   3-gram   4-gram   5-gram   6-gram   7-gram   8-gram   9-gram
-        ------   ------   ------   ------   ------   ------   ------   ------   ------
- NIST:  5.1632   1.0553   0.2081   0.0583   0.0305   0.0077   0.0032   0.0018   0.0006  "ahd"
-
- BLEU:  0.7229   0.3936   0.2421   0.1484   0.0836   0.0480   0.0270   0.0155   0.0122  "ahd"
-
-# ------------------------------------------------------------------------
-Cumulative N-gram scoring
-        1-gram   2-gram   3-gram   4-gram   5-gram   6-gram   7-gram   8-gram   9-gram
-        ------   ------   ------   ------   ------   ------   ------   ------   ------
- NIST:  5.1632   6.2185   6.4265   6.4848   6.5153   6.5230   6.5262   6.5280   6.5286  "ahd"
-
- BLEU:  0.7056   0.5207   0.4001   0.3104   0.2376   0.1813   0.1376   0.1045   0.0821  "ahd"
-MT evaluation scorer ended on 2013 Apr 11 at 00:25:04
-
+$SCRIPTS_ROOTDIR/training/filter-model-given-input.pl work/evaluation/filtered work/model/moses.ini Data/Test/mt05/Test_data.mt05.src.ar
+/home/ubuntu/tools/moses/bin/moses -config work/evaluation/filtered/moses.ini -input-file Data/Test/mt05/Test_data.mt05.src.ar 1> work/evaluation/Eval.tuned-filtered.output
+$SCRIPTS_ROOTDIR/wrap-xml.perl Data/Test/mt05/Test_data.mt05.ref.ar.xml en my-system-name < work/evaluation/Eval.tuned-filtered.output > work/evaluation/Eval.tuned-filtered.output.sgm
+$SCRIPTS_ROOTDIR/mteval-v11b.pl -s Data/Test/mt05/Test_data.mt05.src.ar.xml -r Data/Test/mt05/Test_data.mt05.ref.en.xml -t work/evaluation/Eval.tuned-filtered.output.sgm –c
 
 # MT06
 rm -r work/evaluation/filtered
-$SCRIPTS_ROOTDIR/training/filter-model-given-input.pl work/evaluation/filtered work/tuning/moses-tuned.ini data/Test/mt06_arabic_evalset_nist_part_v1.ar
-/home/ubuntu/tools/moses/bin/moses -config work/evaluation/filtered/moses.ini -input-file data/Test/mt06_arabic_evalset_nist_part_v1.ar 1> work/evaluation/Eval.tuned-filtered.output
-$SCRIPTS_ROOTDIR/wrap-xml.perl data/Test/mt06_arabic_evalset_nist_part_v1-ref.sgm en my-system-name < work/evaluation/Eval.tuned-filtered.output > work/evaluation/Eval.tuned-filtered.output.sgm
-$SCRIPTS_ROOTDIR/mteval-v11b.pl -s data/Test/mt06_arabic_evalset_nist_part_v1.sgm -r data/Test/mt06_arabic_evalset_nist_part_v1-ref.sgm -t work/evaluation/Eval.tuned-filtered.output.sgm –c
+$SCRIPTS_ROOTDIR/training/filter-model-given-input.pl work/evaluation/filtered work/model/moses.ini Data/Test/mt06/mt06_arabic_evalset_nist_part_v1.ar
+/home/ubuntu/tools/moses/bin/moses -config work/evaluation/filtered/moses.ini -input-file Data/Test/mt06/mt06_arabic_evalset_nist_part_v1.ar 1> work/evaluation/Eval.filtered.output
+$SCRIPTS_ROOTDIR/wrap-xml.perl Data/Test/mt06/mt06_arabic_evalset_nist_part_v1-ref.sgm en my-system-name < work/evaluation/Eval.filtered.output > work/evaluation/Eval.filtered.output.sgm
+$SCRIPTS_ROOTDIR/mteval-v11b.pl -s Data/Test/mt06/mt06_arabic_evalset_nist_part_v1.sgm -r Data/Test/mt06/mt06_arabic_evalset_nist_part_v1-ref.sgm -t work/evaluation/Eval.filtered.output.sgm –c
 
 # Illegal division by zero...
 
@@ -126,19 +102,23 @@ To train the Harmonizer, we do the following:
 
 The following sequence of commands perform the steps above, we are using the same parallal corpus and English LM to train our harmonizer, but a different data set can be also used to train the harmonizer:
 ```
-# Start at project root dir
-cd harmonizer
+# Starting from project root dir, run:
+cd harmonizer/Systems
+mkdir -p Sys1/Data/Train
+cp ../../Data/Train/Train_data.ar Sys1/Data/Train
+cp ../../Data/Train/Train_data.ar.bw.mada Sys1/Data/Train
+cp ../../Data/Train/Train_data.en Sys1/Data/Train
 
-## Analyze Arabic side of text
-# Make sure conf/template.madaconfig points to correct MADA installation directory
-nohup perl $MADAHOME/MADA+TOKAN.pl config=conf/template.madaconfig file=data/Train/Train_data.clean.ar TOKAN_SCHEME="SCHEME=ATP MARKNOANALYSIS" &> mada.working.out &
-
-## Create an annotated corpus 
-python annotate-corpus.py data/Train/Train_data.clean.ar.bw.mada -o data/Train/Train_data.clean.annotated.ar
-cp data/Train/Train_data.clean.en data/Train/Train_data.clean.annotated.en
+# Create an annotated corpus:
+cd ..
+python annotate-corpus.py Systems/Sys1/Data/Train/Train_data.ar.bw.mada -o Systems/Sys1/Data/Train/Train_data.annotated.ar
 
 # Note, you can examine the annotated corpus to make sure that it did not miss tokens or corrupt it, a handy command for validation is diff, as follows:
-cat data/Train/Train_data.clean.annotated.ar | awk '{ for (i=1; i <= NF; i++) { split($i, arr, "|"); if (i < NF) { printf("%s ", arr[1]) } else { printf("%s\n",arr[1]) } } }' | diff -y --suppress-common-lines data/Train/Train_data.clean.ar - 
+# cat Systems/Sys1/Data/Train/Train_data.annotated.ar | awk '{ for (i=1; i <= NF; i++) { split($i, arr, "|"); if (i < NF) { printf("%s ", arr[1]) } else { printf("%s\n",arr[1]) } } }' | diff -y --suppress-common-lines Systems/Sys1/Data/Train/Train_data.ar - 
+
+
+# Build a phrase-table to extract data from
+
 
 mkdir -p work/LM
 cp ../LM_data+Train_data.en.lm work/LM/
@@ -208,7 +188,7 @@ Start at project root dir
 cp -v SMT/Baseline/data/Test/* SMT/Improved/data/Test/
 
 # Harmonize test data mt05
-perl $MADAHOME/MADA+TOKAN.pl config=harmonizer/conf/template.madaconfig file=SMT/Improved/data/Test/Test_data.mt05.src.ar TOKAN_SCHEME="SCHEME=ATP MARKNOANALYSIS" 
+perl $MADAHOME/MADA+TOKAN.pl config=template.madaconfig file=SMT/Improved/data/Test/Test_data.mt05.src.ar TOKAN_SCHEME="SCHEME=ATB" 
 python harmonizer/annotate-corpus.py SMT/Improved/data/Test/Test_data.mt05.src.ar.bw.mada  -o SMT/Improved/data/Test/Test_data.mt05.src.annotated.ar
 python harmonizer/harmonizer.py harmonizer/data/Harmonizer-Dataset-1/harmonizer_model.pkl SMT/Improved/data/Test/Test_data.mt05.src.annotated.ar -o SMT/Improved/data/Test/Test_data.mt05.src.harmonized.ar
 
