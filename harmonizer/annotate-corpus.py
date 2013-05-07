@@ -12,6 +12,8 @@ The output format will be as follows:
     * Each word will be represented with the following factors:
         surface form|lemma|POS,MORPH_FEATURES
 
+
+
     * FEATURE_VECTOR is simply a 18-char string representing the following features
         (in this order):
           Person: [1,2,3,na] # 1 = First, 2 = Second, 3 = Third, na = N/A
@@ -20,7 +22,7 @@ The output format will be as follows:
           Mood  : [i,j,s,na,u] # i = Indicative, j = Jussive, s = Subjunctive, na = N/A 
           Gender: [f,m,na] # f = Feminine, m = Masculine, na = N/A
           Number: [s,p,d,na,u] # s = Singular, p = Plural, d = Dual, na = N/A, u = Undefined 
-          State : [i,d,c,na,u] # i = Indefinite, d = Definite, c = Construct/Poss/Idafa, na = N/A, u = Undefined 
+          * State : [i,d,c,na,u] # i = Indefinite, d = Definite, c = Construct/Poss/Idafa, na = N/A, u = Undefined 
           Case  : [n,a,g,na,u] # n = Nominative, a = Accusative, g = Genitive, na = N/A, u = Undefined
           Rat** : [y,na] # y = yes, n = N/A
      - Each feature will have 2 characters in the string (single-char values will be padded with x)

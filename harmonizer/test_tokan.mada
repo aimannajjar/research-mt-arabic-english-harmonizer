@@ -1,0 +1,48 @@
+;;; SENTENCE AlOx gyr Alcqyq lSdAm Hsyn yrfD AlEwdp IlY AlErAq
+;;WORD AlOx
+;;SVM_PREDICTIONS: AlOx asp:na cas:u enc0:0 gen:m mod:na num:s per:na pos:noun prc0:0 prc1:0 prc2:0 prc3:0 stt:i vox:na
+*1.001736 diac:AlOx lex:AlOx_0 bw:AlOx/FOREIGN gloss:AlOx pos:verb prc3:0 prc2:0 prc1:0 prc0:0 per:na asp:na vox:na mod:na gen:m num:s stt:i cas:u enc0:0 rat:y source:foreign
+--------------
+;;WORD gyr
+;;SVM_PREDICTIONS: gyr asp:na cas:n enc0:0 gen:m mod:na num:s per:na pos:noun prc0:0 prc1:0 prc2:0 prc3:0 stt:c vox:na
+*0.781660 diac:gay~ara lex:gay~ar_1 bw:+gay~ar/PV++a/PVSUFF_SUBJ:3MS gloss:change/modify pos:verb prc3:0 prc2:0 prc1:0 prc0:0 per:3 asp:p vox:a mod:i gen:m num:s stt:na cas:na enc0:0 rat:na source:lex stem:gay~ar stemcat:PV
+_0.723633 diac:gayor lex:gayor_1 bw:+gayor/NEG_PART+ gloss:not/other pos:part_neg prc3:0 prc2:0 prc1:0 prc0:na per:na asp:na vox:na mod:na gen:na num:na stt:na cas:na enc0:0 rat:na source:lex stem:gayor stemcat:N
+--------------
+;;WORD Alcqyq
+;;SVM_PREDICTIONS: Alcqyq asp:na cas:u enc0:0 gen:m mod:na num:s per:na pos:noun prc0:0 prc1:0 prc2:0 prc3:0 stt:i vox:na
+*1.001736 diac:Alcqyq lex:Alcqyq_0 bw:Alcqyq/FOREIGN gloss:Alcqyq pos:noun prc3:0 prc2:0 prc1:0 prc0:0 per:na asp:na vox:na mod:na gen:m num:s stt:i cas:u enc0:0 rat:y source:foreign
+--------------
+;;WORD lSdAm
+;;SVM_PREDICTIONS: lSdAm asp:na cas:u enc0:0 gen:m mod:na num:s per:na pos:noun_prop prc0:0 prc1:li_prep prc2:0 prc3:0 stt:i vox:na
+*1.000302 diac:liSad~Am lex:Sad~Am_1 bw:li/PREP++Sad~Am/NOUN_PROP+ gloss:Saddam pos:noun_prop prc3:0 prc2:0 prc1:li_prep prc0:0 per:na asp:na vox:na mod:na gen:m num:s stt:i cas:u enc0:0 rat:y source:lex stem:Sad~Am stemcat:Nprop
+_0.941901 diac:laSad~Am lex:Sad~Am_1 bw:la/EMPHATIC_PARTICLE++Sad~Am/NOUN_PROP+ gloss:Saddam pos:noun_prop prc3:0 prc2:0 prc1:la_emph prc0:0 per:na asp:na vox:na mod:na gen:m num:s stt:i cas:u enc0:0 rat:y source:lex stem:Sad~Am stemcat:Nprop
+_0.913303 diac:liSidAm lex:SidAm_1 bw:li/PREP++SidAm/NOUN+ gloss:collision/collapse pos:noun prc3:0 prc2:0 prc1:li_prep prc0:0 per:na asp:na vox:na mod:na gen:m num:s stt:i cas:u enc0:0 rat:y source:lex stem:SidAm stemcat:N
+_0.913303 diac:liSudAm lex:SudAm_1 bw:li/PREP++SudAm/NOUN+ gloss:influenza pos:noun prc3:0 prc2:0 prc1:li_prep prc0:0 per:na asp:na vox:na mod:na gen:m num:s stt:i cas:u enc0:0 rat:y source:lex stem:SudAm stemcat:N
+_0.877228 diac:laSidAm lex:SidAm_1 bw:la/EMPHATIC_PARTICLE++SidAm/NOUN+ gloss:collision/collapse pos:noun prc3:0 prc2:0 prc1:la_emph prc0:0 per:na asp:na vox:na mod:na gen:m num:s stt:i cas:u enc0:0 rat:y source:lex stem:SidAm stemcat:N
+_0.877228 diac:laSudAm lex:SudAm_1 bw:la/EMPHATIC_PARTICLE++SudAm/NOUN+ gloss:influenza pos:noun prc3:0 prc2:0 prc1:la_emph prc0:0 per:na asp:na vox:na mod:na gen:m num:s stt:i cas:u enc0:0 rat:y source:lex stem:SudAm stemcat:N
+--------------
+;;WORD Hsyn
+;;SVM_PREDICTIONS: Hsyn asp:na cas:u enc0:0 gen:m mod:na num:s per:na pos:noun_prop prc0:0 prc1:0 prc2:0 prc3:0 stt:i vox:na
+*1.022412 diac:Husayon lex:Husayon_1 bw:+Husayon/NOUN_PROP+ gloss:Hussein pos:noun_prop prc3:0 prc2:0 prc1:0 prc0:0 per:na asp:na vox:na mod:na gen:m num:s stt:i cas:u enc0:0 rat:y source:lex stem:Husayon stemcat:N0
+--------------
+;;WORD yrfD
+;;SVM_PREDICTIONS: yrfD asp:i cas:na enc0:0 gen:m mod:i num:s per:3 pos:verb prc0:0 prc1:0 prc2:0 prc3:0 stt:na vox:a
+*0.945244 diac:yarofuD lex:rafaD-u_1 bw:ya/IV3MS++rofuD/IV+ gloss:reject/refuse pos:verb prc3:0 prc2:0 prc1:0 prc0:0 per:3 asp:i vox:a mod:u gen:m num:s stt:na cas:na enc0:0 rat:na source:lex stem:rofuD stemcat:IV
+_0.932746 diac:yarofaD~ lex:{irofaD~_1 bw:ya/IV3MS++rofaD~/IV+ gloss:drip/scatter/break_up pos:verb prc3:0 prc2:0 prc1:0 prc0:0 per:3 asp:i vox:a mod:u gen:m num:s stt:na cas:na enc0:0 rat:na source:lex stem:rofaD~ stemcat:IV_V
+_0.912332 diac:yurofiD lex:>arofaD_1 bw:yu/IV3MS++rofiD/IV+ gloss:finish pos:verb prc3:0 prc2:0 prc1:0 prc0:0 per:3 asp:i vox:a mod:u gen:m num:s stt:na cas:na enc0:0 rat:na source:lex stem:rofiD stemcat:IV_yu
+_0.901127 diac:yurofaD lex:>arofaD_1 bw:yu/IV3MS++rofaD/IV_PASS+ gloss:be_finished pos:verb prc3:0 prc2:0 prc1:0 prc0:0 per:3 asp:i vox:p mod:u gen:m num:s stt:na cas:na enc0:0 rat:na source:lex stem:rofaD stemcat:IV_Pass_yu
+--------------
+;;WORD AlEwdp
+;;SVM_PREDICTIONS: AlEwdp asp:na cas:a enc0:0 gen:f mod:na num:s per:na pos:noun prc0:Al_det prc1:0 prc2:0 prc3:0 stt:d vox:na
+*0.963734 diac:AlEawodap lex:Eawodap_1 bw:Al/DET++Eawod/NOUN++ap/NSUFF_FEM_SG gloss:return pos:noun prc3:0 prc2:0 prc1:0 prc0:Al_det per:na asp:na vox:na mod:na gen:f num:s stt:d cas:u enc0:0 rat:y source:lex stem:Eawod stemcat:Napdu
+--------------
+;;WORD IlY
+;;SVM_PREDICTIONS: Ily asp:na cas:u enc0:0 gen:m mod:na num:s per:na pos:noun prc0:0 prc1:0 prc2:0 prc3:0 stt:i vox:na
+*1.001736 diac:IlY lex:IlY_0 bw:IlY/FOREIGN gloss:IlY pos:noun prc3:0 prc2:0 prc1:0 prc0:0 per:na asp:na vox:na mod:na gen:m num:s stt:i cas:u enc0:0 rat:y source:foreign
+--------------
+;;WORD AlErAq
+;;SVM_PREDICTIONS: AlErAq asp:na cas:g enc0:0 gen:m mod:na num:s per:na pos:noun_prop prc0:Al_det prc1:0 prc2:0 prc3:0 stt:d vox:na
+*0.966849 diac:AlEirAq lex:EirAq_1 bw:Al/DET++EirAq/NOUN_PROP+ gloss:Iraq pos:noun_prop prc3:0 prc2:0 prc1:0 prc0:Al_det per:na asp:na vox:na mod:na gen:m num:s stt:d cas:u enc0:0 rat:y source:lex stem:EirAq stemcat:N
+--------------
+SENTENCE BREAK
+--------------

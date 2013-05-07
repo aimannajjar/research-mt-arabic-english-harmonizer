@@ -31,8 +31,8 @@ SKIP_UNSEEN_LEMMAS = False
 def main(argv):  
 
 
-  parser = argparse.ArgumentParser(description='Given a harmonizer model file and an annotated corpus, ' +
-                                               'this scripts generates a new corpus that is more harmonized ' +
+  parser = argparse.ArgumentParser(description='Given a harmonizer model and a source-language file, ' +
+                                               'this scripts generates a target-language that is more harmonized ' +
                                                'with target language',
                                   epilog="Aiman Najjar, Columbia Unviersity <an2434@columbia.edu>")
 
