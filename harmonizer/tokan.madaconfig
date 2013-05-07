@@ -1,0 +1,576 @@
+# This is a generic MADA Configuration file. Please follow the general
+# format described below. Everything to the right of a # sign is a comment.
+
+# There are three types of settings:
+
+# * Settings you MUST change before you can get MADA to work on your
+#   installation.  If using the template.madaconfig created by 
+#   INSTALL.pl, these settings should already be set to your particular
+#   system.  It is a good idea to verify them, however.
+
+# * Settings you CAN change to tune the output of MADA to your needs.
+
+# * Settings you SHOULD NOT change, as they affect internal operations 
+#   of MADA.  Most users will never need to adjust these.
+
+# These three types of settings are found below in this order. 
+
+
+
+######################################################
+######################################################
+#   THESE SETTINGS MUST BE SET PRIOR TO USING MADA   #
+#     THEY ARE AUTOMATICALLY SET BY INSTALL.pl       #
+######################################################
+######################################################
+
+
+#########################
+#  MADA+TOKAN  OPTIONS  #
+#########################
+
+# This is the home directory where MADA is installed on your system.
+
+MADA_HOME = /home/ubuntu/tools/MADA-3.2
+
+
+########################
+#   LEX NGRAM  OPTIONS #
+########################
+
+#  The absolute location of the SRI tool 'disambig' on your system. 
+#   Technically, this is only required if the OTHER_FEATURES variable 
+#    includes "ngramlex" and/or "ngramdiac". If you do not have this 
+#    tool on your system, MADA can still be run, but higher-order 
+#    n-grams will not be used to improve the analysis ranking.
+#
+#  The SRILM library can be downloaded freely from:
+#   http://www.speech.sri.com/projects/srilm/download.html
+#
+#  Only the "disambig" executable is currently used by any element of MADA.
+
+SRI_NGRAM_TOOL = /home/ubuntu/tools/srilm/bin/i686-m64/disambig
+
+
+#########################
+#  RUN SVMTOOLS OPTIONS #
+#########################
+
+# The is the file location of the SVMTools "SVMTagger" executable 
+#  on your system.
+#
+
+SVM_TAGGER = /home/ubuntu/tools/svmtools/bin/SVMTagger
+
+
+
+
+
+
+#################################
+#################################
+# YOU MAY CHANGE THESE SETTINGS #
+#################################
+#################################
+
+
+
+#########################
+#  WHAT SHOULD BE RUN?  #
+#########################
+
+# These variables control which programs are run.
+#
+# Valid choices for each one are  YES | NO
+
+
+# Preprocess is a script that will take the input, clean its UTF8, tag latin words, 
+#   separate/tokenize punctuation, and convert everything to Buckwalter. 
+#   Select NO only if the input files are already in Buckwalter, with foreign 
+#   words tagged (using @@LAT@@ prefixes) and punctuation separated from surrounding 
+#   words.  Otherwise, select YES and modify the "INPUT FORMAT OPTIONS" below
+#   accordingly.
+#
+# If this variable is set to NO, then the input file is assumed to
+#   be in clean, punctuation-separated Buckwalter.
+
+RUN_PREPROCESSOR = NO
+
+
+
+# MADA is the morphological tagger; it requires as input plain Buckwalter
+#   encoded text, with one-sentence-per-line. 
+#
+# If this variable is set to NO (and, presumably, RUN_TOKAN is set to YES),
+#   then the input file is assumed to be a valid .mada file. In this case,
+#   RUN_PREPROCESSOR (above) should also be set to NO.
+
+RUN_MADA = NO
+
+
+
+# TOKAN is the configurable tokenizer; it requires a MADA output file as input.
+#
+# If this variable is set to NO, TOKAN will not be run.
+
+RUN_TOKAN = YES
+
+
+
+#########################
+#  INPUT FORMAT OPTIONS #
+#########################
+
+
+# Is the input file encoded as UTF-8 or Buckwalter?
+#
+# Valid choices:  Buckwalter | BW | UTF8 | UTF-8 
+
+INPUT_ENCODING = BW
+
+
+# Should MADA perform punctuation AND number separatation (placing 
+# whitespace between puncutation and other text)?  This should always 
+# be done, but users may wish to handle this step themselves.
+# Note that, if MADA does this step, words like "----" will be turned
+# into "- - - -"
+#
+# Valid choices: YES | NO
+
+SEPARATEPUNCT = YES
+
+
+# Treats first word in input file as a sentence ID that gets
+#  commented out and never processed.  Note that a different parameter 
+#  needs to be set in this file in the TOKAN area (see below) to determine 
+#  whether to print the sentence ID after tokenization or not.
+#
+# Valid Choices: YES | NO
+
+SENTENCE_IDS = NO
+
+
+########################
+#  MADA OUTPUT OPTIONS #
+########################
+
+# Should analyses, after ranking, be sorted in the order of their scores?
+#  The alternative is output order == input order.
+#
+# Valid Choices: YES | NO
+
+SORT_COMBINER_OUTPUT = YES
+
+
+# Should the output of MADA (.mada files) be restricted to only a 
+#  few analyses to reduce the file size?
+#  Note that .mada files can be 1-3 orders of magnitude larger than 
+#  the input file if every analysis is printed, depending on the 
+#  words the file contains.
+#
+# Options:
+#     all      :     Print all the analyses (after scoring) to the 
+#     	       	     .mada file  (default)
+#
+#     stars    :     Only print the starred (top chosen) analyses 
+#     	       	     to the .mada file. This is the most space-saving 
+#		     option.
+#
+#     <number> :     For each word, select the analyses that have a 
+#     	       	     score within the top <number> scores, and print
+#		     those. For example, if <number> is 3, determine 
+#		     the top 3 scores for the word and print only 
+#		     those analyses with those scores (which may be 
+#		     more than 3 if there are tie scores). This option 
+#		     will allow users to retain a selection of 
+#		     lower-scoring analyses for consideration, while 
+#		     avoiding printing every analysis.
+
+PRINT_ANALYSES = all
+
+
+
+#####################
+#  COMBINER OPTIONS #
+#####################
+
+# MADA uses weights on its features to rank analyses. These
+#  weights can be used to force MADA to consider some features 
+#  as more important than others. We've tuned weight sets
+#  for 
+#
+#  CLASSIFIER OPTIONS:
+#
+#  normal:   This weight set has been tuned to yield the best 
+#            overall analysis choice accuracy.
+#
+#  original: This weight set cooresponds the the weights used 
+#  	     in previous versions of MADA (i.e., uniform 
+#	     weights of 1).
+#
+#  pos:      This weight set has been created to yield the best 
+#  	     accuracy in terms of part-of-speech choice.
+#
+#  lexeme:   This weight set has been created to yield the best
+#            accuracy in terms of the lexeme/lemma choice.
+#
+#  custom:   Users can define their own weight sets -- to do so, 
+#  	     set FEATURE_WEIGHT_SET to 'custom' and then set the 
+#	     variable CUSTOM_FEATURE_WEIGHT_FILE to point to a 
+#	     file containing the weights you wish to use.  
+#	     Examine the files located in MADA_HOME/feature-weights/ 
+#	     for the proper format.
+#	     It is not recommended to create custom weight sets
+#	     without having gold data with which to evaluate 
+#	     the results.
+#
+# Valid Choices:  normal | original | pos | lexeme | custom
+
+FEATURE_WEIGHT_SET = normal
+
+
+# If 'custom' is selected for FEATURE_WEIGHT_SET, use this variable 
+#  to indicate the location of the weight file you wish to use.  The 
+#  general format is FEATURE = WEIGHT, with one feature per line; 
+#  examine the files in MADA_HOME/feature-weights/ for details.
+
+CUSTOM_FEATURE_WEIGHT_FILE = custom.weights
+
+
+# In the event that two or more analyses have the same top score, 
+#  how do you want MADA to pick one as the chosen analysis?
+#
+#  If "arbitrary" is selected, the analysis that comes first in 
+#  the list will be given the "*" label, and the others will be 
+#  given "^" labels.
+#
+#  If "random" is selected, an analysis will be chosen at random 
+#  from the list of top scores to be the chosen analysis; the 
+#  others will be given "^" labels.  Note that this means the 
+#  output of MADA can vary on different runs on the same data.
+#
+#  If "none" is selected, all the analyses will be given "*" labels. This
+#  option may cause problems for scripts that operate on MADA output,
+#  and so is not recommended.
+#
+# Valid Choices:  arbitrary | random | none
+
+TIE_BREAKING = arbitrary
+
+
+
+#################################
+#  TOKAN TOKENIZER OPTIONS      #
+#################################
+
+# The TOKAN_SCHEME variable controls the output format of TOKAN, 
+# i.e., what variety of tokenization is implemented and how it looks.  
+#
+# Under MADA 3.0 and later, the customizability of the TOKAN_SCHEME 
+# has been greatly extended.  This has had the side effect of causing
+# older scheme formats (MADA 2.32 and earlier) to be rendered invalid, 
+# so be aware of this if you are migrating from MADA 2.32 or earlier 
+# to MADA 3.0. Also be aware that scheme variables no longer require 
+# leading hyphens, and several obsolete variables will cause TOKAN to 
+# exit with an error message.
+#
+# The extensions made to TOKAN have cause the TOKAN_SCHEME formatting
+# to become more elaborate.  Rather than go into detail here, please
+# see the included MADA+TOKAN manual .pdf for a full explanation 
+# (Section 6 -- TOKAN Details).
+# 
+# Here are some example TOKAN_SCHEMES that use aliases:
+#
+# Using the ATB tokenization, with sentence ID tags and bounding
+#  no-analysis terms with "@@":
+#
+#    TOKAN_SCHEME = SCHEME=ATB SENT_ID MARKNOANALYSIS
+#
+# Using the D3 tokenization scheme, but grouping tokens together with
+# a "=" character:
+#
+#    TOKAN_SCHEME = SCHEME=D3 GROUPTOKENS TDELIM:=
+#
+# Extract the diacritized word forms without tokenization:
+#
+#    TOKAN_SCHEME = SCHEME=DIAC
+#
+# Use the ATB tokenization, but also give the PATB POS tag for each
+# token, separated by the middle-dot character:
+#
+#    TOKAN_SCHEME = SCHEME=ATB+POS
+#
+#
+# Many other variations are possible.  Please see the MADA+TOKAN manual
+# for details.
+#
+
+TOKAN_SCHEME = SCHEME=ATB4MT MARKNOANALYSIS ENCODEALL:BW
+
+
+
+
+# File extension for TOKAN output; the TOKAN output file will be 
+#   named <input file>.<extension>. If the preprocessor and MADA are
+#   also run, the full file name will be <input file>.bw.mada.<extension>
+#
+
+TOKAN_OUTPUT_EXTENSION = tok
+
+
+#  Tokan schemes file.  This file (if specified) allows users to specify 
+#  multiple TOKAN schemes and output extensions, so that TOKAN will produce 
+#  multiple outputs for the same MADA input.  The format of the file 
+#  specified should be:
+#
+#  <output extension>    <scheme>
+#
+#  tab-separated, with one scheme definition per line. Any line beginning with a 
+#  "#" character will be considered a comment and will be ignored.  See
+#  The TOKAN.schemes file in the config-files/ subdirectory for an example.
+#
+#  This option was created primarily as a user convenience. In addition,
+#  by running multiple schemes together in this fashion, overhead is
+#  somewhat reduced and computation time is lowered. However, running 
+#  too many TOKAN_SCHEMES at once places greater demands on computer memory and
+#  may reduce performance that way. In these cases, it may be better to
+#  run the SCHEMES individually or in small batches.
+#
+#  If this variable is set to a valid file , the TOKAN_SCHEME and 
+#  TOKAN_OUTPUT_EXTENSION variables above will be ignored in favor of what 
+#  is in the file.
+#
+#  If this variable is set to "NONE", TOKAN will use the TOKAN_SCHEME and
+#  TOKAN_OUTPUT_EXTENSION variables above and will only produce one output.
+
+TOKAN_SCHEMES_FILE = NONE
+
+
+######################################
+#   TEMPORARY FILE REMOVAL/CLEANUP   #
+######################################
+
+# In order to feed information into the LEX_NGRAM executable 
+#  (aka SRI's 'disambig' program), a few temporary files must be 
+#  constructed. This variable controls whether or not those 
+#  files will be automatically deleted once they are no longer needed.
+#
+# Valid Choices:  YES | NO
+
+REMOVE_TEMP_NGRAM_FILES = YES
+
+
+# Should the .backlex files (which are automatically generated and are used to provide 
+#  the SVM classifiers with information about OOV words) be deleted once after the SVM 
+#  classifers have been run? This will help reduce file clutter.
+#
+# Valid Choices:  YES | NO
+
+REMOVE_BACKLEX_FILES = YES
+
+
+# Should the .ma file be deleted once the .mada file has been produced?
+#  (The .mada file has all the information of the .ma file, plus ranking scores).
+#  Selecting 'YES' will help to reduce file clutter.
+#
+#  Selecting YES will also delete the *.ma.svmt.classified file. The information in 
+#   this file can be found in the ;;MADA lines of the output *.mada file anyway,
+#   so there is rarely a need to keep it.
+#
+#  Selecting YES will also delete the *.ngram file, which is produced to record the
+#   ngram information produced early in the MADA process.
+#
+# Valid Choices:  YES | NO
+
+REMOVE_MA_FILE = YES
+
+
+# Should all of the MADA and TOKAN output files be compressed automatically?
+#  This will be done with gzip, and will include any temporary files that are
+#  not deleted by the above options.
+#
+# Valid Choices:  YES | NO
+
+COMPRESS_OUTPUTS = NO
+
+
+
+###################################################################
+###################################################################
+# DO NOT CHANGE THESE SETTINGS UNLESS YOU KNOW WHAT YOU ARE DOING #
+#    --- MOST USERS WILL NEVER HAVE A NEED TO ALTER THESE         #
+###################################################################
+###################################################################
+
+#######################################
+#  Morphological Analyzer Settings    #
+#######################################
+
+# Name of the ALMOR3 database file used. This file is assumed to be
+# located in MADA_HOME/MADA/, and is created by the INSTALL.pl
+# script form BAMA/SAMA files. This should not be changed under
+# normal conditions.
+
+ALMOR_DATABASE = almor.db
+
+
+
+# Morphology Backoff
+#
+# This variable controls whether the morphological analyzer will
+#  attempt to generate extra "backoff" analyses (beyond what is 
+#  normally obtained from the ALMOR database). These extra analyses 
+#  can sometimes be of use for identifying rare words, but are not
+#  as reliably accurate as normal analyses.
+#
+# There are five implemented modes -- we ONLY RECOMMEND "none" or "noan-prop"
+#
+# mode  "none"       The default; it no backoff analyses
+#
+# mode "noan-all"    generates every plausible analysis (assuming only 
+#                    affixational morphology) only if no regular analysis is
+#		     found (no-analysis cases)
+#
+# mode "noan-prop"   is same as all except that it is restricted to 
+#                    proper nouns (POS:PN) if a no-analysis case
+#
+# mode "add-all"     generates every plausible analysis (assuming only 
+#                    affixational morphology) in addition to lexicon-based 
+#		     analyses
+#
+# mode "add-prop"    is same as all except that it is restricted to proper 
+#                    nouns (POS:PN)  in addition to lexicon-based analyses
+#
+# Valid choices = none | noan-all | noan-prop | add-all | add-prop
+
+MORPH_BACKOFF = none
+
+
+
+##############################
+#   LEX / DIAC NGRAM OPTIONS #
+##############################
+
+# Location of the lexeme LM files, relative to MADA_HOME;
+# Users will never have a reason to alter this.
+
+NGRAM_LM_DIRECTORY = models
+
+
+# There are two types of Lexemes that the our code can operate on.  
+# The first (BAMA) is the exact lexeme returned by the BAMA/SAMA database; 
+# these lexemes are often appended with an underscore followed by a 
+# number to indicate a subtle (word-sense) difference in two lexemes 
+# that are otherwise spelled the same. Setting LEXEME_TYPE to BAMA 
+# will cause the scripts to treat two lexemes which are identical 
+# except for this suffix as separate/different lexemes. The second type
+# (NORM) is the same as BAMA, except that the code will discard any 
+# underscore+number suffix. In this case, two lexemes that are 
+# identical except for the suffix will be treated as the same lexeme. 
+
+#  In most cases, using a LEXEME_TYPE of NORM is the best choice, because the
+#  BAMA lexeme distinctions aren't always applied consistently.
+#
+# Valid Choices:  BAMA | NORM
+
+LEXEME_TYPE = NORM
+
+
+# This variable controls the order of the lexeme ngram model. We've 
+# supplied language model files for both BAMA and NORM lexeme types for 
+# orders of 1, 2, 3, 4 and 5.  Our test show that using an order of 4 is 
+# almost universally the best, having a very slight improvement over order 
+# 3 & 5.
+#
+# Valid Choices:  1 | 2 | 3 | 4 | 5
+
+LEX_NGRAM_ORDER = 4
+
+
+# This variable controls the order of the diac ngram model. We've supplied 
+# language model files for diacritized orders of 1, 2, 3, 4 and 5.  Our tests 
+# show that using an order of 5 is almost universially the best.
+#
+# Valid Choices:  1 | 2 | 3 | 4 | 5
+
+DIAC_NGRAM_ORDER = 5
+
+
+#######################
+#  CLASSIFIER OPTIONS #
+#######################
+
+# The following are the features to be used as classifiers; the possible 
+# features are (art aspect case clitic conj def gen idafa mood num part 
+# per pos voice). Any feature not included in CLASSIFIERS is effectively
+# given a weight of zero.
+#
+# The default list below was optimized for accuracy using the normal.weights 
+# weight set. Changing features from this set without using an alternative 
+# weight set will render the weights sub-optimal, with a probable reduction 
+# in accuracy.
+#
+# Note that, even if a particular feature is not used as a classifier, MADA 
+# will still generate a prediction for that feature, as all predictions are 
+# done in one step.
+#
+# If specifying this variable on the command line, be sure to enclose the 
+# feature list in quotation marks.
+
+CLASSIFIERS = asp cas enc0 gen mod num per pos prc0 prc1 prc2 prc3 stt vox
+
+
+
+# These are features which are not associated with a SVM classifier, but are
+# used to help with score ranking during combination. Any of these features, 
+# if not included in OTHER_FEATURES, is given a zero weight.
+#             
+#  spellmatch   Compare the surface word to the diac after stripping both of 
+#  		their diacritics. If there is a match, boost the score of that 
+#		analysis. This feature helps to correctly choose analyses 
+#		which handle spelling consistently.
+#
+#  ngramlex     Use a higher-order ngram model for lexemes. This choice 
+#  		requires the SRI ngram tool 'disambig' be available to tag 
+#		the input and involves somewhat more processing. However, 
+#		it also grants a significant boost in correct analysis
+#               choice. The section LEX / DIAC NGRAM OPTIONS deals with 
+#		variables associated with this tool.
+#
+#  ngramdiac    Use a higher-order ngram model for diac. This choice requires 
+#  		the SRI ngram tool 'disambig' be available to tag the input 
+#		and involves somewhat more processing. However, it also grants 
+#		a significant boost in correct analysis choice. The section 
+#		LEX / DIAC NGRAM OPTIONS deals with variables associated 
+#               with this tool.
+#
+#  notbackoff   Deterministic feature; is true if the analysis in question was 
+#  		generated via the lexicon or spelling variation, and not a 
+#		morphological backoff
+#
+#  partprc0, partprc1, partprc2, partprc3, partenc0 
+#               These features are designed to give partial weight to partial 
+#		matches on the indicated classifier feature (i.e., both the 
+#		SVM and the analysis have a non-0 and non-na prc2, but don't 
+#		otherwise match).  This more closely emulates the binary 
+#		YES | NO feature choices from the original MADA system.
+#
+#  featsetprob  Adds weight to all analyses based on a smoothed, unigram 
+#  		probability model of the SVM classifer features making up 
+#		that analysis 
+#
+# If specifying this variable on the command line, be sure to enclose the 
+# feature list in quotation marks.
+
+OTHER_FEATURES = spellmatch ngramlex ngramdiac notbackoff partprc0 partprc1 partprc2 partprc3 partenc0 featsetprob
+
+
+
+#########################
+#  RUN SVMTOOLS OPTIONS #
+#########################
+
+# Location of the models, relative to MADA_HOME
+
+MODEL_DIR = models
+
