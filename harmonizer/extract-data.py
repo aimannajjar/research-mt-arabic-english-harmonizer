@@ -76,20 +76,21 @@ if __name__ == '__main__':
             total_skipped = total_skipped + 1
             continue
 
-        if target not in phrase_table:
-            phrase_table[target] = []
+        key = lemma + "|||" + target
+        if  key not in phrase_table:
+            phrase_table[key] = []
 
         (lemma, features_vector) = source.split("|")
         (pos, features) = features_vector.split(",")
 
-        phrase_table[target].append( (normalize_word(lemma, args.preprocess),pos,features) )
+        phrase_table[key].append( (normalize_word(lemma, args.preprocess),pos,features) )
         
         line_no = line_no + 1
         if (line_no % 10000) == 0:
             print "Loaded %d entries" % line_no
 
     print "Phrase table loaded"
-    print "%d/%d entries were skipped for having low scores" % (total_skipped, total_considered)
+    print "%d/%d entries were skipped for having too low scores" % (total_skipped, total_considered)
 
 
 
@@ -101,54 +102,27 @@ if __name__ == '__main__':
     print "Extracting harmonization data"
     training_data = dict()
 
-    for phrase in phrase_table:
-        
-        lemmas = dict()
+    for key in phrase_table:
 
-        for entry in phrase_table[phrase]:
+        (source_lemma, target_phrase) = key.split("|||")
+
+        should_collapse = False
+
+        if len(phrase_table[key]) > 1:
+            should_collapse = True
+
+        for entry in phrase_table[key]:
             (lemma, pos, features) = entry
-            # print "%s:\t%s" % (phrase, lemma)
 
-            if lemma not in lemmas:
-                lemmas[lemma] = []
-
-            # Third element in tuple marks whether the lemma with these features and pos should be collapsed
-            # It is set to False initially, then we check to see whether the lemma was repated for the same phrase
-            lemmas[lemma].append( [pos,features,False, phrase] ) 
-
-            # Identify repeated lemmas (ones that can be collapsed)
-            for lemma_entry in lemmas[lemma]:
-                should_collapse = False
-
-                if len(lemmas[lemma]) > 1:
-                    should_collapse = True
-
-                lemma_entry[2] = should_collapse
-
-        # Add new data to overall training data
-        for lemma in lemmas:
-            if not lemma in training_data:
+            if lemma not in training_data:
                 training_data[lemma] = dict()
 
-            # In some cases: multiple entries with same lemma, pos,features            
-            # are found but with both True and False should_collapse values.
-            # In such case, we insert this entry only once in training_data and
-            # we set should_collapse to True.
-            for lemma_entry in lemmas[lemma]:
-                pos = lemma_entry[0]
-                features = lemma_entry[1]
-                collapse = lemma_entry[2]
-                phrase = lemma_entry[3]
+            if pos not in training_data[lemma]:
+                training_data[lemma][pos] = dict()
 
-                if pos not in training_data[lemma]:
-                    training_data[lemma][pos] = dict()
+            if features not in training_data[lemma][pos]:
+                training_data[lemma][pos][features] = (should_collapse, target_phrase)                    
 
-                if features not in training_data[lemma][pos]:
-                    training_data[lemma][pos][features] = (collapse, phrase)                    
-                elif not training_data[lemma][pos][features] and collapse: 
-                    training_data[lemma][pos][features] = (collapse, phrase)
-
-                
 
     print "Data extracted. Generating CSV file"
     ## Export training data

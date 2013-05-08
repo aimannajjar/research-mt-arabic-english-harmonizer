@@ -12,9 +12,7 @@ The output format will be as follows:
     * Each word will be represented with the following factors:
         surface form|lemma|POS,MORPH_FEATURES
 
-
-
-    * FEATURE_VECTOR is simply a 18-char string representing the following features
+    * MORPH_FEATURES is simply a 18-char string representing the following features
         (in this order):
           Person: [1,2,3,na] # 1 = First, 2 = Second, 3 = Third, na = N/A
           Aspect: [c,i,p,na] # c = Command, i = Imperfective, p = Perfective, na = N/A
@@ -119,6 +117,7 @@ if __name__ == '__main__':
             clitics = ""
             
             i = 0
+
             for part in parts:                
                 var = part[0:part.index(":")]
                 val = part[part.index(":")+1:] .replace("|", "P")
@@ -129,24 +128,27 @@ if __name__ == '__main__':
                     clitics += val + ","
                 elif var.startswith("pos"):
                     pos = val
-                elif (i >= 9 and i <= 16) or i == 18:
+                elif (i >= 9 and i <= 14) or i == 16:
                     if len(val) == 1:
                         val = "x%s" % val
-                    feature_vector += val
+
+                    feature_vector += val + ","
+
 
                 i += 1
 
-            clitics = clitics[:len(clitics)-1] # strip trailing comma (,)
+            feature_vector = feature_vector.rstrip(",")
+            clitics = clitics.rstrip(",")
 
             # add this factored word to sentence
-            factored_word = "%s|%s|%s,%s " % (word, lemma, pos, feature_vector)
+            factored_word = "%s|%s|%s,%s,%s " % (word, lemma, pos, feature_vector,clitics)
             if factored_word.count("|") != 2:
                 sys.stderr.write("ERROR: Found %d |'s in  word, expected 2: %s (lemma: %s)\n"  % (factored_word.count("|"), factored_word, lemma))
                 sys.exit()
 
 
-            factored_sentence += "%s|%s|%s,%s " % (word, lemma, pos, feature_vector)
-        
+            factored_sentence += "%s " % factored_word
+                    
         
     # print last sentence analysis
     args.out.write(factored_sentence.strip()+"\n")

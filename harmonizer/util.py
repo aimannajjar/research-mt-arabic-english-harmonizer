@@ -7,6 +7,7 @@ import re
 def normalize_word(word, schemes):
     normalized_word = word.strip()
     normalized_word = normalized_word.replace("|", "A")
+    normalized_word = normalized_word.replace(",", "P")
 
     if schemes is None:
         return normalized_word
