@@ -170,7 +170,7 @@ Start at project root dir
 cp -v SMT/Baseline/data/Tune/* SMT/Improved/data/Tune/
 
 # Harmonize tuning data
-perl $MADAHOME/MADA+TOKAN.pl config=harmonizer/conf/template.madaconfig file=SMT/Improved/data/Tune/Tune_data.mt04.50.ar TOKAN_SCHEME="SCHEME=ATP MARKNOANALYSIS" 
+perl $MADAHOME/MADA+TOKAN.pl config=harmonizer/conf/template.madaconfig file=SMT/Improved/data/Tune/Tune_data.mt04.50.ar TOKAN_SCHEME="SCHEME=ATB" 
 
 # Create an annotated tuning data 
 python harmonizer/annotate-corpus.py SMT/Improved/data/Tune/Tune_data.mt04.50.ar.bw.mada -o SMT/Improved/data/Tune/Tune_data.mt04.50.annotated.ar
@@ -193,17 +193,17 @@ python harmonizer/annotate-corpus.py SMT/Improved/data/Test/Test_data.mt05.src.a
 python harmonizer/harmonizer.py harmonizer/data/Harmonizer-Dataset-1/harmonizer_model.pkl SMT/Improved/data/Test/Test_data.mt05.src.annotated.ar -o SMT/Improved/data/Test/Test_data.mt05.src.harmonized.ar
 
 # Harmonize test data mt06
-perl $MADAHOME/MADA+TOKAN.pl config=harmonizer/conf/template.madaconfig file=SMT/Improved/data/Test/mt06_arabic_evalset_nist_part_v1.ar TOKAN_SCHEME="SCHEME=ATP MARKNOANALYSIS"
+perl $MADAHOME/MADA+TOKAN.pl config=harmonizer/conf/template.madaconfig file=SMT/Improved/data/Test/mt06_arabic_evalset_nist_part_v1.ar TOKAN_SCHEME="SCHEME=ATB"
 python harmonizer/annotate-corpus.py SMT/Improved/data/Test/mt06_arabic_evalset_nist_part_v1.ar.bw.mada  -o SMT/Improved/data/Test/mt06_arabic_evalset_nist_part_v1.annotated.ar
 python harmonizer/harmonizer.py harmonizer/data/Harmonizer-Dataset-1/harmonizer_model.pkl SMT/Improved/data/Test/mt06_arabic_evalset_nist_part_v1.annotated.ar -o SMT/Improved/data/Test/mt06_arabic_evalset_nist_part_v1.harmonized.ar
 
 # Harmonize test data mt08
-perl $MADAHOME/MADA+TOKAN.pl config=harmonizer/conf/template.madaconfig file=SMT/Improved/data/Test/mt08_arabic_evalset_current_v0.ar TOKAN_SCHEME="SCHEME=ATP MARKNOANALYSIS"
+perl $MADAHOME/MADA+TOKAN.pl config=harmonizer/conf/template.madaconfig file=SMT/Improved/data/Test/mt08_arabic_evalset_current_v0.ar TOKAN_SCHEME="SCHEME=ATB"
 python harmonizer/annotate-corpus.py SMT/Improved/data/Test/mt08_arabic_evalset_current_v0.ar.bw.mada  -o SMT/Improved/data/Test/mt08_arabic_evalset_current_v0.annotated.ar
 python harmonizer/harmonizer.py harmonizer/data/Harmonizer-Dataset-1/harmonizer_model.pkl SMT/Improved/data/Test/mt08_arabic_evalset_current_v0.annotated.ar -o SMT/Improved/data/Test/mt08_arabic_evalset_current_v0.harmonized.ar
 
 # Harmonize test data mt09
-perl $MADAHOME/MADA+TOKAN.pl config=harmonizer/conf/template.madaconfig file=SMT/Improved/data/Test/mt09_arabic_evalset_current_v0.ar TOKAN_SCHEME="SCHEME=ATP MARKNOANALYSIS"
+perl $MADAHOME/MADA+TOKAN.pl config=harmonizer/conf/template.madaconfig file=SMT/Improved/data/Test/mt09_arabic_evalset_current_v0.ar TOKAN_SCHEME="SCHEME=ATB"
 python harmonizer/annotate-corpus.py SMT/Improved/data/Test/mt09_arabic_evalset_current_v0.ar.bw.mada  -o SMT/Improved/data/Test/mt09_arabic_evalset_current_v0.annotated.ar
 python harmonizer/harmonizer.py harmonizer/data/Harmonizer-Dataset-1/harmonizer_model.pkl SMT/Improved/data/Test/mt09_arabic_evalset_current_v0.annotated.ar -o SMT/Improved/data/Test/mt09_arabic_evalset_current_v0.harmonized.ar
 
