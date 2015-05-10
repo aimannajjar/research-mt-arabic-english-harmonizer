@@ -9,7 +9,7 @@ The experiments described here were done on the following environment:
 * Ubuntu 12.04 (64-bit) - We used EC2 instance of type m3.xlarge 
 * GIZA++ 1.0.7
 * SRILM 1.5.12
-* Moses Decoder - Pulled latest from Github on 4/9/2013
+* Moses Decoder (git commit sha: 8ca771d26241c39316c9ba1b90a5044dd0ed4596)
 * MADA 3.2 (with SVMTools 1.3.1, aramorph-1.2.1, SRLIM 1.5.12 not patched)
 * Python 2.7
 * Additional Python Modules: numpy, scikits-learn
